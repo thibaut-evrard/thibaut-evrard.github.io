@@ -1,0 +1,19 @@
+button {
+  position:absolute;
+  width: 60px;
+  height: 20px;
+}
+
+#blocklyDiv {
+  top: 30px;
+  height: 400px;
+  width: 600px;
+  position: absolute;
+  opacity: 0.8;
+}
+
+#print {
+  position:absolute;
+  width: 60px;
+  height: 20px;
+}
