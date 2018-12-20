@@ -54,12 +54,21 @@ class car {
     this.image2 = loadImage(path+"2.png");
     this.image3 = loadImage(path+"3.png");
     this.sprite = this.image0;
+
+    this.mobileControls = {
+      up: false,
+      down: false,
+      left: false,
+      right: false,
+      drift: false,
+    }
   }
 
   // rendering the car -> MASTER FUNCTION
   update() {
     this.worldEvent();
     this.drive(); // handling user input
+    this.mobileDrive(); // get mobile user input
     this.doPhysics(); // applying the physics engine to the car
   }
 
@@ -123,6 +132,27 @@ class car {
       if(keyIsDown(LEFT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(-this.steerAngleMax);
       if(!keyIsDown(LEFT_ARROW) && !keyIsDown(RIGHT_ARROW)) this.smoothTurn(0);
       if(keyIsDown(32)) { this.v.mult(0.99); this.drift = 1; }
+  }
+
+  mobileDrive() {
+    $('#up').mouseover(function(){ cab.mobileControls.up = true; })
+    $('#up').mouseout(function(){ cab.mobileControls.up = false; })
+    if(this.mobileControls.up == true) this.engineForce = 10;
+
+    $('#down').mouseover(function(){ cab.mobileControls.down = true; })
+    $('#down').mouseout(function(){ cab.mobileControls.down = false; })
+    if(this.mobileControls.down == true) this.v.mult(0.95);
+
+    $('#left').mouseover(function(){ cab.mobileControls.left = true; })
+    $('#left').mouseout(function(){ cab.mobileControls.left = false; })
+    if(this.mobileControls.left == true && abs(this.speed) > 0.1) this.smoothTurn(-this.steerAngleMax);
+
+    $('#right').mouseover(function(){ cab.mobileControls.right = true; })
+    $('#right').mouseout(function(){ cab.mobileControls.right = false; })
+    if(this.mobileControls.right == true && abs(this.speed) > 0.1) this.smoothTurn(this.steerAngleMax);
+
+    if(!this.mobileControls.left && !this.mobileControls.right) this.smoothTurn(0);
+
   }
 
   smoothTurn(max) {

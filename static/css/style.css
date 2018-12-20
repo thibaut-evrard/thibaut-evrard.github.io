@@ -17,3 +17,37 @@ button {
   width: 60px;
   height: 20px;
 }
+
+#up {
+  background-color: red;
+  bottom: 100px;
+  right: 100px;
+}
+
+#down {
+  background-color: red;
+  bottom: 55px;
+  right: 100px;
+}
+
+#left {
+  background-color: red;
+  bottom: 55px;
+  right: 145px;
+}
+
+#right {
+  background-color: red;
+  bottom: 55px;
+  right: 55px;
+}
+
+.control {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+  opacity: 0.5;
+  opacity: 1;
+  z-index: 2;
+}
