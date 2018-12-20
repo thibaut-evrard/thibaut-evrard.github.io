@@ -37,7 +37,7 @@ function preload() {
 }
 
 async function setup() {
-  createCanvas(400,400, WEBGL);
+  createCanvas(windowWidth-30,windowWidth-30, WEBGL);
   rectMode(CENTER);
   myEnvironment = new environment();
   level = new track(img,worldScale);
