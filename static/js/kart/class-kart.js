@@ -243,10 +243,8 @@ class car {
     translate(this.pos.x,this.pos.y,this.pos.z+3);
     rotate(this.alpha);
     rotateX(-PI/2);
-    fill(0,0,0,0)
-    box(40);
-    //texture(this.sprite);
-    //plane(40);
+    texture(this.sprite);
+    plane(40);
     pop();
   }
 
