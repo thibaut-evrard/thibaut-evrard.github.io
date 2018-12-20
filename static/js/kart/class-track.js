@@ -59,6 +59,7 @@ class track {
     if(r==240 && g==240 && b==240) {
       myEnvironment.addToTexture(x, y, grassTexture);
       this.miniMap[x][y] = "grassbuste";
+      console.log("addedGrass")
     }
 
 

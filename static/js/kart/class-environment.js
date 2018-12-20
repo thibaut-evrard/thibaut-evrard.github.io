@@ -8,7 +8,11 @@ class environment {
     this.tileScaled = tileScale;
     this.length = mapTexture.height;
     this.width = mapTexture.width;
-    this.textureSample = loadImage(pathToTextures + "/world/floor.png");
+    // this.textureSample = loadImage(pathToTextures + "/world/floor.png");
+  }
+
+  setup() {
+
   }
 
   addToTexture(x,y,itemTexture) {

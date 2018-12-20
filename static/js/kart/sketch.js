@@ -23,11 +23,12 @@ var pathToLevel = './static/ressources/level/map'
 
 function loadTextures() {
   grassTexture = loadImage(pathToTextures + '/world/grass.png');
-  bushTexture = loadImage(pathToTextures + '/world/bush.png')
+  bushTexture = loadImage(pathToTextures + '/world/bush.png');
   roadTexture = loadImage(pathToTextures + '/world/road.png');
-  speedTexture = loadImage(pathToTextures + '/world/speed.png');
+  speedTexture = loadImage(pathToTextures + '/world/road.png');
   jumpTexture = loadImage(pathToTextures + '/world/jump.png');
   mapTexture = createGraphics(50*tileScale,50*tileScale);
+  return;
 }
 
 function preload() {
@@ -35,18 +36,16 @@ function preload() {
   loadTextures();
 }
 
-function setup() {
-  createCanvas(windowWidth-30,windowHeight-30, WEBGL);
+async function setup() {
+  //createCanvas(windowWidth-30,windowHeight-30, WEBGL);
+  createCanvas(500,500,WEBGL);
   rectMode(CENTER);
-
-  backgroundImage = loadImage(pathToTextures + '/world/background.png');
-  backgroundImage.resize(windowWidth-30,windowHeight-30);
   myEnvironment = new environment();
   level = new track(img,worldScale);
   level.translateTrack();
 
   cab = new car(level.carStartingPoint,model);
-  //myEnvironment.setup();
+  // myEnvironment.setup();
 }
 
 function draw() {
@@ -58,9 +57,6 @@ function draw() {
   cab.update();
   cab.draw();
   drawCam(cab);
-  //model(model);
-
-  //colider();
 }
 
 //////////////////////     CUSTOM FUNCTIONS    /////////////////////////////////
