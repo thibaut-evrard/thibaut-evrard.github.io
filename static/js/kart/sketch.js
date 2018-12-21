@@ -2,7 +2,7 @@
 var mapTexture;
 var grass;
 var worldScale = 100;
-var tileScale = 9;
+var tileScale = 3;
 
 var cab;
 var myEnvironment;

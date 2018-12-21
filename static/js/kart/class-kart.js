@@ -15,7 +15,7 @@ class car {
     this.engineForce = 0; // engineForce of the car
     this.a = createVector(0,0); // acceleration of the car
     this.weight = 100;
-    this.rayon = 60;
+    this.rayon = 50;
     this.steerAngleMax = 1/this.rayon;
     this.wheelAngle = 0;
     this.raMax = 1;
@@ -35,7 +35,7 @@ class car {
     this.fGravity = 0;
 
     // SUPER POWER FORCES
-    this.boostRate = 1.02;
+    this.boostRate = 1.01;
 
     // DIMENTIONS OF OBJECT
     this.length= 20;
@@ -126,7 +126,7 @@ class car {
     this.raMin = 0.1;
     this.drift = 0;
     // implement the angle in raMin
-      if(keyIsDown(UP_ARROW)) this.engineForce = 10;
+      if(keyIsDown(UP_ARROW)) this.engineForce = 8;
       if(keyIsDown(DOWN_ARROW))  this.v.mult(0.95);//this.engineForce = -this.cBrake;
       if(keyIsDown(RIGHT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(this.steerAngleMax);//this.alpha += this.steerAngleMax*this.speed;
       if(keyIsDown(LEFT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(-this.steerAngleMax);
@@ -137,7 +137,7 @@ class car {
   mobileDrive() {
     $('#up').mouseover(function(){ cab.mobileControls.up = true; })
     $('#up').mouseout(function(){ cab.mobileControls.up = false; })
-    if(this.mobileControls.up == true) this.engineForce = 10;
+    if(this.mobileControls.up == true) this.engineForce = 5;
 
     $('#down').mouseover(function(){ cab.mobileControls.down = true; })
     $('#down').mouseout(function(){ cab.mobileControls.down = false; })
@@ -172,7 +172,7 @@ class car {
 
     // UPDATE ANGLE
     var speed = this.speed;
-    if(this.wheelSpeed == 0 && this.speed>2) { speed = 2 + (this.speed/50); }
+    if(this.wheelSpeed == 0 && this.speed>2) { speed = 2 + (this.speed/3); }
     var turnForce = this.wheelAngle * speed;
     // APPLY TRANSFORMATIONS
     this.v.rotate(-turnForce);
@@ -236,8 +236,8 @@ class car {
     }
 
     if(wheelSpeed > 0) {
-      this.raMin = map(wheelSpeed,1,0,0.08,0.5);
-      this.raMax = map(wheelSpeed,1,0,0.3,0.9);
+      this.raMin = map(wheelSpeed,1,0,0.1,0.5);
+      this.raMax = map(wheelSpeed,1,0,0.45,0.9);
       wheelSpeed -= 0.01;
       if(wheelSpeed < 0.1) wheelSpeed = 0;
     }
@@ -270,7 +270,7 @@ class car {
     //fill(0,255,0);
     //stroke(100);
     push();
-    translate(this.pos.x,this.pos.y,this.pos.z+3);
+    translate(this.pos.x,this.pos.y,this.pos.z);
     rotate(this.alpha);
     rotateX(-PI/2);
     texture(this.sprite);
