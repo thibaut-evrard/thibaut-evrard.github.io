@@ -62,7 +62,7 @@ function draw() {
 
 function drawCam(cab) {
   var camRot = createVector(0,100);
-  camRot.rotate(-cab.alpha-(cab.v.heading()-(PI/2))/2);
+  camRot.rotate(-cab.alpha); //-(cab.v.heading()-(PI/2))/2);
   var x = cab.pos.x - camRot.x;
   var y = cab.pos.y + camRot.y;
   camera(x,y, cab.pos.z + (50-17), cab.pos.x, cab.pos.y, cab.pos.z + 23, 0, 0, -1);

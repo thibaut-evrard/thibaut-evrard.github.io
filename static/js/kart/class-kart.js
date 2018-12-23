@@ -82,19 +82,19 @@ class car {
     var y = Math.round(this.pos.y/100)
     var position = createVector(x,y);
 
-    if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1)) {
-      var radius = 10
-      for(var a = x-radius; a<x+radius; a++) {
-        for(var b = y-radius; b<y+radius; b++) {
-          if(a>0 && b>0 && a<(level.miniMap.length) && b<a<(level.miniMap.length)) {
-            var cabHeading = p5.Vector.add(this.u).rotate(this.alpha);
-            if(level.miniMap[a][b] == "grassbuste") myEnvironment.drawBushes(cabHeading,a,b);
-          }
-        }
-      }
-    }
+    // if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1)) {
+    //   var radius = 10
+    //   for(var a = x-radius; a<x+radius; a++) {
+    //     for(var b = y-radius; b<y+radius; b++) {
+    //       if(a>0 && b>0 && a<(level.miniMap.length) && b<a<(level.miniMap.length)) {
+    //         var cabHeading = p5.Vector.add(this.u).rotate(this.alpha);
+    //         if(level.miniMap[a][b] == "grassbuste") myEnvironment.drawBushes(cabHeading,a,b);
+    //       }
+    //     }
+    //   }
+    // }
 
-    // if the kart is in the miniMap
+    // handling the local block the car is driving on.
     if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1) && this.pos.z == minZ+17) {
       var event = level.miniMap[position.x][position.y];
       this.cRr = 0.3;
@@ -127,9 +127,10 @@ class car {
     this.drift = 0;
     // implement the angle in raMin
       if(keyIsDown(UP_ARROW)) this.engineForce = 8;
-      if(keyIsDown(DOWN_ARROW))  this.v.mult(0.95);//this.engineForce = -this.cBrake;
-      if(keyIsDown(RIGHT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(this.steerAngleMax);//this.alpha += this.steerAngleMax*this.speed;
-      if(keyIsDown(LEFT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(-this.steerAngleMax);
+      if(keyIsDown(DOWN_ARROW) && this.speed<=1) { this.engineForce = -10; }
+      if(keyIsDown(DOWN_ARROW) && this.speed>1)  this.v.mult(0.95);//this.engineForce = -this.cBrake;
+      if(keyIsDown(RIGHT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(Math.sign(this.speed)*this.steerAngleMax);//this.alpha += this.steerAngleMax*this.speed;
+      if(keyIsDown(LEFT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(Math.sign(this.speed)*-this.steerAngleMax);
       if(!keyIsDown(LEFT_ARROW) && !keyIsDown(RIGHT_ARROW)) this.smoothTurn(0);
       if(keyIsDown(32)) { this.v.mult(0.99); this.drift = 1; }
   }
