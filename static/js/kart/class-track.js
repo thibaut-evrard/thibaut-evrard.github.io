@@ -32,12 +32,7 @@ class track {
         this.storeObjects(r,g,b,x,y);
       }
     }
-  }
-
-  addToTexture(x,y,itemTexture) {
-    //this.mapTexture.loadPixels();
-    mapTexture.copy(itemTexture,0,0,textureTileScale,textureTileScale,x*worldScale,y*worldScale,worldScale,worldScale);
-    //this.mapTexture.updatePixels();
+    myEnvironment.setupTiles(10);
   }
 
   initMiniMap(height,length) {
@@ -95,9 +90,6 @@ class track {
   }
 
   drawTrack(car) {
-    //fill(200);
-    //texture(this.mapTexture);
-    //plane(1000,1000);
     var cabHeading = p5.Vector.add(cab.u).rotate(cab.alpha);
     for(var i=0; i<this.land.length; i++) {
       this.land[i].draw(cabHeading);
