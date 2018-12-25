@@ -1,5 +1,4 @@
-//THIS IS THE ENVIRONMENT CLASS, IT TAKES CARE OF GIVING A FLAT FLOOR TO THE LEVEL
-// ! MAYBE IT SHOULD ALSO TAKE CARE OF BUILDING THE LEVEL IN THE FUTURE !
+// creates the texture of the floor
 
 // ENVIRONMENT OBJECT CLASS (BACKDROP) - - - - - - - - - - - - - - - - - - - - -
 class environment {
@@ -16,16 +15,6 @@ class environment {
 
   setup() {
 
-  }
-
-  setupTiles(factor) {
-    for(var x=0; x<mpt.length; x++) {
-      for(var y=0; y<mpt[0].length; y++) {
-        var defaultScale = factor*10
-        mpt[x][y].compressed = createGraphics(defaultScale,defaultScale);
-        mpt[x][y].compressed.image(mpt[x][y].original,0,0,defaultScale,defaultScale);
-      }
-    }
   }
 
   addToTexture(x,y,itemTexture) {
@@ -46,7 +35,7 @@ class environment {
         push();
         var tile = mpt[x][y];
         translate((tile.x),(tile.y));
-        texture(tile.compressed);
+        texture(tile.original);
         plane(tile.size,tile.size);
         //console.log(this.width)
         pop();
@@ -54,20 +43,6 @@ class environment {
     }
     pop();
     //updateTextures();
-  }
-
-  clipping(cabHeading, x,y) {
-    var result = true;
-    // ANGLE CLIPPING
-    var offsetX = cab.pos.x - x;
-    var offsetY = cab.pos.y - y;
-    var directionBlock = createVector(offsetX,offsetY);
-    var angle = cabHeading.angleBetween(directionBlock);
-    if(abs(angle) > PI/2) result = false; // clipping from angle
-    if(directionBlock.mag() >= 2500) result = false; // clipping from distance
-    if(directionBlock.mag() <= 300) result = true; // if the brick is super close, display it anyway
-
-    return result;
   }
 
   // drawBushes(cabHeading,x,y) {

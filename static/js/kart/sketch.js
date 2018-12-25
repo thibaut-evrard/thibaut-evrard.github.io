@@ -3,7 +3,7 @@ var mapTexture;
 var mpt = [];
 var grass;
 var worldScale = 100;
-var tileScale = 50;
+var tileScale = 1;
 
 var cab;
 var myEnvironment;
@@ -46,6 +46,7 @@ function createTilingMatrix() {
         x: x*worldScale,
         y: y*worldScale,
         size: tiling * worldScale,
+        optimized: true,
       }
       row.push(obj);
     }
@@ -62,6 +63,8 @@ function preload() {
 function setup() {
   createCanvas(windowWidth-30,windowHeight-30, WEBGL);
   rectMode(CENTER);
+
+  worldInteraction = new interaction();
 
   myEnvironment = new environment();
   level = new track(img,worldScale);

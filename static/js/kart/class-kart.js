@@ -1,4 +1,4 @@
-//THIS IS THE KART CLASS, IT TAKES CARE OF ALL THE ACTIONS RELATED TO THE DRIVING PART OF THE GAME
+// takes care of the driving and modifications applied to the car from the car's point of view
 
 // CAR OBJECT CLASS- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class car {
@@ -81,18 +81,6 @@ class car {
     var x = Math.round(this.pos.x/100)
     var y = Math.round(this.pos.y/100)
     var position = createVector(x,y);
-
-    // if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1)) {
-    //   var radius = 10
-    //   for(var a = x-radius; a<x+radius; a++) {
-    //     for(var b = y-radius; b<y+radius; b++) {
-    //       if(a>0 && b>0 && a<(level.miniMap.length) && b<a<(level.miniMap.length)) {
-    //         var cabHeading = p5.Vector.add(this.u).rotate(this.alpha);
-    //         if(level.miniMap[a][b] == "grassbuste") myEnvironment.drawBushes(cabHeading,a,b);
-    //       }
-    //     }
-    //   }
-    // }
 
     // handling the local block the car is driving on.
     if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1) && this.pos.z == minZ+17) {

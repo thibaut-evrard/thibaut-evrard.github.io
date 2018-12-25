@@ -7,6 +7,7 @@ class track {
     // multiplication rate from PNG to real life
     this.scale = scale;
     this.minZ = 0;
+    this.cTileCompression = 1;
     // dimetions and looks
     this.length = 100;
     this.width = 100;
@@ -32,7 +33,7 @@ class track {
         this.storeObjects(r,g,b,x,y);
       }
     }
-    myEnvironment.setupTiles(10);
+    //myEnvironment.setupTiles(this.cTileCompression);
   }
 
   initMiniMap(height,length) {
