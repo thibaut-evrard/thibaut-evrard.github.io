@@ -66,7 +66,6 @@ class colidable {
   }
 
   draw(cabHeading) {
-
     this.delay ++;
     if(dist(this.pos.x,this.pos.y,this.pos.z,cab.pos.x,cab.pos.y,cab.pos.z) < 100) this.collider();
     if((this.delay%5) == 0) this.clippingValue = this.clipping(cabHeading,this.pos.x,this.pos.y);

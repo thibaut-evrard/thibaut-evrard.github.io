@@ -1,7 +1,15 @@
+// building bocks
+// kart: takes care of all the driving expeience and camera
+// optimisation: optimises the game to make it run smoother
+// circuit: takes care of all the interaction between the driver and the map
+// pngtocircuit: translates the png file into a circuit
+
+
+
 //////////////////////     GLOBAL VARIABLES     ////////////////////////////////
-var mapTexture;
-var mpt = [];
-var grass;
+var miniMap = [];
+var startPoint = { x:0, y:0 }
+
 var worldScale = 100;
 var tileScale = 1;
 
@@ -9,7 +17,6 @@ var cab;
 var myEnvironment;
 var obstacles = [];
 var minZ;
-
 
 //track vars
 var level;
@@ -31,28 +38,7 @@ function loadTextures() {
   roadTexture = loadImage(pathToTextures + '/world/road.png');
   speedTexture = loadImage(pathToTextures + '/world/road.png');
   jumpTexture = loadImage(pathToTextures + '/world/jump.png');
-  createTilingMatrix();
-  return;
-}
-
-function createTilingMatrix() {
-  for(var x=0; x<imgWidth+10; x+=10) {
-    var row = [];
-    for(var y=0; y<imgHeight+10; y+=10) {
-      var tiling = 10;
-      obj = {
-        original: createGraphics(tiling*tileScale,tiling*tileScale),
-        compressed: 0,
-        x: x*worldScale,
-        y: y*worldScale,
-        size: tiling * worldScale,
-        optimized: true,
-      }
-      row.push(obj);
-    }
-    mpt.push(row);
-  }
-  mapTexture = createGraphics(imgWidth*tileScale,imgHeight*tileScale);
+  wallTexture = loadImage(pathToTextures + '/world/wall.png');
   return;
 }
 
@@ -64,33 +50,41 @@ function setup() {
   createCanvas(windowWidth-30,windowHeight-30, WEBGL);
   rectMode(CENTER);
 
-  worldInteraction = new interaction();
+  // the module that handles all the interaction between the car and the game;
+  circuit = new circuit();
 
-  myEnvironment = new environment();
-  level = new track(img,worldScale);
-  level.translateTrack();
+  buildCircuit = new buildCircuit(img,worldScale);
+  buildCircuit.initMiniMap(); // generates the architecture of maps
+  buildCircuit.miniMapFromPng(); // builds the map object from the png file
 
-  cab = new car(level.carStartingPoint,model);
-  // myEnvironment.setup();
+  // setup the optimisation module for the game
+  optimisation = new optimisation();
+
+  // get the starting point of the car from the builder class
+  car = new car(startPoint,model);
 }
 
 function draw() {
   minZ = 0;
   frameRate(30);
   background(122,250,255);
-  myEnvironment.draw();
-  level.drawTrack(cab);
-  cab.update();
-  cab.draw();
-  drawCam(cab);
+  circuit.draw();
+  // circuit.drawTex2d(miniMap.tex2d);
+  // circuit.drawInteractibles(maps.interactibles);
+
+
+  // level.drawTrack(cab);
+  car.update();
+  car.draw();
+  drawCam(car);
 }
 
 //////////////////////     CUSTOM FUNCTIONS    /////////////////////////////////
 
-function drawCam(cab) {
+function drawCam(car) {
   var camRot = createVector(0,100);
-  camRot.rotate(-cab.alpha); //-(cab.v.heading()-(PI/2))/2);
-  var x = cab.pos.x - camRot.x;
-  var y = cab.pos.y + camRot.y;
-  camera(x,y, cab.pos.z + (50-17), cab.pos.x, cab.pos.y, cab.pos.z + 23, 0, 0, -1);
+  camRot.rotate(-car.alpha); //-(cab.v.heading()-(PI/2))/2);
+  var x = car.pos.x - camRot.x;
+  var y = car.pos.y + camRot.y;
+  camera(x,y, car.pos.z + (50-17), car.pos.x, car.pos.y, car.pos.z + 23, 0, 0, -1);
 }

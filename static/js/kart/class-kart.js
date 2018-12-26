@@ -7,7 +7,7 @@ class car {
 
     // FORCES AND POSITIONS VARIABLE (CAR PHYSICS)
     // variable and basic forces
-    this.pos = createVector(carStartingPoint.x,carStartingPoint.y,100);
+    this.pos = createVector(startPoint.x,startPoint.y,100);
     this.alpha = 0;
     this.v = createVector(0,0); // car velocity
     this.speed = 0;
@@ -82,28 +82,28 @@ class car {
     var y = Math.round(this.pos.y/100)
     var position = createVector(x,y);
 
-    // handling the local block the car is driving on.
-    if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1) && this.pos.z == minZ+17) {
-      var event = level.miniMap[position.x][position.y];
-      this.cRr = 0.3;
-      switch(event) {
-        case "grass":
-          this.cRr = 2;
-        break;
-
-        case "jump":
-          this.jump(10);
-        break;
-
-        case "speed":
-          this.boost();
-        break;
-
-        case "road":
-          this.cRr = 0.3;
-        break;
-      }
-    }
+    // // handling the local block the car is driving on.
+    // if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1) && this.pos.z == minZ+17) {
+    //   var event = level.miniMap[position.x][position.y];
+    //   this.cRr = 0.3;
+    //   switch(event) {
+    //     case "grass":
+    //       this.cRr = 2;
+    //     break;
+    //
+    //     case "jump":
+    //       this.jump(10);
+    //     break;
+    //
+    //     case "speed":
+    //       this.boost();
+    //     break;
+    //
+    //     case "road":
+    //       this.cRr = 0.3;
+    //     break;
+    //   }
+    // }
     //console.log(scaledPosition)
   }
 
