@@ -53,12 +53,14 @@ function setup() {
   // the module that handles all the interaction between the car and the game;
   circuit = new circuit();
 
+  // setup the optimisation module for the game
+  optimisation = new optimisation();
+  optimisation.createOptimisedCanvas();
+
+  // this is the function that creates the circuit from PNG
   buildCircuit = new buildCircuit(img,worldScale);
   buildCircuit.initMiniMap(); // generates the architecture of maps
   buildCircuit.miniMapFromPng(); // builds the map object from the png file
-
-  // setup the optimisation module for the game
-  optimisation = new optimisation();
 
   // get the starting point of the car from the builder class
   car = new car(startPoint,model);
@@ -69,13 +71,15 @@ function draw() {
   frameRate(30);
   background(122,250,255);
   circuit.draw();
+  circuit.worldEvent(car);
+  car.update();
+  car.draw();
   // circuit.drawTex2d(miniMap.tex2d);
   // circuit.drawInteractibles(maps.interactibles);
 
 
   // level.drawTrack(cab);
-  car.update();
-  car.draw();
+
   drawCam(car);
 }
 

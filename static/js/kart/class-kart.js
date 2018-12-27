@@ -4,6 +4,7 @@
 class car {
 
   constructor(carStartingPoint) {
+    this.heading = createVector(0,0);
 
     // FORCES AND POSITIONS VARIABLE (CAR PHYSICS)
     // variable and basic forces
@@ -66,7 +67,7 @@ class car {
 
   // rendering the car -> MASTER FUNCTION
   update() {
-    this.worldEvent();
+    this.heading = p5.Vector.add(this.u).rotate(this.alpha);
     this.drive(); // handling user input
     this.mobileDrive(); // get mobile user input
     this.doPhysics(); // applying the physics engine to the car
@@ -74,37 +75,6 @@ class car {
 
   draw() {
     this.updateModel();
-  }
-
-  // GIVE POSITION ON MINIMAP
-  worldEvent() {
-    var x = Math.round(this.pos.x/100)
-    var y = Math.round(this.pos.y/100)
-    var position = createVector(x,y);
-
-    // // handling the local block the car is driving on.
-    // if(position.x>0 && position.y>0 && position.x<(level.miniMap.length-1) && position.y<(level.miniMap[0].length - 1) && this.pos.z == minZ+17) {
-    //   var event = level.miniMap[position.x][position.y];
-    //   this.cRr = 0.3;
-    //   switch(event) {
-    //     case "grass":
-    //       this.cRr = 2;
-    //     break;
-    //
-    //     case "jump":
-    //       this.jump(10);
-    //     break;
-    //
-    //     case "speed":
-    //       this.boost();
-    //     break;
-    //
-    //     case "road":
-    //       this.cRr = 0.3;
-    //     break;
-    //   }
-    // }
-    //console.log(scaledPosition)
   }
 
   // TRANSLATES USER INPUT INTO CODE
@@ -273,12 +243,12 @@ class car {
     var dx =  this.pos.x - pos.x;
     var dy = this.pos.y - pos.y;
     if(abs(dx) < abs(dy)) {
-      if(dy>0) this.pos.y += (60-abs(dy));
-      if(dy<0) this.pos.y -= (60-abs(dy));
+      if(dy>0) this.pos.y += (70-abs(dy));
+      if(dy<0) this.pos.y -= (70-abs(dy));
     }
     if(abs(dy) < abs(dx)) {
-      if(dx>0) this.pos.x += (60-abs(dx));
-      if(dx<0) this.pos.x -= (60-abs(dx));
+      if(dx>0) this.pos.x += (70-abs(dx));
+      if(dx<0) this.pos.x -= (70-abs(dx));
     }
   }
 

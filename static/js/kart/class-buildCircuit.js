@@ -35,6 +35,8 @@ class buildCircuit {
         var g = this.circuitPng.pixels[pos+1];
         var b = this.circuitPng.pixels[pos+2];
         this.addObjectToMinimap(r,g,b,x,y);
+        optimisation.addTextureToTiles(x,y,miniMap[x][y].tex);
+        if(miniMap[x][y].type != "floor") optimisation.addObjectToBox(x,y,miniMap[x][y]);
       }
     }
   }
@@ -55,17 +57,21 @@ class buildCircuit {
     // WHITE = GRASS
     if(r==255 && g==255 && b==255) miniMap[x][y] = this.entity("grass",grassTexture,"floor");
     // GREY = GRASS
-    if(r==240 && g==240 && b==240) miniMap[x][y] = this.entity("grass",grassTexture,"floor");
+    else if(r==240 && g==240 && b==240) miniMap[x][y] = this.entity("grass",grassTexture,"floor");
     // BLACK = WALL
-    if(r==0 && g==0 && b==0) miniMap[x][y] = this.entity("wall",wallTexture,"wall");
+    else if(r==0 && g==0 && b==0) miniMap[x][y] = this.entity("wall",wallTexture,"wall");
     // GREY 100 = ROAD
-    if(r==100 && g==100 && b==100) miniMap[x][y] = this.entity("road",roadTexture,"road");
+    else if(r==100 && g==100 && b==100) miniMap[x][y] = this.entity("road",roadTexture,"floor");
     // RED = SPEED
-    if(r==255 && g==0 && b==0) miniMap[x][y] = this.entity("speed",speedTexture,"speed");
+    else if(r==255 && g==0 && b==0) miniMap[x][y] = this.entity("speed",speedTexture,"floor");
     // BLUE = JUMP
-    if(r==0 && g==0 && b==255) miniMap[x][y] = this.entity("jump",speedTexture,"jump");
+    else if(r==0 && g==0 && b==255) miniMap[x][y] = this.entity("jump",jumpTexture,"floor");
     // GREEN = START
-    if(r==0 && g==255 && b==0) startPoint = { x: x*this.scale, y: y*this.scale }
+    else if(r==0 && g==255 && b==0) {
+      startPoint = { x: x*this.scale, y: y*this.scale };
+      miniMap[x][y] = this.entity("road",roadTexture,"road");
+    }
+    else miniMap[x][y] = this.entity("unknown",grassTexture,"unknown");
   }
 
 }
