@@ -3,7 +3,8 @@
 class optimisation {
   constructor() {
     this.tiles = [];
-    this.originalDefinition = 2;
+    this.originalDefinition = 25;
+    this.compressedDefinition = 1;
     this.matrixSize = 10;
 
     this.worldScale = 100;
@@ -22,7 +23,7 @@ class optimisation {
           x: x*worldScale,
           y: y*worldScale,
           size: this.matrixSize * worldScale,
-          optimized: true,
+          optimised: true,
         }
         row.push(obj);
       }
@@ -37,6 +38,15 @@ class optimisation {
     // add the texture to the 2D texture tiles map
     this.tiles[tileX][tileY].original.copy(tex,0,0,50,50,nx,ny,this.originalDefinition,this.originalDefinition);
   }
+  generateCompressedTilesTex(){
+    for(var x=0; x<this.tiles.length; x++) {
+      for(var y=0; y<this.tiles[0].length; y++) {
+        var tex = createGraphics(this.matrixSize*this.compressedDefinition,this.matrixSize*this.compressedDefinition);
+        tex.image(this.tiles[x][y].original,0,0,tex.width,tex.height);
+        this.tiles[x][y].compressed = tex;
+      }
+    }
+  }
   drawCompressedFloorTexture() {
     push();
     translate(450,450);
@@ -45,7 +55,9 @@ class optimisation {
         push();
         var tile = this.tiles[x][y];
         translate((tile.x),(tile.y));
-        texture(tile.original);
+        if(tile.optimised == true) texture(tile.original);
+        if(tile.optimised == false) texture(tile.compressed);
+        //console.log("car: "car.pos.x + "tiles: " tiles)
         plane(tile.size,tile.size);
         pop();
       }
@@ -82,21 +94,29 @@ class optimisation {
     pop();
   }
 
-  clipping(entity) {
+  clipping(posX, posY, distMax, distMin) {
     var heading = car.heading;
     var result = true;
     // ANGLE CLIPPING
-    var offsetX = car.pos.x - entity.x*this.worldScale;
-    var offsetY = car.pos.y - entity.y*this.worldScale;
+    var offsetX = car.pos.x - posX;
+    var offsetY = car.pos.y - posY;
     var directionBlock = createVector(offsetX,offsetY);
     var angle = heading.angleBetween(directionBlock);
     if(abs(angle) > PI/2) result = false; // clipping from angle
-    if(directionBlock.mag() >= 2500) result = false; // clipping from distance
-    if(directionBlock.mag() <= 300) result = true; // if the brick is super close, display it anyway
+    if(directionBlock.mag() >= distMax) result = false; // clipping from distance
+    if(directionBlock.mag() <= distMin) result = true; // if the brick is super close, display it anyway
 
     return result;
   }
-  async updateObjsClipping() {
-    for(var i=0; i<this.objs3d.length; i++) this.objs3d[i].visible = this.clipping(this.objs3d[i]);
+  async updateOptimisationState() {
+    for(var i=0; i<this.objs3d.length; i++) {
+      this.objs3d[i].visible = this.clipping(this.objs3d[i].x*this.worldScale,this.objs3d[i].y*this.worldScale,2000,300);
+    }
+
+    for(var x=0; x<this.tiles.length; x++) {
+      for(var y=0; y<this.tiles[0].length; y++) {
+        this.tiles[x][y].optimised = this.clipping(this.tiles[x][y].x,this.tiles[x][y].y,2000,1200);
+      }
+    }
   }
 }

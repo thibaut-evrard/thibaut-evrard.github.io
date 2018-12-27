@@ -4,7 +4,7 @@ class circuit {
   }
 
   draw() {
-    optimisation.updateObjsClipping();
+    optimisation.updateOptimisationState();
     optimisation.drawCompressedFloorTexture();
     optimisation.drawCompressedObjs3d();
   }

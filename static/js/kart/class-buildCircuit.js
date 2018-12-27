@@ -39,6 +39,7 @@ class buildCircuit {
         if(miniMap[x][y].type != "floor") optimisation.addObjectToBox(x,y,miniMap[x][y]);
       }
     }
+    optimisation.generateCompressedTilesTex();
   }
 
   entity(name,tex,type) {
