@@ -32,11 +32,11 @@ var pathToLevel = './static/ressources/level/map'
 //////////////////////     P5 METHODS    ///////////////////////////////////////
 
 function loadTextures() {
-  img = loadImage(pathToLevel + '/trackb.png');
+  img = loadImage(pathToLevel + '/trackN.png');
   grassTexture = loadImage(pathToTextures + '/world/grass.png');
   bushTexture = loadImage(pathToTextures + '/world/bush.png');
   roadTexture = loadImage(pathToTextures + '/world/road.png');
-  speedTexture = loadImage(pathToTextures + '/world/road.png');
+  speedTexture = loadImage(pathToTextures + '/world/speed.png');
   jumpTexture = loadImage(pathToTextures + '/world/jump.png');
   wallTexture = loadImage(pathToTextures + '/world/wall.png');
   return;

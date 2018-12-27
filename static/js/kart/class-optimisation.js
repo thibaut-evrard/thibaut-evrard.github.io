@@ -36,7 +36,7 @@ class optimisation {
     var nx = (x%10)*this.originalDefinition;
     var ny = (y%10)*this.originalDefinition;
     // add the texture to the 2D texture tiles map
-    this.tiles[tileX][tileY].original.copy(tex,0,0,50,50,nx,ny,this.originalDefinition,this.originalDefinition);
+    this.tiles[tileX][tileY].original.copy(tex,0,0,tex.width,tex.height,nx,ny,this.originalDefinition,this.originalDefinition);
   }
   generateCompressedTilesTex(){
     for(var x=0; x<this.tiles.length; x++) {
@@ -71,6 +71,7 @@ class optimisation {
     compressedTex.image(entity.tex,0,0,compressedTex.width,compressedTex.height);
 
     var obj = {
+      name: entity.name,
       x: x,
       y: y,
       scale: entity.scale,
@@ -90,7 +91,16 @@ class optimisation {
       translate(entity.x*this.worldScale,entity.y*this.worldScale);
       texture(entity.tex);
       translate(0,0,(entity.scale.z*this.worldScale)/2);
-      box(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale, entity.scale.z*this.worldScale);
+      if(entity.name == "wall") box(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale, entity.scale.z*this.worldScale);
+      if(entity.name == "grass") {
+        translate(0,0,2);
+        texture(bushTexture);
+        // rotateX(-PI/2);
+        // rotateY(-car.alpha);
+        plane(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale);
+        translate(0,0,2);
+        plane(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale);
+      }
     pop();
   }
 
