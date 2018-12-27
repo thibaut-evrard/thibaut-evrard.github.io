@@ -39,6 +39,7 @@ function loadTextures() {
   speedTexture = loadImage(pathToTextures + '/world/speed.png');
   jumpTexture = loadImage(pathToTextures + '/world/jump.png');
   wallTexture = loadImage(pathToTextures + '/world/wall.png');
+  finishTexture = loadImage(pathToTextures + '/world/finish.png');
   return;
 }
 

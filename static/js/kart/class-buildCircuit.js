@@ -57,6 +57,8 @@ class buildCircuit {
   addObjectToMinimap(r,g,b,x,y) {
     // WHITE = GRASS
     if(r==255 && g==255 && b==255) miniMap[x][y] = this.entity("grass",grassTexture,"bi");
+    // R+G = FINSIH LINE
+    if(r==255 && g==255 && b==0) miniMap[x][y] = this.entity("finsih",finishTexture,"floor");
     // GREY = GRASS
     else if(r==240 && g==240 && b==240) miniMap[x][y] = this.entity("grass",grassTexture,"floor");
     // BLACK = WALL
