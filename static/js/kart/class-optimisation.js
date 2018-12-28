@@ -3,13 +3,16 @@
 class optimisation {
   constructor() {
     this.tiles = [];
-    this.originalDefinition = 25;
+    this.originalDefinition = 12;
     this.compressedDefinition = 1;
     this.matrixSize = 10;
 
     this.worldScale = 100;
 
-    this.objs3d = [];
+    this.objs3d = {
+      walls: [],
+      volumeTex: [],
+    };
   }
 
   // 2D TEXTURES METHODS
@@ -76,14 +79,21 @@ class optimisation {
       y: y,
       scale: entity.scale,
       tex: compressedTex,
+      tex3d: entity.tex3d,
       type: entity.type,
       visible: true,
     }
-    this.objs3d.push(obj);
+    if(entity.type == "wall") { this.objs3d.walls.push(obj); }
+    if(entity.type == "volumeTex") {this.objs3d.volumeTex.push(obj);}
   }
   drawCompressedObjs3d() {
-    for(var i=0; i<this.objs3d.length; i++) {
-      if(this.objs3d[i].visible == true) this.drawObj3d(this.objs3d[i]);
+    // draw the walls first
+    for(var i=0; i<this.objs3d.walls.length; i++) {
+      if(this.objs3d.walls[i].visible == true) this.drawObj3d(this.objs3d.walls[i]);
+    }
+    // then draw the volumeTex
+    for(var i=0; i<this.objs3d.volumeTex.length; i++) {
+      if(this.objs3d.volumeTex[i].visible == true) this.drawObj3d(this.objs3d.volumeTex[i]);
     }
   }
   drawObj3d(entity) {
@@ -91,17 +101,17 @@ class optimisation {
       translate(entity.x*this.worldScale,entity.y*this.worldScale);
       texture(entity.tex);
       translate(0,0,(entity.scale.z*this.worldScale)/2);
-      if(entity.name == "wall") box(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale, entity.scale.z*this.worldScale);
-      if(entity.name == "grass") {
-        translate(0,0,2);
-        texture(bushTexture);
-        // rotateX(-PI/2);
-        // rotateY(-car.alpha);
-        plane(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale);
-        translate(0,0,2);
-        plane(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale);
-      }
+      if(entity.type == "wall") this.drawWall(entity);
+      if(entity.type == "volumeTex") this.drawVolume(entity);
     pop();
+  }
+  drawWall(entity) { box(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale, entity.scale.z*this.worldScale); }
+  drawVolume(entity) {
+    translate(0,0,50);
+    texture(entity.tex3d);
+    rotateX(-PI/2);
+    rotateY(-car.alpha);
+    plane(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale);
   }
 
   clipping(posX, posY, distMax, distMin) {
@@ -119,10 +129,20 @@ class optimisation {
     return result;
   }
   async updateOptimisationState() {
-    for(var i=0; i<this.objs3d.length; i++) {
-      this.objs3d[i].visible = this.clipping(this.objs3d[i].x*this.worldScale,this.objs3d[i].y*this.worldScale,2000,300);
-    }
+    // define what 3D objects are visible
+    for(var i=0; i<this.objs3d.walls.length; i++) this.objs3d.walls[i].visible = this.clipping(this.objs3d.walls[i].x*this.worldScale,this.objs3d.walls[i].y*this.worldScale,3000,300);
+    for(var i=0; i<this.objs3d.volumeTex.length; i++) this.objs3d.volumeTex[i].visible = this.clipping(this.objs3d.volumeTex[i].x*this.worldScale,this.objs3d.volumeTex[i].y*this.worldScale,1000,300);
 
+    var pos = createVector(Math.floor(car.pos.x/100),Math.floor(car.pos.y/100));
+    //sort the transparent textured objects from distance to the car
+    this.objs3d.volumeTex.sort(function(a,b) {
+      //console.log(a);
+      var da = dist(pos.x,pos.y,a.x,a.y);
+      var db = dist(pos.x,pos.y,b.x,b.y);
+      return db - da;
+    });
+
+    // define the deffinition of each tile
     for(var x=0; x<this.tiles.length; x++) {
       for(var y=0; y<this.tiles[0].length; y++) {
         this.tiles[x][y].optimised = this.clipping(this.tiles[x][y].x,this.tiles[x][y].y,2000,1200);

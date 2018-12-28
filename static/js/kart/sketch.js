@@ -4,8 +4,6 @@
 // circuit: takes care of all the interaction between the driver and the map
 // pngtocircuit: translates the png file into a circuit
 
-
-
 //////////////////////     GLOBAL VARIABLES     ////////////////////////////////
 var miniMap = [];
 var startPoint = { x:0, y:0 }
@@ -49,6 +47,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth-30,windowHeight-30, WEBGL);
+  gl = document.getElementById('defaultCanvas0').getContext('webgl');
   rectMode(CENTER);
 
   // the module that handles all the interaction between the car and the game;
@@ -68,6 +67,7 @@ function setup() {
 }
 
 function draw() {
+  //gl.enable(gl.DEPTH_TEST);
   minZ = 0;
   frameRate(30);
   background(122,250,255);
