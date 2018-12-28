@@ -5,6 +5,8 @@
 // pngtocircuit: translates the png file into a circuit
 
 //////////////////////     GLOBAL VARIABLES     ////////////////////////////////
+var brickName = "grass";
+
 var miniMap = [];
 var startPoint = { x:0, y:0 }
 
@@ -23,8 +25,8 @@ var imgWidth = 50;
 var imgHeight = 50;
 var backgroundImage;
 
-var cx = 0;
-var cy = 0;
+var cx = 25*100;
+var cy = 25*100;
 
 
 //path vars
@@ -44,14 +46,28 @@ function loadTextures() {
   return;
 }
 
+function changeBrickName(newName) {
+  brickName = newName;
+}
+
+function resizeTextures() {
+  var size = 12;
+  finishTexture.resize(size,size);
+  grassTexture.resize(size,size);
+  bushTexture.resize(size,size);
+  roadTexture.resize(size,size);
+  speedTexture.resize(size,size);
+  jumpTexture.resize(size,size);
+  wallTexture.resize(size,size);
+}
+
 function preload() {
   loadTextures();
 }
 
 function setup() {
-  createCanvas((2*windowWidth)/3-30,windowHeight-30, WEBGL);
-  gl = document.getElementById('defaultCanvas0').getContext('webgl');
-  rectMode(CENTER);
+  createCanvas(500,500);
+  resizeTextures();
 
   // the module that handles all the interaction between the car and the game;
   circuit = new circuit();
@@ -63,28 +79,16 @@ function setup() {
 }
 
 function draw() {
+  frameRate(30)
   // //gl.enable(gl.DEPTH_TEST);
   // minZ = 0;
   // frameRate(30);
-  // background(122,250,255);
-  // circuit.draw();
+
+  background(122,250,255);
+  circuit.draw();
+
   // circuit.worldEvent(car);
   //
   //
   // // level.drawTrack(cab);
-  moveCam();
-  drawCam();
-
-}
-
-//////////////////////     CUSTOM FUNCTIONS    /////////////////////////////////
-function moveCam() {
-  if(keyIsDown(UP_ARROW)) cy-= 30;
-  if(keyIsDown(DOWN_ARROW)) cy+= 30;
-  if(keyIsDown(LEFT_ARROW)) cx-= 30;
-  if(keyIsDown(RIGHT_ARROW)) cx+= 30;
-}
-
-function drawCam() {
-  camera(cx,cy, 3000, cx, cy, 0, 0, 1, 0);
 }

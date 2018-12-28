@@ -35,14 +35,15 @@ class buildCircuit {
         var g = this.circuitPng.pixels[pos+1];
         var b = this.circuitPng.pixels[pos+2];
         this.addObjectToMinimap(r,g,b,x,y);
-        optimisation.addTextureToTiles(x,y,miniMap[x][y].tex);
-        if(miniMap[x][y].type != "floor") optimisation.addObjectToBox(x,y,miniMap[x][y]);
       }
     }
-    optimisation.generateCompressedTilesTex();
   }
 
   entity(name,tex,type,tex3d) {
+    // var t = createGraphics(10,10);
+    // t.image(tex,0,0,t.width,t.height);
+    //console.log("working on next texture");
+
     var obj = {
       name: name,
       tex: tex,
