@@ -67,14 +67,16 @@ function setup() {
 }
 
 function draw() {
-  //gl.enable(gl.DEPTH_TEST);
+
   minZ = 0;
   frameRate(30);
   background(122,250,255);
   circuit.draw();
   circuit.worldEvent(car);
   car.update();
+  gl.disable(gl.DEPTH_TEST);
   car.draw();
+  gl.enable(gl.DEPTH_TEST);
   // circuit.drawTex2d(miniMap.tex2d);
   // circuit.drawInteractibles(maps.interactibles);
 
