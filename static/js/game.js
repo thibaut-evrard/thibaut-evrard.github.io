@@ -23,6 +23,9 @@ var imgWidth = 50;
 var imgHeight = 50;
 var backgroundImage;
 
+var checkpoint = false;
+var lapsLeft = 3;
+
 
 //path vars
 var pathToTextures = './static/ressources/textures'
@@ -38,6 +41,7 @@ function loadTextures() {
   jumpTexture = loadImage(pathToTextures + '/world/jump.png');
   wallTexture = loadImage(pathToTextures + '/world/wall.png');
   finishTexture = loadImage(pathToTextures + '/world/finish.png');
+  checkpointTexture = loadImage(pathToTextures + '/world/checkpoint.png');
   return;
 }
 
@@ -77,20 +81,18 @@ function draw() {
   gl.disable(gl.DEPTH_TEST);
   car.draw();
   gl.enable(gl.DEPTH_TEST);
-  // circuit.drawTex2d(miniMap.tex2d);
-  // circuit.drawInteractibles(maps.interactibles);
-
-
-  // level.drawTrack(cab);
-
   drawCam(car);
+
+  if(lapsLeft == 0) {
+  }
+
 }
 
 //////////////////////     CUSTOM FUNCTIONS    /////////////////////////////////
 
 function drawCam(car) {
   var camRot = createVector(0,100);
-  camRot.rotate(-car.alpha); //-(cab.v.heading()-(PI/2))/2);
+  camRot.rotate(-car.alpha);//-(car.v.heading()-(PI/2))/2);
   var x = car.pos.x - camRot.x;
   var y = car.pos.y + camRot.y;
   camera(x,y, car.pos.z + (50-17), car.pos.x, car.pos.y, car.pos.z + 23, 0, 0, -1);

@@ -16,7 +16,7 @@ class car {
     this.engineForce = 0; // engineForce of the car
     this.a = createVector(0,0); // acceleration of the car
     this.weight = 100;
-    this.rayon = 50;
+    this.rayon = 30;
     this.steerAngleMax = 1/this.rayon;
     this.wheelAngle = 0;
     this.raMax = 1;
@@ -36,7 +36,7 @@ class car {
     this.fGravity = 0;
 
     // SUPER POWER FORCES
-    this.boostRate = 1.01;
+    this.boostRate = 1.04;
 
     // DIMENTIONS OF OBJECT
     this.length= 20;
@@ -131,7 +131,7 @@ class car {
 
     // UPDATE ANGLE
     var speed = this.speed;
-    if(this.wheelSpeed == 0 && this.speed>2) { speed = 2 + (this.speed/3); }
+    if(this.wheelSpeed == 0 && this.speed>2) { speed = 2 + (this.speed/8); }
     var turnForce = this.wheelAngle * speed;
     // APPLY TRANSFORMATIONS
     this.v.rotate(-turnForce);

@@ -49,7 +49,7 @@ class circuit {
         car.cRr = 0.3;
         switch(event) {
           case "grass":
-            car.cRr = 2;
+            car.cRr = 5;
           break;
           case "jump":
             car.jump(10);
@@ -63,6 +63,15 @@ class circuit {
           case "wall":
             var pos = { x:x*100, y:y*100 }
             if(minZ < entity.scale.z*100)car.bump(pos);
+          break;
+          case "checkpoint":
+            checkpoint = true;
+          break;
+          case "finish":
+            if(checkpoint == true) {
+              lapsLeft -= 1;
+              checkpoint = false;
+            }
           break;
         }
       }

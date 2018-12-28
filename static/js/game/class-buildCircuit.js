@@ -59,7 +59,9 @@ class buildCircuit {
     // WHITE = GRASS
     if(r==255 && g==255 && b==255) miniMap[x][y] = this.entity("grass",grassTexture,"volumeTex",bushTexture);
     // R+G = FINSIH LINE
-    if(r==255 && g==255 && b==0) miniMap[x][y] = this.entity("finsih",finishTexture,"floor",0);
+    else if(r==255 && g==255 && b==0) miniMap[x][y] = this.entity("finish",finishTexture,"floor",0);
+    // G+B = CHECKPOINT
+    else if(r==0 && g==255 && b==255) miniMap[x][y] = this.entity("checkpoint",checkpointTexture,"floor",0);
     // GREY = GRASS
     else if(r==240 && g==240 && b==240) miniMap[x][y] = this.entity("grass",grassTexture,"floor",0);
     // BLACK = WALL

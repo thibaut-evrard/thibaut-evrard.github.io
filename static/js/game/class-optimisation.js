@@ -3,7 +3,7 @@
 class optimisation {
   constructor() {
     this.tiles = [];
-    this.originalDefinition = 12;
+    this.originalDefinition = 24;
     this.compressedDefinition = 1;
     this.matrixSize = 10;
 
@@ -122,7 +122,7 @@ class optimisation {
     var offsetY = car.pos.y - posY;
     var directionBlock = createVector(offsetX,offsetY);
     var angle = heading.angleBetween(directionBlock);
-    if(abs(angle) > PI/2) result = false; // clipping from angle
+    if(abs(angle) > PI/3) result = false; // clipping from angle
     if(directionBlock.mag() >= distMax) result = false; // clipping from distance
     if(directionBlock.mag() <= distMin) result = true; // if the brick is super close, display it anyway
 
