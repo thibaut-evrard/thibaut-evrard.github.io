@@ -94,23 +94,23 @@ class car {
   }
 
   mobileDrive() {
-    $('#up').mouseover(function(){ cab.mobileControls.up = true; })
-    $('#up').mouseout(function(){ cab.mobileControls.up = false; })
-    if(this.mobileControls.up == true) this.engineForce = 5;
-
-    $('#down').mouseover(function(){ cab.mobileControls.down = true; })
-    $('#down').mouseout(function(){ cab.mobileControls.down = false; })
-    if(this.mobileControls.down == true) this.v.mult(0.95);
-
-    $('#left').mouseover(function(){ cab.mobileControls.left = true; })
-    $('#left').mouseout(function(){ cab.mobileControls.left = false; })
-    if(this.mobileControls.left == true && abs(this.speed) > 0.1) this.smoothTurn(-this.steerAngleMax);
-
-    $('#right').mouseover(function(){ cab.mobileControls.right = true; })
-    $('#right').mouseout(function(){ cab.mobileControls.right = false; })
-    if(this.mobileControls.right == true && abs(this.speed) > 0.1) this.smoothTurn(this.steerAngleMax);
-
-    if(!this.mobileControls.left && !this.mobileControls.right) this.smoothTurn(0);
+    // $('#up').mouseover(function(){ cab.mobileControls.up = true; })
+    // $('#up').mouseout(function(){ cab.mobileControls.up = false; })
+    // if(this.mobileControls.up == true) this.engineForce = 5;
+    //
+    // $('#down').mouseover(function(){ cab.mobileControls.down = true; })
+    // $('#down').mouseout(function(){ cab.mobileControls.down = false; })
+    // if(this.mobileControls.down == true) this.v.mult(0.95);
+    //
+    // $('#left').mouseover(function(){ cab.mobileControls.left = true; })
+    // $('#left').mouseout(function(){ cab.mobileControls.left = false; })
+    // if(this.mobileControls.left == true && abs(this.speed) > 0.1) this.smoothTurn(-this.steerAngleMax);
+    //
+    // $('#right').mouseover(function(){ cab.mobileControls.right = true; })
+    // $('#right').mouseout(function(){ cab.mobileControls.right = false; })
+    // if(this.mobileControls.right == true && abs(this.speed) > 0.1) this.smoothTurn(this.steerAngleMax);
+    //
+    // if(!this.mobileControls.left && !this.mobileControls.right) this.smoothTurn(0);
 
   }
 

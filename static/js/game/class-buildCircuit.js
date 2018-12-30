@@ -57,13 +57,18 @@ class buildCircuit {
   // scans every pixel and builds an object instance out of it
   addObjectToMinimap(r,g,b,x,y) {
     // WHITE = GRASS
-    if(r==255 && g==255 && b==255) miniMap[x][y] = this.entity("grass",grassTexture,"volumeTex",bushTexture);
+    if(r==255 && g==255 && b==255) miniMap[x][y] = this.entity("grass",grassTexture,"volumeTex",randomTexture(bushTexture));
+    // GREY 150 = TREES
+    else if(r==150 && g==150 && b==150) {
+      miniMap[x][y] = this.entity("tree",grassTexture,"volumeTex",treeTexture);
+      console.log("tree");
+    }
     // R+G = FINSIH LINE
     else if(r==255 && g==255 && b==0) miniMap[x][y] = this.entity("finish",finishTexture,"floor",0);
     // G+B = CHECKPOINT
     else if(r==0 && g==255 && b==255) miniMap[x][y] = this.entity("checkpoint",checkpointTexture,"floor",0);
     // GREY = GRASS
-    else if(r==240 && g==240 && b==240) miniMap[x][y] = this.entity("grass",grassTexture,"floor",0);
+    else if(r==240 && g==240 && b==240) miniMap[x][y] = this.entity("grassBush",grassTexture,"floor",0);
     // BLACK = WALL
     else if(r==0 && g==0 && b==0) miniMap[x][y] = this.entity("wall",wallTexture,"wall",0);
     // GREY 100 = ROAD
@@ -77,7 +82,7 @@ class buildCircuit {
       startPoint = { x: x*this.scale, y: y*this.scale };
       miniMap[x][y] = this.entity("road",roadTexture,"road",0);
     }
-    else miniMap[x][y] = this.entity("grass",grassTexture,"volumeTex",bushTexture);
+    else miniMap[x][y] = this.entity("grass",grassTexture,"floor",0);
   }
 
 }

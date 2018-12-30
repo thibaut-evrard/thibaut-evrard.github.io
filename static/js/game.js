@@ -34,14 +34,16 @@ var pathToLevel = './static/ressources/level/map'
 
 function loadTextures() {
   img = loadImage(pathToLevel + '/trackN.png');
-  grassTexture = loadImage(pathToTextures + '/world/grass.png');
-  bushTexture = loadImage(pathToTextures + '/world/bush.png');
-  roadTexture = loadImage(pathToTextures + '/world/road.png');
-  speedTexture = loadImage(pathToTextures + '/world/speed.png');
-  jumpTexture = loadImage(pathToTextures + '/world/jump.png');
-  wallTexture = loadImage(pathToTextures + '/world/wall.png');
-  finishTexture = loadImage(pathToTextures + '/world/finish.png');
-  checkpointTexture = loadImage(pathToTextures + '/world/checkpoint.png');
+  var currentTextureFolder = pathToTextures + '/world/amazonie/'
+  grassTexture = loadImage(currentTextureFolder + 'grass.png');
+  bushTexture = [ loadImage(currentTextureFolder + '/bushes/0.png'), loadImage(currentTextureFolder + '/bushes/1.png'), loadImage(currentTextureFolder + '/bushes/2.png') ];
+  treeTexture = loadImage(currentTextureFolder + '/trees/0.png');
+  roadTexture = loadImage(currentTextureFolder + 'road.png');
+  speedTexture = loadImage(currentTextureFolder + 'speed.png');
+  jumpTexture = loadImage(currentTextureFolder + 'jump.png');
+  wallTexture = loadImage(currentTextureFolder + 'wall.png');
+  finishTexture = loadImage(currentTextureFolder + 'finish.png');
+  checkpointTexture = loadImage(currentTextureFolder + 'checkpoint.png');
   return;
 }
 
@@ -53,7 +55,6 @@ function setup() {
   createCanvas(windowWidth-30,windowHeight-30, WEBGL);
   gl = document.getElementById('defaultCanvas0').getContext('webgl');
   rectMode(CENTER);
-
   // the module that handles all the interaction between the car and the game;
   circuit = new circuit();
 
@@ -71,10 +72,11 @@ function setup() {
 }
 
 function draw() {
+  noStroke();
 
   minZ = 0;
   frameRate(30);
-  background(122,250,255);
+  background(0);
   circuit.draw();
   circuit.worldEvent(car);
   car.update();
@@ -88,6 +90,10 @@ function draw() {
 
 }
 
+function randomTexture(entity) {
+  var a  = int(random(entity.length));
+  return entity[a];
+}
 //////////////////////     CUSTOM FUNCTIONS    /////////////////////////////////
 
 function drawCam(car) {

@@ -84,7 +84,10 @@ class optimisation {
       visible: true,
     }
     if(entity.type == "wall") { this.objs3d.walls.push(obj); }
-    if(entity.type == "volumeTex") {this.objs3d.volumeTex.push(obj);}
+    if(entity.type == "volumeTex") {
+      obj.rotation = random(2*PI);
+      this.objs3d.volumeTex.push(obj);
+    }
   }
   drawCompressedObjs3d() {
     // draw the walls first
@@ -107,11 +110,13 @@ class optimisation {
   }
   drawWall(entity) { box(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale, entity.scale.z*this.worldScale); }
   drawVolume(entity) {
-    translate(0,0,50);
+    var w = entity.tex3d.width*4;
+    var h = entity.tex3d.height*4;
+    translate(0,0,h/2);
     texture(entity.tex3d);
     rotateX(-PI/2);
-    rotateY(-car.alpha);
-    plane(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale);
+    rotateY(entity.rotation);//entity.rotation);
+    plane(w, h);
   }
 
   clipping(posX, posY, distMax, distMin) {

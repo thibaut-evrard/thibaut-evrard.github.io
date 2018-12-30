@@ -36,13 +36,14 @@ var pathToLevel = './static/ressources/level/map'
 
 function loadTextures() {
   img = loadImage(pathToLevel + '/blank.png');
-  grassTexture = loadImage(pathToTextures + '/world/grass.png');
-  bushTexture = loadImage(pathToTextures + '/world/bush.png');
-  roadTexture = loadImage(pathToTextures + '/world/road.png');
-  speedTexture = loadImage(pathToTextures + '/world/speed.png');
-  jumpTexture = loadImage(pathToTextures + '/world/jump.png');
-  wallTexture = loadImage(pathToTextures + '/world/wall.png');
-  finishTexture = loadImage(pathToTextures + '/world/finish.png');
+  var currentTextureFolder = pathToTextures + '/world/default/'
+  grassTexture = loadImage(currentTextureFolder + 'grass.png');
+  bushTexture = loadImage(currentTextureFolder + 'bush.png');
+  roadTexture = loadImage(currentTextureFolder + 'road.png');
+  speedTexture = loadImage(currentTextureFolder + 'speed.png');
+  jumpTexture = loadImage(currentTextureFolder + 'jump.png');
+  wallTexture = loadImage(currentTextureFolder + 'wall.png');
+  finishTexture = loadImage(currentTextureFolder + 'finish.png');
   return;
 }
 
