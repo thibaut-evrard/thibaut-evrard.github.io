@@ -28,6 +28,7 @@ class optimisation {
           size: this.matrixSize * worldScale,
           optimised: true,
         }
+        //obj.original.id(x + 'a' + y);
         row.push(obj);
       }
       this.tiles.push(row);
@@ -45,6 +46,7 @@ class optimisation {
     for(var x=0; x<this.tiles.length; x++) {
       for(var y=0; y<this.tiles[0].length; y++) {
         var tex = createGraphics(this.matrixSize*this.compressedDefinition,this.matrixSize*this.compressedDefinition);
+        tex.id(x+'b'+y);
         tex.image(this.tiles[x][y].original,0,0,tex.width,tex.height);
         this.tiles[x][y].compressed = tex;
       }
@@ -71,6 +73,7 @@ class optimisation {
   // 3D OBJECTS METHODS
   addObjectToBox(x,y,entity) {
     var compressedTex = createGraphics(this.originalDefinition,this.originalDefinition);
+    compressedTex.id(x+'c'+y);
     compressedTex.image(entity.tex,0,0,compressedTex.width,compressedTex.height);
 
     var obj = {
