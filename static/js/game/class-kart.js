@@ -15,8 +15,8 @@ class car {
     this.u = createVector(0,1) // direction of the car
     this.engineForce = 0; // engineForce of the car
     this.a = createVector(0,0); // acceleration of the car
-    this.weight = 100;
-    this.rayon = 30;
+    this.weight = 120;
+    this.rayon = 60;
     this.steerAngleMax = 1/this.rayon;
     this.wheelAngle = 0;
     this.raMax = 1;
@@ -50,7 +50,7 @@ class car {
     this.image_3 = loadImage(path+"-3.png");
     this.image_2 = loadImage(path+"-2.png");
     this.image_1 = loadImage(path+"-1.png");
-    this.image0 = loadImage(path+"0.png");
+    this.image0 = loadImage(path+"chevy.png");
     this.image1 = loadImage(path+"1.png");
     this.image2 = loadImage(path+"2.png");
     this.image3 = loadImage(path+"3.png");
@@ -84,13 +84,13 @@ class car {
     this.raMin = 0.1;
     this.drift = 0;
     // implement the angle in raMin
+      if(keyIsDown(32)) { this.drift = 1; this.v.mult(1.01);} //this.v.mult(0.99);
       if(keyIsDown(UP_ARROW)) this.engineForce = 8;
       if(keyIsDown(DOWN_ARROW) && this.speed<=1) { this.engineForce = -10; }
       if(keyIsDown(DOWN_ARROW) && this.speed>1)  this.v.mult(0.95);//this.engineForce = -this.cBrake;
       if(keyIsDown(RIGHT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(Math.sign(this.speed)*this.steerAngleMax);//this.alpha += this.steerAngleMax*this.speed;
       if(keyIsDown(LEFT_ARROW) && abs(this.speed) > 0.1) this.smoothTurn(Math.sign(this.speed)*-this.steerAngleMax);
       if(!keyIsDown(LEFT_ARROW) && !keyIsDown(RIGHT_ARROW)) this.smoothTurn(0);
-      if(keyIsDown(32)) { this.v.mult(0.99); this.drift = 1; }
   }
 
   mobileDrive() {
@@ -116,7 +116,8 @@ class car {
 
   smoothTurn(max) {
     var distance = max - this.wheelAngle;
-    this.wheelAngle += distance/5;
+    if(this.drift == 1 ) this.wheelAngle += distance/40;
+    else this.wheelAngle += distance/5;
   }
 
   // PHYSICS ENGINE FOR THE KART OBJECT
@@ -233,7 +234,7 @@ class car {
     rotate(this.alpha);
     rotateX(-PI/2);
     texture(this.sprite);
-    plane(40);
+    plane(60,40);
     pop();
   }
 

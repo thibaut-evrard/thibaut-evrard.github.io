@@ -35,6 +35,9 @@ var pathToLevel = './static/ressources/level/map'
 function loadTextures() {
   img = loadImage(pathToLevel + '/trackN.png');
   var currentTextureFolder = pathToTextures + '/world/amazonie/'
+  backgroundTexture1 = loadImage(currentTextureFolder + '/background/city1.png')
+  backgroundTexture2 = loadImage(currentTextureFolder + '/background/city2.png')
+
   grassTexture = loadImage(currentTextureFolder + 'grass.png');
   bushTexture = [ loadImage(currentTextureFolder + '/bushes/0.png'), loadImage(currentTextureFolder + '/bushes/1.png'), loadImage(currentTextureFolder + '/bushes/2.png') ];
   treeTexture = loadImage(currentTextureFolder + '/trees/0.png');
@@ -54,6 +57,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth-30,windowHeight-30, WEBGL);
   gl = document.getElementById('defaultCanvas0').getContext('webgl');
+
   rectMode(CENTER);
   // the module that handles all the interaction between the car and the game;
   circuit = new circuit();
@@ -98,8 +102,8 @@ function randomTexture(entity) {
 
 function drawCam(car) {
   var camRot = createVector(0,100);
-  camRot.rotate(-car.alpha);//-(car.v.heading()-(PI/2))/2);
+  camRot.rotate(-car.alpha-(car.v.heading()-(PI/2))/2);//-(car.v.heading()-(PI/2))/2);
   var x = car.pos.x - camRot.x;
   var y = car.pos.y + camRot.y;
-  camera(x,y, car.pos.z + (50-17), car.pos.x, car.pos.y, car.pos.z + 23, 0, 0, -1);
+  camera(x,y, car.pos.z + (50-25), car.pos.x, car.pos.y, car.pos.z + 10, 0, 0, -1);
 }

@@ -4,9 +4,37 @@ class circuit {
   }
 
   draw() {
+    this.drawBackground();
     optimisation.updateOptimisationState();
     optimisation.drawCompressedFloorTexture();
     optimisation.drawCompressedObjs3d();
+  }
+
+  drawBackground() {
+    push();
+      translate(2500,2500);
+      for(var i=0; i<4; i++) {
+        let size = 10000;
+        rotate(PI/2)
+        push();
+        translate(0,-size/2,(size/2)/4);
+        rotateX(-PI/2);
+        texture(backgroundTexture2);
+        plane(size,size/4);
+        pop();
+      }
+      for(var i=0; i<4; i++) {
+        let size = 8000;
+        rotate(PI/2)
+        push();
+        translate(0,-size/2,(size/2)/4);
+        rotateX(-PI/2);
+        texture(backgroundTexture1);
+        plane(size,size/4);
+        pop();
+      }
+
+    pop();
   }
 
   drawEntity(x,y,obj) {
