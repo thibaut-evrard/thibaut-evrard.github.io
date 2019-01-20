@@ -80,7 +80,7 @@ function draw() {
 
   minZ = 0;
   frameRate(30);
-  background(0);
+  background(0,0,30);
   circuit.draw();
   circuit.worldEvent(car);
   car.update();

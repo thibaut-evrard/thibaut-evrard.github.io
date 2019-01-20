@@ -234,7 +234,7 @@ class car {
     rotate(this.alpha);
     rotateX(-PI/2);
     texture(this.sprite);
-    plane(60,40);
+    plane(70,40);
     pop();
   }
 
