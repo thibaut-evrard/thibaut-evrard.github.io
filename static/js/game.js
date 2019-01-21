@@ -108,3 +108,7 @@ function drawCam(car) {
   var y = car.pos.y + camRot.y;
   camera(x,y, car.pos.z + (50-25), car.pos.x, car.pos.y, car.pos.z + 10, 0, 0, -1);
 }
+
+var vect = new Vector(12,12,0);
+vect = vect.add(vect);
+console.log("lol");
