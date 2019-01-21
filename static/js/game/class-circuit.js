@@ -14,7 +14,7 @@ class circuit {
     push();
       translate(2500,2500);
       for(var i=0; i<4; i++) {
-        let size = 10000;
+        let size = 15000;
         rotate(PI/2)
         push();
         translate(0,-size/2,(size/2)/4);

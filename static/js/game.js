@@ -57,6 +57,7 @@ function preload() {
 function setup() {
   createCanvas(windowWidth-30,windowHeight-30, WEBGL);
   gl = document.getElementById('defaultCanvas0').getContext('webgl');
+  perspective(PI / 3.0, width / height, 0.1, 50000);
 
   rectMode(CENTER);
   // the module that handles all the interaction between the car and the game;
