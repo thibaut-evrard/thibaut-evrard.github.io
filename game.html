@@ -9,50 +9,24 @@
   </head>
   <body>
     <main>
-      <!-- <button id="code">code</button> -->
-      <div id="blocklyDiv"></div>
-
-      <div name="blockly-toolbox">
-        <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
-          <block type="move_forward">
-            <field name="DISTANCE">3</field>
-          </block>
-          <block type="turn">
-            <field name="NAME">LEFT</field>
-          </block>
-          <block type="turn">
-            <field name="NAME">RIGHT</field>
-          </block>
-          <block type="main" id="win"></block>
-          <block type="jump">
-            <field name="HEIGHT">10</field>
-          </block>
-        </xml>
-      </div>
-      <p id="print"></p>
     </main>
-    <!-- importing blockly scripts -->
-    <!-- <script src="./static/js/libraries/blockly/blockly_compressed.js"></script>
-    <script src="./static/js/libraries/blockly/blocks_compressed.js"></script>
-    <script src="./static/js/libraries/blockly/javascript_compressed.js"></script>
-    <script src="./static/js/libraries/blockly/msg/js/en.js"></script>
-    <script src="./static/js/code_editor/custom_blocks.js"></script> -->
-    <script src="./static/js/libraries/jquery.min.js"></script>
-    <!-- <script src="./static/js/main.js"></script> -->
 
-    <!-- MOBILE CONTROLS -->
-    <button class="control" id="up">up</button>
-    <button class="control" id="down">down</button>
-    <button class="control" id="left">left</button>
-    <button class="control" id="right">right</button>
+    <script src="./static/js/libraries/jquery.min.js"></script>
 
     <!-- importing kart related scripts -->
-    <script src="./static/js/libraries/p5.js"></script>
-    <script src="./static/js/libraries/vector.js"></script>
+    <script src="./static/js/libraries/three.min.js"></script>
+    <script src="./static/js/libraries/OrbitControls.js"></script>
+
+    <script src="./static/js/game2/buildLevel.js"></script>
+    <script src="./static/js/game2.js"></script>
+
+
+    <!-- <script src="./static/js/libraries/p5.js"></script> -->
+    <!-- <script src="./static/js/libraries/vector.js"></script>
     <script src="./static/js/game.js"></script>
     <script src="./static/js/game/class-kart.js"></script>
     <script src="./static/js/game/class-circuit.js"></script>
     <script src="./static/js/game/class-optimisation.js"></script>
-    <script src="./static/js/game/class-buildCircuit.js"></script>
+    <script src="./static/js/game/class-buildCircuit.js"></script> -->
   </body>
 </html>
