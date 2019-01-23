@@ -98,6 +98,7 @@ class circuit {
           case "finish":
             if(checkpoint == true) {
               lapsLeft -= 1;
+              changeLaps();
               checkpoint = false;
             }
           break;

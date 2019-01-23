@@ -69,7 +69,6 @@ class car {
   update() {
     this.heading = p5.Vector.add(this.u).rotate(this.alpha);
     this.drive(); // handling user input
-    this.mobileDrive(); // get mobile user input
     this.doPhysics(); // applying the physics engine to the car
   }
 
@@ -93,31 +92,10 @@ class car {
       if(!keyIsDown(LEFT_ARROW) && !keyIsDown(RIGHT_ARROW)) this.smoothTurn(0);
   }
 
-  mobileDrive() {
-    // $('#up').mouseover(function(){ cab.mobileControls.up = true; })
-    // $('#up').mouseout(function(){ cab.mobileControls.up = false; })
-    // if(this.mobileControls.up == true) this.engineForce = 5;
-    //
-    // $('#down').mouseover(function(){ cab.mobileControls.down = true; })
-    // $('#down').mouseout(function(){ cab.mobileControls.down = false; })
-    // if(this.mobileControls.down == true) this.v.mult(0.95);
-    //
-    // $('#left').mouseover(function(){ cab.mobileControls.left = true; })
-    // $('#left').mouseout(function(){ cab.mobileControls.left = false; })
-    // if(this.mobileControls.left == true && abs(this.speed) > 0.1) this.smoothTurn(-this.steerAngleMax);
-    //
-    // $('#right').mouseover(function(){ cab.mobileControls.right = true; })
-    // $('#right').mouseout(function(){ cab.mobileControls.right = false; })
-    // if(this.mobileControls.right == true && abs(this.speed) > 0.1) this.smoothTurn(this.steerAngleMax);
-    //
-    // if(!this.mobileControls.left && !this.mobileControls.right) this.smoothTurn(0);
-
-  }
-
   smoothTurn(max) {
     var distance = max - this.wheelAngle;
-    if(this.drift == 1 ) this.wheelAngle += distance/40;
-    else this.wheelAngle += distance/5;
+    //if(this.drift == 1 ) this.wheelAngle += distance/40;
+    this.wheelAngle += distance/5;
   }
 
   // PHYSICS ENGINE FOR THE KART OBJECT
@@ -189,7 +167,7 @@ class car {
     }
 
     if(this.drift == 0 && wheelSpeed>0 && this.engineForce > 0) {
-      if(wheelSpeed <= 1) wheelSpeed += 0.01;
+      if(wheelSpeed <= 10) wheelSpeed += 0.01;
       if(abs(this.v.x) <= angleTreshold) {
         wheelSpeed = 0;
       }
@@ -197,8 +175,8 @@ class car {
 
     if(wheelSpeed > 0) {
       this.raMin = map(wheelSpeed,1,0,0.1,0.5);
-      this.raMax = map(wheelSpeed,1,0,0.45,0.9);
-      wheelSpeed -= 0.01;
+      this.raMax = map(wheelSpeed,1,0,0.5,0.9);
+      wheelSpeed -= 0.04;
       if(wheelSpeed < 0.1) wheelSpeed = 0;
     }
     //console.log(wheelSpeed);

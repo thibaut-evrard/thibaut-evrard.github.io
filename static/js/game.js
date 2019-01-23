@@ -55,7 +55,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth-30,windowHeight-30, WEBGL);
+  createCanvas(windowWidth,windowHeight, WEBGL);
   gl = document.getElementById('defaultCanvas0').getContext('webgl');
   perspective(PI / 3.0, width / height, 0.1, 50000);
 
@@ -77,10 +77,10 @@ function setup() {
 }
 
 function draw() {
-  noStroke();
-
-  minZ = 0;
   frameRate(30);
+  printTime();
+  noStroke();
+  minZ = 0;
   background(0,0,30);
   circuit.draw();
   circuit.worldEvent(car);
@@ -109,6 +109,36 @@ function drawCam(car) {
   camera(x,y, car.pos.z + (50-25), car.pos.x, car.pos.y, car.pos.z + 10, 0, 0, -1);
 }
 
-var vect = new Vector(12,12,0);
-vect = vect.add(vect);
-console.log("lol");
+var timer = 0;
+function printTime() {
+  timer += 3;
+  var cent = timer % 100;
+  var sec = Math.floor(timer/100) % 60;
+  var min = Math.floor(Math.floor(timer/100)/60);
+
+  if(cent < 10) { cent = "0"+cent; }
+  if(sec < 10) { sec = "0"+sec; }
+  if(min < 10) { min = "0"+min; }
+  $("#time").text(min+":"+sec+":"+cent);
+}
+function changeLaps() {
+  $('#laps').animate({opacity: 1}, 200, function()
+    {
+      $('#laps').animate({opacity: 1},500,function() {
+        $('#laps').animate({opacity: 0},600);
+      });
+  });
+  var expression = function() {
+    switch(lapsLeft) {
+      case 2:
+      return "2 LAPS LEFT";
+      break;
+      case 1:
+      return "FINAL LAP!";
+      break;
+      case 0:
+      return "FINISH"
+    }
+  }
+  $("#laps").text(expression);
+}
