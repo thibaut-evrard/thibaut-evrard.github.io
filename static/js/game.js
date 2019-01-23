@@ -103,9 +103,11 @@ function randomTexture(entity) {
 
 function drawCam(car) {
   var camRot = createVector(0,100);
-  console.log(car.v.heading());
-  if(car.v.heading() <= 0)  camRot.rotate(-car.alpha);
-  else camRot.rotate(-car.alpha-(car.v.heading()-(PI/2))/2);//-(car.v.heading()-(PI/2))/2);
+  camRot.rotate(-car.alpha);
+  if(car.speed > 2) { camRot.rotate(-(car.v.heading()-(PI/2))/2); }
+  // if(car.v.heading() <= 0)  camRot.rotate(-car.alpha);
+  // else if(car.v.heading() < 0)  camRot.rotate(-car.alpha-(PI));
+  // else camRot.rotate(-car.alpha-(car.v.heading()-(PI/2))/2);//-(car.v.heading()-(PI/2))/2);
   var x = car.pos.x - camRot.x;
   var y = car.pos.y + camRot.y;
   camera(x,y, car.pos.z + (50-25), car.pos.x, car.pos.y, car.pos.z + 10, 0, 0, -1);

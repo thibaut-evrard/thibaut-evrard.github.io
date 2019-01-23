@@ -4,7 +4,7 @@ class optimisation {
   constructor() {
     this.tiles = [];
     this.originalDefinition = 24;
-    this.compressedDefinition = 1;
+    this.compressedDefinition = 24;
     this.matrixSize = 10;
 
     this.worldScale = 100;
