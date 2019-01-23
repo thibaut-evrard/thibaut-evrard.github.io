@@ -103,7 +103,9 @@ function randomTexture(entity) {
 
 function drawCam(car) {
   var camRot = createVector(0,100);
-  camRot.rotate(-car.alpha-(car.v.heading()-(PI/2))/2);//-(car.v.heading()-(PI/2))/2);
+  console.log(car.v.heading());
+  if(car.v.heading() <= 0)  camRot.rotate(-car.alpha);
+  else camRot.rotate(-car.alpha-(car.v.heading()-(PI/2))/2);//-(car.v.heading()-(PI/2))/2);
   var x = car.pos.x - camRot.x;
   var y = car.pos.y + camRot.y;
   camera(x,y, car.pos.z + (50-25), car.pos.x, car.pos.y, car.pos.z + 10, 0, 0, -1);
@@ -121,6 +123,7 @@ function printTime() {
   if(min < 10) { min = "0"+min; }
   $("#time").text(min+":"+sec+":"+cent);
 }
+
 function changeLaps() {
   $('#laps').animate({opacity: 1}, 200, function()
     {
@@ -131,7 +134,7 @@ function changeLaps() {
   var expression = function() {
     switch(lapsLeft) {
       case 2:
-      return "2 LAPS LEFT";
+      return "1 LAPS LEFT";
       break;
       case 1:
       return "FINAL LAP!";
