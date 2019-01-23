@@ -5,6 +5,9 @@
 // pngtocircuit: translates the png file into a circuit
 
 //////////////////////     GLOBAL VARIABLES     ////////////////////////////////
+var play = false;
+var timeRunning = false;
+
 var miniMap = [];
 var startPoint = { x:0, y:0 }
 
@@ -15,6 +18,7 @@ var cab;
 var myEnvironment;
 var obstacles = [];
 var minZ;
+var menu;
 
 //track vars
 var level;
@@ -23,8 +27,8 @@ var imgWidth = 50;
 var imgHeight = 50;
 var backgroundImage;
 
-var checkpoint = false;
-var lapsLeft = 3;
+var checkpoint = true;
+var lapsLeft = 4;
 
 
 //path vars
@@ -49,7 +53,6 @@ function loadTextures() {
   checkpointTexture = loadImage(currentTextureFolder + 'checkpoint.png');
   return;
 }
-
 function preload() {
   loadTextures();
 }
@@ -74,25 +77,26 @@ function setup() {
 
   // get the starting point of the car from the builder class
   car = new car(startPoint,model);
+
+  // menus
+  menu = new Menus();
 }
 
 function draw() {
-  frameRate(30);
-  printTime();
-  noStroke();
-  minZ = 0;
-  background(0,0,30);
-  circuit.draw();
-  circuit.worldEvent(car);
-  car.update();
-  gl.disable(gl.DEPTH_TEST);
-  car.draw();
-  gl.enable(gl.DEPTH_TEST);
-  drawCam(car);
-
-  if(lapsLeft == 0) {
-  }
-
+  menu.playable();
+  if(play == false) noLoop();
+    frameRate(30);
+    menu.update();
+    noStroke();
+    minZ = 0;
+    background(0,0,30);
+    circuit.draw();
+    circuit.worldEvent(car);
+    car.update();
+    gl.disable(gl.DEPTH_TEST);
+    car.draw();
+    gl.enable(gl.DEPTH_TEST);
+    drawCam(car);
 }
 
 function randomTexture(entity) {
@@ -111,39 +115,4 @@ function drawCam(car) {
   var x = car.pos.x - camRot.x;
   var y = car.pos.y + camRot.y;
   camera(x,y, car.pos.z + (50-25), car.pos.x, car.pos.y, car.pos.z + 10, 0, 0, -1);
-}
-
-var timer = 0;
-function printTime() {
-  timer += 3;
-  var cent = timer % 100;
-  var sec = Math.floor(timer/100) % 60;
-  var min = Math.floor(Math.floor(timer/100)/60);
-
-  if(cent < 10) { cent = "0"+cent; }
-  if(sec < 10) { sec = "0"+sec; }
-  if(min < 10) { min = "0"+min; }
-  $("#time").text(min+":"+sec+":"+cent);
-}
-
-function changeLaps() {
-  $('#laps').animate({opacity: 1}, 200, function()
-    {
-      $('#laps').animate({opacity: 1},500,function() {
-        $('#laps').animate({opacity: 0},600);
-      });
-  });
-  var expression = function() {
-    switch(lapsLeft) {
-      case 2:
-      return "1 LAPS LEFT";
-      break;
-      case 1:
-      return "FINAL LAP!";
-      break;
-      case 0:
-      return "FINISH"
-    }
-  }
-  $("#laps").text(expression);
 }

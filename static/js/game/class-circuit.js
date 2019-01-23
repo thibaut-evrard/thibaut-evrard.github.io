@@ -98,7 +98,7 @@ class circuit {
           case "finish":
             if(checkpoint == true) {
               lapsLeft -= 1;
-              changeLaps();
+              menu.changeLaps(lapsLeft);
               checkpoint = false;
             }
           break;

@@ -9,14 +9,38 @@
   </head>
   <body>
     <main>
+      <div id="finish-menu" class"image-container">
+        <div class="background"></div>
+        <div class="text">
+          <a class="finish centered" href="#" id="restart-race"> restart </a>
+          <!-- <a class="finish centered" href="#" id="next-level"> next level </a> -->
+        </div>
+      </div>
+
+      <div id="pause-menu" class"image-container">
+        <div class="background"></div>
+        <div class="text">
+          <a class="finish centered restart-race" href="#" id="restart-race"> restart </a>
+          <!-- <a class="finish centered" href="#" id="next-level"> next level </a> -->
+        </div>
+      </div>
+
+      <div id="load-screen" class="image-container">
+        <h1 class="title centered">DOG <br/>RACE</h1>
+        <div class="play">
+          <a class="play" id="play" href="#">PLAY</a>
+        </div>
+        <p class="loading centered" id="loading">loading...</p>
+        <img class="fullscreen" src="./static/ressources/menu/loading-background.png"/>
+      </div>
       <h1 class="menu" id="time"></h1>
-      <h1 class="menu" id="laps"></h1>
+      <h1 class="menu centered" id="laps"></h1>
     </main>
 
     <script src="./static/js/libraries/jquery.min.js"></script>
     <script src="./static/js/libraries/p5.js"></script>
-    <script src="./static/js/libraries/vector.js"></script>
     <script src="./static/js/game.js"></script>
+    <script src="./static/js/game/menus.js"></script>
     <script src="./static/js/game/class-kart.js"></script>
     <script src="./static/js/game/class-circuit.js"></script>
     <script src="./static/js/game/class-optimisation.js"></script>

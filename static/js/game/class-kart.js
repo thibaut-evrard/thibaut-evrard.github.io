@@ -5,7 +5,7 @@ class car {
 
   constructor(carStartingPoint) {
     this.heading = createVector(0,0);
-
+    this.startingPoint = createVector(startPoint.x,startPoint.y,100);
     // FORCES AND POSITIONS VARIABLE (CAR PHYSICS)
     // variable and basic forces
     this.pos = createVector(startPoint.x,startPoint.y,100);
@@ -83,6 +83,7 @@ class car {
     this.raMin = 0.1;
     this.drift = 0;
     // implement the angle in raMin
+      if(keyIsDown(ESCAPE)) menu.pause();
       if(keyIsDown(32)) { this.drift = 1; this.v.mult(1.01);} //this.v.mult(0.99);
       if(keyIsDown(UP_ARROW)) this.engineForce = 8;
       if(keyIsDown(DOWN_ARROW) && this.speed<=1) { this.engineForce = -10; }
@@ -239,5 +240,38 @@ class car {
 
   boost() {
     if(this.speed<45) this.v.y *= this.boostRate;
+  }
+
+  restart() {
+    this.heading = createVector(0,0);
+    this.startingPoint = createVector(startPoint.x,startPoint.y,100);
+    // FORCES AND POSITIONS VARIABLE (CAR PHYSICS)
+    // variable and basic forces
+    this.pos = createVector(startPoint.x,startPoint.y,100);
+    this.alpha = 0;
+    this.v = createVector(0,0); // car velocity
+    this.speed = 0;
+    this.u = createVector(0,1) // direction of the car
+    this.engineForce = 0; // engineForce of the car
+    this.a = createVector(0,0); // acceleration of the car
+    this.weight = 120;
+    this.rayon = 60;
+    this.steerAngleMax = 1/this.rayon;
+    this.wheelAngle = 0;
+    this.raMax = 1;
+    this.raMin = 0.1;
+    this.wheelSpeed = 0;
+    this.drift;
+    this.minZ = 0;
+    // constants
+    this.cDrag = 0.01; // constante de drag
+    this.cRr = 0.3;
+    this.cBrake = 30; // braking force
+    // compiled variables (higher level objects)
+    this.fTraction = createVector(0,0);
+    this.fDrag = createVector(0,0);
+    this.fLong = createVector(0,0);
+    this.fRr = createVector(0,0);
+    this.fGravity = 0;
   }
 }
