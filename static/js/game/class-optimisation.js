@@ -108,7 +108,7 @@ class optimisation {
       texture(entity.tex);
       translate(0,0,(entity.scale.z*this.worldScale)/2);
       if(entity.type == "wall") this.drawWall(entity);
-      if(entity.type == "volumeTex") this.drawVolume(entity);
+      //if(entity.type == "volumeTex") this.drawVolume(entity);
     pop();
   }
   drawWall(entity) { box(entity.scale.x*this.worldScale, entity.scale.y*this.worldScale, entity.scale.z*this.worldScale); }

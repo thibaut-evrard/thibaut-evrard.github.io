@@ -88,10 +88,13 @@ $("#play").click(async function() {
   loop();
 })
 
-$("#restart-race").click(function() {
+$(".restart-race").click(function() {
   if(menu.available) {
-    $("#finish-menu").animate({opacity: 0},1000,function() {
-      $("#finish-menu").hide();
+    var id
+    if($('#finish-menu').is(":visible")) id = '#finish-menu';
+    else id = '#pause-menu'
+    $(id).animate({opacity: 0},1000,function() {
+      $(id).hide();
     });
     menu.timer = 0;
     play = true;
