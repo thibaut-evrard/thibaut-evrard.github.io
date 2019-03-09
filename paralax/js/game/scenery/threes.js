@@ -1,22 +1,19 @@
-function Flowers(speed) {
+function Threes(speed) {
   this.viewportX = 0;
-  this.amount = 20;
+  this.amount = 10;
   this.speed = speed;
   this.spriteIndex = 0;
-  this.spriteList = [
-    "01_hanging_flower1.png",
-    "01_hanging_flower2.png",
-    "01_hanging_flower3.png"];
-  this.distance = 100;
-  this.offsetY = -150;
+  this.spriteList = ["02_tree_1.png","02_tree_2.png"];
+  this.distance = 500;
+  this.offsetY = 150;
 
   PIXI.Container.call(this,);
   this.createSprites(this.amount);
 }
 
-Flowers.prototype = Object.create(PIXI.Container.prototype);
+Threes.prototype = Object.create(PIXI.Container.prototype);
 
-Flowers.prototype.createSprites = function(amount) {
+Threes.prototype.createSprites = function(amount) {
   for(var i=0; i<amount; i++) {
     let sprite = this.newSprite(this.spriteIndex);
     this.addChild(sprite);
@@ -24,26 +21,26 @@ Flowers.prototype.createSprites = function(amount) {
   }
 }
 
-Flowers.prototype.newSprite =  function(index) {
+Threes.prototype.newSprite =  function(index) {
   let sprite = this.randomSprite(this.spriteList);
-  sprite.position.y = randomInt(0,this.offsetY);
-  sprite.position.x = (index * this.distance) + randomInt(0,this.distance);
+  sprite.position.y = Height - sprite.height;
+  sprite.position.x = (index * this.distance) + randomInt(0,this.distance/2);
   return sprite;
 }
 
-Flowers.prototype.randomSprite = function() {
+Threes.prototype.randomSprite = function() {
   let index = randomInt(0,this.spriteList.length);
   sprite = new Sprite(resources[WorldAssets.atlas].textures[this.spriteList[index]]);
   return sprite;
 }
 
-Flowers.prototype.setViewportX = function(newViewportX) {
-  var distanceTravelled = newViewportX - this.viewportX;
+Threes.prototype.setViewportX = function(newViewportX) {
   this.viewportX = newViewportX;
-  this.position.x -= (distanceTravelled * this.speed);
 }
 
-Flowers.prototype.update = function() {
+Threes.prototype.update = function(newViewportX) {
+  this.position.x = -this.viewportX * this.speed;
+
   for(var i=0; i<this.children.length; i++) {
     let sprite = this.children[i];
     if(sprite.getGlobalPosition().x < -sprite.width) {
