@@ -22,7 +22,7 @@ let app = new Application({
 document.body.appendChild(app.view);
 
 let WorldAssets = {
-      img: "assets/worldAssets.png",
+      img: "assets/WorldAssets.png",
       atlas: "assets/WorldAssets.json"
     };
 
