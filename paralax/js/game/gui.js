@@ -159,7 +159,7 @@ Gui.prototype.reset = function() {
   this.countDown.visible = false;
   this.countDown.fading = false;
   this.countDown.alpha = 1;
-  this.countDown.value = "3";
+  this.countDown.text = "3";
 
   this.playButton.visible = true;
   this.playButton.interactive = true;

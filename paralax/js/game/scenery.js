@@ -32,6 +32,10 @@ function Scenery() {
   let roofLeaves = new ScrollTile("00_roof_leaves.png",0.8);
   roofLeaves.position.y = 0;
   this.addChild(roofLeaves);
+
+  let lava = new Lava(1);
+  lava.position.y = 0;
+  this.addChild(lava);
 }
 
 Scenery.prototype = Object.create(PIXI.Container.prototype);
