@@ -13,7 +13,6 @@ function Bird() {
   this.addChild(this.hitbox);
 
   var that = this;
-  document.addEventListener("keypress", controls);
 }
 
 Bird.prototype = Object.create(PIXI.Sprite.prototype);

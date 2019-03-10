@@ -96,7 +96,7 @@ function setup() {
   soundAssets.theme.loop = true;
   soundAssets.up.volume = 0.7;
 
-
+  app.stage.interactive = true;
   game = new Game();
   app.stage.addChild(game);
   gameLoop();
@@ -140,11 +140,4 @@ function collision(column,playerBox) {
   }
 
   return hit;
-}
-
-function controls(event) {
-  if(event.key === " ") {
-    game.player.control();
-    event.stopPropagation();
-  }
 }

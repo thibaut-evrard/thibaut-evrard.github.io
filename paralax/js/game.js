@@ -30,9 +30,7 @@ Game.prototype.setup = function() {
 
   this.gui = new Gui();
   this.addChild(this.gui);
-  this.gui.playButton.on('pointerdown', function() {
-    game.loadState("intro");
-  });
+  this.loadControls();
 }
 
 Game.prototype.reset = function() {
@@ -142,4 +140,23 @@ Game.prototype.update = function() {
       this.gui.score.fade("out",120);
       break;
   }
+}
+
+Game.prototype.loadControls = function() {
+  // when spacebar is pressed
+  document.addEventListener("keypress", function(event) {
+    if(event.key === " ") {
+      game.player.control();
+      event.stopPropagation();
+    }
+  });
+
+  app.stage.on('pointerdown', function(event) {
+    game.player.control();
+    event.stopPropagation();
+  });
+
+  this.gui.playButton.on('pointerdown', function() {
+    game.loadState("intro");
+  });
 }
