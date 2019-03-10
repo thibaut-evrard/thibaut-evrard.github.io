@@ -1,9 +1,18 @@
 // handling the size of the screen
-var windowRatio = document.documentElement.clientWidth / document.documentElement.clientHeight ;
+var docW = document.documentElement.clientWidth,
+docH = document.documentElement.clientHeight,
+appH = 640;
+var windowRatio = docW / docH;
 console.log(windowRatio);
-var heightEnlarge = document.documentElement.clientHeight/640;
+
+var heightEnlarge = docH/appH;
 console.log(heightEnlarge);
 var w = document.documentElement.clientWidth/heightEnlarge;
+
+var resolution = window.devicePixelRatio;
+if(heightEnlarge < 1) {
+  resolution = window.devicePixelRatio * heightEnlarge;
+}
 
 
 //Aliases
@@ -15,17 +24,17 @@ let Application = PIXI.Application,
     Sprite = PIXI.Sprite,
     Rectangle = PIXI.Rectangle,
     Width = w,
-    Height = 640;
+    Height = appH;
 
 //Create a Pixi Application object
 let app = new Application({
     width: Width,
     height: Height,
-    antialias: true,
+    antialias: false,
     transparent: false,
     autoResize: true,
     autoDensity: true,
-    resolution: window.devicePixelRatio
+    resolution: resolution
   }
 );
 document.querySelector('#iframe').appendChild(app.view);

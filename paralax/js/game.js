@@ -104,8 +104,8 @@ Game.prototype.update = function() {
   this.scroller.moveViewportXBy(this.viewportSpeed);
   var viewportX = this.scroller.getViewportX();
 
-  this.scenery.setViewportX(viewportX);
-  this.scenery.update();
+  //this.scenery.setViewportX(viewportX);
+  //this.scenery.update();
 
   switch(this.state) {
     case "menu":
