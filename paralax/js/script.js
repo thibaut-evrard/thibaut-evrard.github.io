@@ -163,17 +163,3 @@ function loadSounds() {
     loadCheck("sound")
   }
 }
-
-function fadeAlpha(member,time,sign) {
-  var f = setInterval(function() {
-    member.alpha += (sign * 1) / (time/10);
-    if(member.alpha >= 1) {
-      clearInterval(f);
-      member.alpha = 1;
-    }
-    else if(member.alpha <= 0) {
-      clearInterval(f);
-      member.alpha = 0;
-    }
-  },10);
-}

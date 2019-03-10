@@ -142,6 +142,10 @@ Game.prototype.loadControls = function() {
     }
   });
 
+  document.addEventListener("click", function(event) {
+    // the only use of this event is to enable the browser to recognise interaction and allow sound
+  });
+
   app.stage.on('pointerdown', function(event) {
     game.player.control();
     event.stopPropagation();
