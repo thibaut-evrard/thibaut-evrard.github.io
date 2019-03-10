@@ -21,7 +21,6 @@ Gates.prototype = Object.create(PIXI.Container.prototype);
 
 // setup the gates from the current viewportX
 Gates.prototype.setup = function(viewportX) {
-  console.log(viewportX);
   this.viewportX = viewportX;
   // creates the point where the first gate will be created
   this.currentGateXpos = this.viewportX + Width;

@@ -23,8 +23,8 @@ Collidables.prototype.update = function() {
   this.gates.update();
 }
 
-Collidables.prototype.collides = function(player) {
-  if(this.gates.collides(player) || this.boundaries.collides(player)) {
+Collidables.prototype.collides = function(playerBox) {
+  if(this.gates.collides(playerBox) || this.boundaries.collides(playerBox)) {
     return  true;
   }
   else {

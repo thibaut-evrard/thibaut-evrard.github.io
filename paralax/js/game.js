@@ -64,9 +64,9 @@ Game.prototype.loadState = function(state) {
     case "intro":
       soundAssets.theme.playFrom(0);
       soundAssets.theme.fadeIn(2);
-
       this.gui.load("intro");
       this.viewportSpeed = this.InitialGameSpeed;
+      game.player.slideIn(1750);
       setTimeout(function(){ game.loadState("play") }, 1750);
       break;
 
@@ -80,13 +80,10 @@ Game.prototype.loadState = function(state) {
       soundAssets.crash.play();
 
       this.gui.load("lose");
+
       this.player.controlable = false;
       this.viewportSpeed = 0;
-      console.log(this.viewportSpeed)
-      setTimeout(function() {
-        game.gui.gameOver.fading = true;
-        soundAssets.gameOver.play();
-      }, 1000);
+      setTimeout(function() { soundAssets.gameOver.play(); }, 1000);
       setTimeout(function(){ game.loadState("gameOver") }, 4000);
       break;
 
@@ -109,12 +106,8 @@ Game.prototype.update = function() {
 
   switch(this.state) {
     case "menu":
-      this.gui.playButton.animate();
       break;
     case "intro":
-      this.player.slideIn(msToFrames(1700));
-      this.gui.countDown.fade("out",msToFrames(200));
-
       break;
     case "play":
       this.player.update();
@@ -134,11 +127,8 @@ Game.prototype.update = function() {
     case "lose":
       this.player.update();
       this.player.die();
-      this.gui.gameOver.fade("in",msToFrames(2000));
       break;
     case "gameOver":
-      this.gui.gameOver.fade("out",msToFrames(2000));
-      this.gui.score.fade("out",msToFrames(2000));
       break;
   }
 }

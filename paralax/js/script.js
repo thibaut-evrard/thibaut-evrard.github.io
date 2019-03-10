@@ -3,10 +3,9 @@ var docW = document.documentElement.clientWidth,
 docH = document.documentElement.clientHeight,
 appH = 640;
 var windowRatio = docW / docH;
-console.log(windowRatio);
+
 
 var heightEnlarge = docH/appH;
-console.log(heightEnlarge);
 var w = document.documentElement.clientWidth/heightEnlarge;
 
 var resolution = window.devicePixelRatio;
@@ -163,4 +162,18 @@ function loadSounds() {
     soundsLoaded = true;
     loadCheck("sound")
   }
+}
+
+function fadeAlpha(member,time,sign) {
+  var f = setInterval(function() {
+    member.alpha += (sign * 1) / (time/10);
+    if(member.alpha >= 1) {
+      clearInterval(f);
+      member.alpha = 1;
+    }
+    else if(member.alpha <= 0) {
+      clearInterval(f);
+      member.alpha = 0;
+    }
+  },10);
 }

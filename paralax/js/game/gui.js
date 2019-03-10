@@ -23,21 +23,18 @@ Gui.prototype.init = function() {
 }
 
 Gui.prototype.createCountDown = function() {
+  var that = this;
   let countDown = new PIXI.Text("3");
   countDown.style = {fill: "white", fontFamily: this.font, fontSize: 100};
   countDown.position.set(Width/2,Height/2);
   countDown.anchor.set(0.5,0.5);
   countDown.text = "3";
-  countDown.fading = false;
-  countDown.fade = function(type,speed) {
-    if(this.fading == true) {
-      if(type == "in" && this.alpha <= 1) {
-        this.alpha += 1/(speed*ticker);
-      }
-      else if(type == "out" && this.alpha >= 0) {
-        this.alpha -= 1/(speed*ticker);
-      }
-    }
+  countDown.count = function() {
+    setTimeout(function() { countDown.text = "2"; }, 500);
+    setTimeout(function() { countDown.text = "1"; }, 1000);
+    setTimeout(function() { countDown.text = "GO!"; }, 1500);
+    setTimeout(function() { that.fadeAlpha(countDown,500,-1) }, 1500);
+    // setTimeout(function() { countDown.visible = false; }, 2000);
   }
   return countDown;
 }
@@ -50,10 +47,18 @@ Gui.prototype.createPlayButton = function() {
   playButton.position.set(Width/2,Height/2);
   playButton.interactive = true;
   playButton.buttonMode = true;
-  playButton.animate = function(ticker) {
-    var d = new Date();
-    var val = Math.sin(d.getTime()/200)
-    this.scale.set(1+(val/10));
+  playButton.animateVal = 0;
+  playButton.animate = function() {
+    var that = this;
+    that.animation = setInterval(function() {
+      that.animateVal+=0.05;
+      var val = Math.sin(that.animateVal);
+      that.scale.set(1+(val/10));
+    },10);
+  }
+  playButton.stopAnimation = function() {
+    var that = this;
+    clearInterval(that.animation);
   }
   return playButton;
 }
@@ -67,17 +72,6 @@ Gui.prototype.createScore = function() {
   score.set = function(value) {
     this.value = value;
     this.text = "Score: " + this.value;
-  }
-  score.fading = true;
-  score.fade = function(type,speed) {
-    if(this.fading == true) {
-      if(type == "in" && this.alpha <= 1) {
-        this.alpha += 1/(speed*ticker);
-      }
-      else if(type == "out" && this.alpha >= 0) {
-        this.alpha -= 1/(speed*ticker);
-      }
-    }
   }
   return score;
 }
@@ -95,18 +89,6 @@ Gui.prototype.createGameOver = function() {
   let gameOver = new Container();
   gameOver.addChild(backdrop);
   gameOver.addChild(message);
-  gameOver.fading = false;
-  gameOver.fade = function(type,speed) {
-    if(this.fading == true) {
-      if(type == "in" && this.alpha <= 1) {
-        this.alpha += 1/(speed*ticker);
-      }
-      else if(type == "out" && this.alpha >= 0) {
-        this.alpha -= 1/(speed*ticker);
-      }
-    }
-  }
-
   return gameOver;
 }
 
@@ -115,18 +97,16 @@ Gui.prototype.load = function(state) {
   switch(state) {
     case "menu":
       this.reset();
+      this.playButton.animate();
       break;
 
     case "intro":
-      this.playButton.visible = false;
+      this.playButton.stopAnimation();
 
+      this.playButton.visible = false;
       this.score.visible = true;
       this.countDown.visible = true;
-      var cd = this.countDown;
-      setTimeout(function() { cd.text = "2"; }, 500);
-      setTimeout(function() { cd.text = "1"; }, 1000);
-      setTimeout(function() { cd.text = "GO!"; cd.fading = true; }, 1500);
-      setTimeout(function() { cd.visible = false; }, 2000);
+      this.countDown.count();
       break;
 
     case "play":
@@ -136,31 +116,47 @@ Gui.prototype.load = function(state) {
     case "lose":
       this.gameOver.visible = true;
       this.gameOver.alpha = 0;
+      var that = this;
+      setTimeout(function() { that.fadeAlpha(that.gameOver,1000,1); }, 1000);
       break;
 
     case "gameOver":
       this.playButton.visible = true;
       this.playButton.interactive = false;
       this.gameOver.alpha = 1;
+      var that = this;
+      that.fadeAlpha(that.gameOver,2000,-1);
+      that.fadeAlpha(that.score,2000,-1);
       break;
   }
 }
 
 Gui.prototype.reset = function() {
   this.score.visible = false;
-  this.score.fading = false;
   this.score.alpha = 1;
   this.score.set(0);
 
   this.gameOver.visible = false;
-  this.gameOver.fading = false;
   this.gameOver.alpha = 1;
 
   this.countDown.visible = false;
-  this.countDown.fading = false;
   this.countDown.alpha = 1;
   this.countDown.text = "3";
 
   this.playButton.visible = true;
   this.playButton.interactive = true;
+}
+
+Gui.prototype.fadeAlpha = function(member,time,sign) {
+  var f = setInterval(function() {
+    member.alpha += (sign * 1) / (time/10);
+    if(member.alpha >= 1) {
+      clearInterval(f);
+      member.alpha = 1;
+    }
+    else if(member.alpha <= 0) {
+      clearInterval(f);
+      member.alpha = 0;
+    }
+  },10);
 }

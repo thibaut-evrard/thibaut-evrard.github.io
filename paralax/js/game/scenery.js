@@ -1,7 +1,7 @@
 function Scenery() {
   PIXI.Container.call(this,);
 
-  let backdrop = new ScrollTile("05_far_BG.jpg",0.2);
+  let backdrop = new ScrollTile("05_far_BG.jpg",0.4);
   backdrop.position.y = 100;
   this.addChild(backdrop);
 
@@ -9,7 +9,7 @@ function Scenery() {
   rearCanopy.position.y = 50;
   this.addChild(rearCanopy);
 
-  let threes = new Threes(0.55);
+  let threes = new Threes(0.56);
   threes.position.y = -100;
   this.addChild(threes);
 
@@ -21,7 +21,7 @@ function Scenery() {
   rearSilhouette.position.y = Height - rearSilhouette.texture.height - 50;
   this.addChild(rearSilhouette);
 
-  let frontCanopy = new ScrollTile("02_front_canopy.png",0.7);
+  let frontCanopy = new ScrollTile("02_front_canopy.png",0.57);
   frontCanopy.position.y = 20;
   this.addChild(frontCanopy);
 

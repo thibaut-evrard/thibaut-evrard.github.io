@@ -20,7 +20,7 @@ Bird.prototype = Object.create(PIXI.Sprite.prototype);
 // returns the bird's hitbox
 Bird.prototype.hitbox = function() {
   hitbox = new PIXI.Graphics();
-  // hitbox.beginFill(0x66CCFF);
+  hitbox.beginFill(0x66CCFF);
   hitbox.alpha = 0.3;
   hitbox.tolerance = 20;
 
@@ -28,7 +28,6 @@ Bird.prototype.hitbox = function() {
   var boxH = this.height - hitbox.tolerance
   hitbox.drawRect(0, 0, boxW, boxH);
   hitbox.pivot.set(boxW/2, boxH/2);
-
   return hitbox;
 }
 
@@ -61,13 +60,16 @@ Bird.prototype.animate = function() {
 // makes the bird slide in the area at init time
 Bird.prototype.slideIn = function(time) {
   var p0x = -this.width;
-  var p1x = Width/4;
-  var step = (p1x - p0x) / time;
-  if(this.position.x < Width/4) this.position.x += step;
+  var p1x = Width/3;
+  var step = (p1x - p0x) / (time/10);
+  var that = this;
+  var f = setInterval(function() {
+    that.position.x += step;
+    if(that.position.x > Width/3) clearInterval(f);
+  },10)
 }
 
 Bird.prototype.control = function() {
-  console.log(this.controlable);
   if(this.controlable) {
     soundAssets.up.play();
     this.jump();

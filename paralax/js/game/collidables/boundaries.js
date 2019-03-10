@@ -3,9 +3,9 @@ function Boundaries() {
   this.yGround = Height;
 }
 
-Boundaries.prototype.collides = function(playerHitbox) {
-  var playerTop = playerHitbox.getGlobalPosition().y;
-  var playerBottom = playerHitbox.getGlobalPosition().y + playerHitbox.height;
+Boundaries.prototype.collides = function(playerBox) {
+  var playerTop = playerBox.getGlobalPosition().y - playerBox.height/2;
+  var playerBottom = playerBox.getGlobalPosition().y + playerBox.height/2;
   if(this.yCeiling > playerTop || this.yGround < playerBottom) {
     return true;
   }
