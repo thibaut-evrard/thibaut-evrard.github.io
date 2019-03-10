@@ -9,6 +9,7 @@
 function Game() {
   PIXI.Container.call(this);
   this.viewportSpeed = 0.2;
+  this.InitialGameSpeed = 3;
   this.state = "menu";
   this.setup();
   this.loadState(this.state);
@@ -65,7 +66,7 @@ Game.prototype.loadState = function(state) {
       soundAssets.theme.fadeIn(2);
 
       this.gui.load("intro");
-      this.viewportSpeed = 4;
+      this.viewportSpeed = this.InitialGameSpeed;
       setTimeout(function(){ game.loadState("play") }, 2000);
       break;
 
@@ -109,7 +110,6 @@ Game.prototype.update = function() {
   switch(this.state) {
     case "menu":
       this.gui.playButton.animate();
-
       break;
     case "intro":
       this.player.slideIn(120);
@@ -124,7 +124,7 @@ Game.prototype.update = function() {
 
       var score = this.collidables.gates.passed.getValue(this.player);
       this.gui.score.set(score);
-      this.viewportSpeed = 4 + (score /5);
+      this.viewportSpeed = this.InitialGameSpeed + (score /5);
 
       if(this.collidables.collides(this.player.hitbox)) {
         this.loadState("lose");

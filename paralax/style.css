@@ -2,8 +2,16 @@
 
 * {
   font-family: "Fredoka One", cursive;
+  margin: 0;
+  padding: 0;
 }
 
-canvas {
-  /* height: 800px; */
+body, html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#iframe {
+  overflow: hidden;
+  position: fixed;
 }

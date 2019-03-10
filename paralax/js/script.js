@@ -1,27 +1,9 @@
-// // Load them google fonts before starting...!
-window.WebFontConfig = {
-    google: {
-        families: ['Fredoka+One']
-    },
-
-    active: function() {
-
-    }
-};
-
-// include the web-font loader script
-/* jshint ignore:start */
-(function() {
-    var wf = document.createElement('script');
-    wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
-        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-})();
-/* jshint ignore:end */
-
+// handling the size of the screen
+var windowRatio = window.innerWidth / window.innerHeight;
+console.log(windowRatio);
+var heightEnlarge = window.innerHeight/640;
+console.log(heightEnlarge);
+var w = window.innerWidth/heightEnlarge;
 
 
 //Aliases
@@ -32,7 +14,7 @@ let Application = PIXI.Application,
     TextureCache = PIXI.utils.TextureCache,
     Sprite = PIXI.Sprite,
     Rectangle = PIXI.Rectangle,
-    Width = 1200,
+    Width = w,
     Height = 640;
 
 //Create a Pixi Application object
@@ -41,44 +23,29 @@ let app = new Application({
     height: Height,
     antialias: true,
     transparent: false,
-    resolution: 1
+    autoResize: true,
+    autoDensity: true,
+    resolution: window.devicePixelRatio
   }
 );
-document.body.appendChild(app.view);
+document.querySelector('#iframe').appendChild(app.view);
 
-app.renderer.resize(window.innerWidth, 600);
-Width = window.innerWidth;
-
-let WorldAssets = {
-      img: "assets/WorldAssets.png",
-      atlas: "assets/WorldAssets.json"
-    };
-var soundAssets;
-var pixiLoaded = false,
-soundsLoaded = false;
-
-// load images
-loader
-  .add("assets/playButton.png")
-  .add("assets/column.png")
-  .add("assets/flyingPixie.png")
-  .add([WorldAssets.img, WorldAssets.atlas])
-  .load(function() {
-    pixiLoaded = true;
-    loadCheck("assets");
-  });
-
-sounds.load([
-    "sounds/theme.mp3",
-    "sounds/crash.mp3",
-    "sounds/up.mp3",
-    "sounds/gameOver.mp3"
-]);
-sounds.whenLoaded = function() {
-  soundsLoaded = true;
-  loadCheck("sound")
+resize();
+function resize() {
+  app.renderer.view.style.width = window.innerWidth + 'px';
+  app.renderer.view.style.height = window.innerHeight + 'px';
 }
 
+var soundAssets;
+let WorldAssets = { img: "assets/WorldAssets.png", atlas: "assets/WorldAssets.json" };
+
+// loading all the data for the game
+var pixiLoaded = false,
+soundsLoaded = false,
+fontLoaded = false;
+loadFont();
+loadPixiAssets();
+loadSounds();
 function loadCheck(type) {
   console.log(type + " loaded...")
   if(pixiLoaded && soundsLoaded) {
@@ -143,4 +110,43 @@ function collision(column,playerBox) {
   }
 
   return hit;
+}
+
+function loadFont() {
+  window.WebFontConfig = { google: { families: ['Fredoka+One'] }, active: function() { fontLoaded = true; loadCheck("font")} };
+  (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' === document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+  })();
+}
+
+function loadPixiAssets() {
+  // load images
+  loader
+    .add("assets/playButton.png")
+    .add("assets/column.png")
+    .add("assets/flyingPixie.png")
+    .add([WorldAssets.img, WorldAssets.atlas])
+    .load(function() {
+      pixiLoaded = true;
+      loadCheck("assets");
+    });
+}
+
+function loadSounds() {
+  sounds.load([
+      "sounds/theme.mp3",
+      "sounds/crash.mp3",
+      "sounds/up.mp3",
+      "sounds/gameOver.mp3"
+  ]);
+  sounds.whenLoaded = function() {
+    soundsLoaded = true;
+    loadCheck("sound")
+  }
 }
