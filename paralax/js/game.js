@@ -67,7 +67,7 @@ Game.prototype.loadState = function(state) {
 
       this.gui.load("intro");
       this.viewportSpeed = this.InitialGameSpeed;
-      setTimeout(function(){ game.loadState("play") }, 2000);
+      setTimeout(function(){ game.loadState("play") }, 1750);
       break;
 
     case "play":
@@ -112,7 +112,8 @@ Game.prototype.update = function() {
       this.gui.playButton.animate();
       break;
     case "intro":
-      this.player.slideIn(120);
+      this.player.slideIn(msToFrames(1700));
+      this.gui.countDown.fade("out",msToFrames(200));
 
       break;
     case "play":
@@ -133,11 +134,11 @@ Game.prototype.update = function() {
     case "lose":
       this.player.update();
       this.player.die();
-      this.gui.gameOver.fade("in",120);
+      this.gui.gameOver.fade("in",msToFrames(2000));
       break;
     case "gameOver":
-      this.gui.gameOver.fade("out",120);
-      this.gui.score.fade("out",120);
+      this.gui.gameOver.fade("out",msToFrames(2000));
+      this.gui.score.fade("out",msToFrames(2000));
       break;
   }
 }

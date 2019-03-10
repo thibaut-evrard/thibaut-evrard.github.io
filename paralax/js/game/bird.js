@@ -22,7 +22,7 @@ Bird.prototype.hitbox = function() {
   hitbox = new PIXI.Graphics();
   // hitbox.beginFill(0x66CCFF);
   hitbox.alpha = 0.3;
-  hitbox.tolerance = 10;
+  hitbox.tolerance = 20;
 
   var boxW = this.width - hitbox.tolerance;
   var boxH = this.height - hitbox.tolerance

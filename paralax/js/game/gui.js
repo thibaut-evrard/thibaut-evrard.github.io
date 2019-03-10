@@ -17,6 +17,29 @@ Gui.prototype.init = function() {
 
   this.score = this.createScore();
   this.addChild(this.score);
+
+  this.countDown = this.createCountDown();
+  this.addChild(this.countDown);
+}
+
+Gui.prototype.createCountDown = function() {
+  let countDown = new PIXI.Text("3");
+  countDown.style = {fill: "white", fontFamily: this.font, fontSize: 100};
+  countDown.position.set(Width/2,Height/2);
+  countDown.anchor.set(0.5,0.5);
+  countDown.text = "3";
+  countDown.fading = false;
+  countDown.fade = function(type,speed) {
+    if(this.fading == true) {
+      if(type == "in" && this.alpha <= 1) {
+        this.alpha += 1/(speed*ticker);
+      }
+      else if(type == "out" && this.alpha >= 0) {
+        this.alpha -= 1/(speed*ticker);
+      }
+    }
+  }
+  return countDown;
 }
 
 // creates the play button interactive sprite
@@ -91,38 +114,53 @@ Gui.prototype.createGameOver = function() {
 Gui.prototype.load = function(state) {
   switch(state) {
     case "menu":
-      this.playButton.visible = true;
-      this.playButton.interactive = true;
-      this.score.set(0);
-      this.score.visible = false;
-      this.score.alpha = 1;
-      this.gameOver.visible = false;
-      this.gameOver.alpha = 1;
-      this.gameOver.fading = false;
+      this.reset();
       break;
 
     case "intro":
       this.playButton.visible = false;
+
       this.score.visible = true;
-      this.gameOver.visible = false;
+      this.countDown.visible = true;
+      var cd = this.countDown;
+      setTimeout(function() { cd.text = "2"; }, 500);
+      setTimeout(function() { cd.text = "1"; }, 1000);
+      setTimeout(function() { cd.text = "GO!"; cd.fading = true; }, 1500);
+      setTimeout(function() { cd.visible = false; }, 2000);
       break;
 
     case "play":
+      this.countDown.visible = false;
       break;
 
     case "lose":
-      this.score.visible = true;
       this.gameOver.visible = true;
       this.gameOver.alpha = 0;
-      var that = this
       break;
 
     case "gameOver":
-      this.score.visible = true;
       this.playButton.visible = true;
       this.playButton.interactive = false;
-      this.gameOver.visible = true;
       this.gameOver.alpha = 1;
       break;
   }
+}
+
+Gui.prototype.reset = function() {
+  this.score.visible = false;
+  this.score.fading = false;
+  this.score.alpha = 1;
+  this.score.set(0);
+
+  this.gameOver.visible = false;
+  this.gameOver.fading = false;
+  this.gameOver.alpha = 1;
+
+  this.countDown.visible = false;
+  this.countDown.fading = false;
+  this.countDown.alpha = 1;
+  this.countDown.value = "3";
+
+  this.playButton.visible = true;
+  this.playButton.interactive = true;
 }

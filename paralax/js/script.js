@@ -95,6 +95,11 @@ function randomInt(min,max) {
   return Math.floor(Math.random() * (max - min) ) + min;
 }
 
+function msToFrames(ms) {
+  var x = 60/1000;
+  return ms * x;
+}
+
 // handles collision between column and player
 function collision(column,playerBox) {
   var hit = false;
