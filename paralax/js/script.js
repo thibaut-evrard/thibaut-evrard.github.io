@@ -44,8 +44,10 @@ let app = new Application({
     resolution: 1
   }
 );
-
 document.body.appendChild(app.view);
+
+app.renderer.resize(window.innerWidth, 600);
+Width = window.innerWidth;
 
 let WorldAssets = {
       img: "assets/WorldAssets.png",
@@ -63,7 +65,7 @@ loader
   .add([WorldAssets.img, WorldAssets.atlas])
   .load(function() {
     pixiLoaded = true;
-    loadCheck();
+    loadCheck("assets");
   });
 
 sounds.load([
@@ -74,11 +76,11 @@ sounds.load([
 ]);
 sounds.whenLoaded = function() {
   soundsLoaded = true;
-  loadCheck()
+  loadCheck("sound")
 }
 
-function loadCheck() {
-  console.log("check")
+function loadCheck(type) {
+  console.log(type + " loaded...")
   if(pixiLoaded && soundsLoaded) {
     console.log("loading finished...");
     setup();
@@ -86,6 +88,7 @@ function loadCheck() {
 }
 
 function setup() {
+  console.log("now setting up the game...")
   // setup sounds
   soundAssets = {
     theme: sounds["sounds/theme.mp3"],
