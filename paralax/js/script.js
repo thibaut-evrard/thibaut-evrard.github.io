@@ -1,9 +1,9 @@
 // handling the size of the screen
-var windowRatio = window.innerWidth / window.innerHeight;
+var windowRatio = document.documentElement.clientWidth / document.documentElement.clientHeight ;
 console.log(windowRatio);
-var heightEnlarge = window.innerHeight/640;
+var heightEnlarge = document.documentElement.clientHeight/640;
 console.log(heightEnlarge);
-var w = window.innerWidth/heightEnlarge;
+var w = document.documentElement.clientWidth/heightEnlarge;
 
 
 //Aliases
@@ -32,8 +32,8 @@ document.querySelector('#iframe').appendChild(app.view);
 
 resize();
 function resize() {
-  app.renderer.view.style.width = window.innerWidth + 'px';
-  app.renderer.view.style.height = window.innerHeight + 'px';
+  app.renderer.view.style.width = document.documentElement.clientWidth + 'px';
+  app.renderer.view.style.height = document.documentElement.clientHeight + 'px';
 }
 
 var soundAssets;
