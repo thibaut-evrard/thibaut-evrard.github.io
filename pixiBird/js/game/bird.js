@@ -32,7 +32,6 @@ Bird.prototype.hitbox = function() {
 
 // updates the bird position
 Bird.prototype.update = function() {
-  this.position.x = this.playXPos;
   this.vy += this.gravity;
   this.vy *= 0.9;
   this.position.y += this.vy;
@@ -65,7 +64,7 @@ Bird.prototype.slideIn = function(time) {
   var that = this;
   var f = setInterval(function() {
     that.position.x += step;
-    if(that.position.x > Width/3) clearInterval(f);
+    if(that.position.x > this.playXPos) clearInterval(f);
   },20)
 }
 
