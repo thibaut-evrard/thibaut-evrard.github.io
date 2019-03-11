@@ -18,7 +18,7 @@ let Application = PIXI.Application,
 let app = new Application({
     width: Width,
     height: Height,
-    antialias: false,
+    antialias: true,
     transparent: false,
     autoResize: true,
     autoDensity: true,
