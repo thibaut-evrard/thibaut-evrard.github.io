@@ -64,7 +64,7 @@ Bird.prototype.slideIn = function(time) {
   var that = this;
   var f = setInterval(function() {
     that.position.x += step;
-    if(that.position.x > this.playXPos) clearInterval(f);
+    if(that.position.x > that.playXPos) clearInterval(f);
   },20)
 }
 
