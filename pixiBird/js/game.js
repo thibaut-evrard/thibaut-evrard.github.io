@@ -174,12 +174,12 @@ Game.prototype.loadControls = function() {
     // the only use of this event is to enable the browser to recognise interaction and allow sound
   });
 
-  app.stage.on('touchstart', function(event) {
+  app.stage.on('pointerdown', function(event) {
     game.player.control();
     event.stopPropagation();
   });
 
-  this.gui.playButton.on('pointerdown', function() {
+  this.gui.playButton.on('click', function() {
     game.loadState("intro");
   });
 }
