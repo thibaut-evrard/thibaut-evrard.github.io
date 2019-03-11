@@ -22,7 +22,8 @@ let app = new Application({
     transparent: false,
     autoResize: true,
     autoDensity: true,
-    resolution: resolution
+    resolution: resolution,
+    forceCanvas: true
   }
 );
 document.querySelector('#iframe').appendChild(app.view);
@@ -139,17 +140,8 @@ function resize() {
 
   Width = document.documentElement.clientWidth/heightEnlarge;
   Height = appH;
-
-  // resolution = window.devicePixelRatio;
-  // if(heightEnlarge < 1) { resolution = window.devicePixelRatio * heightEnlarge; }
-  // app.renderer.resolution = resolution;
-
   app.renderer.resize(Width,Height);
-
-  if (typeof game !== 'undefined') {
-    game.resize();
-  }
-
+  if (typeof game !== 'undefined') game.resize();
   app.renderer.view.style.width = document.documentElement.clientWidth + 'px';
   app.renderer.view.style.height = document.documentElement.clientHeight + 'px';
 }
