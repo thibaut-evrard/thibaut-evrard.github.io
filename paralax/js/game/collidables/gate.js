@@ -43,8 +43,34 @@ Gate.prototype.createColumn = function(x,y,w,h) {
 }
 
 // checks the collision with player
-Gate.prototype.collides = function(player) {
-  if(collision(this.topColumn, player)) return true;
-  else if(collision(this.bottomColumn, player)) return true;
-  else return false; 
+Gate.prototype.collides = function(playerBox) {
+  if(this.collision(this.topColumn, playerBox)) return true;
+  else if(this.collision(this.bottomColumn, playerBox)) return true;
+  else return false;
+}
+
+// returns true if the object collides the player
+Gate.prototype.collision = function(column,playerBox) {
+  var hit = false;
+  column.centerx = column.getGlobalPosition().x + column.width/2;
+  column.centery = column.getGlobalPosition().y + column.height/2;
+  playerBox.centerx = playerBox.getGlobalPosition().x;
+  playerBox.centery = playerBox.getGlobalPosition().y;
+
+  column.halfHeight = column.height/2;
+  column.halfWidth = column.width/2;
+  playerBox.halfHeight = playerBox.height/2;
+  playerBox.halfWidth = playerBox.width/2;
+
+  // calculate the distance between the two objects
+  let dx = Math.abs(column.centerx - playerBox.centerx);
+  let dy = Math.abs(column.centery - playerBox.centery);
+
+  if(dx < Math.abs(column.halfWidth + playerBox.halfWidth)) {
+    if(dy < Math.abs(column.halfHeight + playerBox.halfHeight)) {
+      hit = true;
+    }
+  }
+
+  return hit;
 }

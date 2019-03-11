@@ -38,9 +38,9 @@ Gates.prototype.createGate = function() {
 }
 
 // returns true if the player collides a gate
-Gates.prototype.collides = function(player) {
+Gates.prototype.collides = function(playerBox) {
   for(gate of this.children) {
-    if(gate.collides(player)) return true;
+    if(gate.collides(playerBox)) return true;
   }
   return false;
 }

@@ -78,32 +78,6 @@ function randomInt(min,max) {
   return Math.floor(Math.random() * (max - min) ) + min;
 }
 
-// returns true if the object collides the player
-function collision(column,playerBox) {
-  var hit = false;
-  column.centerx = column.getGlobalPosition().x + column.width/2;
-  column.centery = column.getGlobalPosition().y + column.height/2;
-  playerBox.centerx = playerBox.getGlobalPosition().x;
-  playerBox.centery = playerBox.getGlobalPosition().y;
-
-  column.halfHeight = column.height/2;
-  column.halfWidth = column.width/2;
-  playerBox.halfHeight = playerBox.height/2;
-  playerBox.halfWidth = playerBox.width/2;
-
-  // calculate the distance between the two objects
-  let dx = Math.abs(column.centerx - playerBox.centerx);
-  let dy = Math.abs(column.centery - playerBox.centery);
-
-  if(dx < Math.abs(column.halfWidth + playerBox.halfWidth)) {
-    if(dy < Math.abs(column.halfHeight + playerBox.halfHeight)) {
-      hit = true;
-    }
-  }
-
-  return hit;
-}
-
 // loads the font
 function loadFont() {
   window.WebFontConfig = { google: { families: ['Fredoka+One'] }, active: function() { fontLoaded = true; loadCheck("font")} };
