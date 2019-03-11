@@ -3,7 +3,7 @@ var Width =  1200,
     Height = 640,
     resolution = window.devicePixelRatio;
 
-if(document.documentElement.clientHeight < 640) { resolution = window.devicePixelRatio * document.documentElement.clientHeight/640; }
+// if(document.documentElement.clientHeight < 640) { resolution = window.devicePixelRatio * document.documentElement.clientHeight/640; }
 
 //declaring Aliases
 let Application = PIXI.Application,
