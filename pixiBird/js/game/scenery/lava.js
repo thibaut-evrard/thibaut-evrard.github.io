@@ -6,7 +6,7 @@ function Lava(speed) {
   this.viewportX = 0;
 
   PIXI.Container.call(this);
-  this.setup(10);
+  this.setup(20);
 }
 
 Lava.prototype = Object.create(PIXI.Container.prototype);

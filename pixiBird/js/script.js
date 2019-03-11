@@ -140,10 +140,10 @@ function resize() {
   Width = document.documentElement.clientWidth/heightEnlarge;
   Height = appH;
 
-  resolution = window.devicePixelRatio;
-  if(heightEnlarge < 1) { resolution = window.devicePixelRatio * heightEnlarge; }
+  // resolution = window.devicePixelRatio;
+  // if(heightEnlarge < 1) { resolution = window.devicePixelRatio * heightEnlarge; }
+  // app.renderer.resolution = resolution;
 
-  app.renderer.resolution = resolution;
   app.renderer.resize(Width,Height);
 
   if (typeof game !== 'undefined') {
