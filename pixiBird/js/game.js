@@ -94,7 +94,7 @@ Game.prototype.loadState = function(state) {
       // stops the scroll
       this.viewportSpeed = 0;
       // after a second, play the lose sound and fade to the gameOver screen
-      setTimeout(function() { game.gui.fadeAlpha(game.gui.gameOver,2000,1); }, 1000);
+      setTimeout(function() { game.gui.fadeAlpha(game.gui.gameOver,1000,1); }, 1000);
       setTimeout(function() { soundAssets.gameOver.play(); }, 1000);
       // go to the gameover state after 4 seconds
       setTimeout(function(){ game.loadState("gameOver") }, 4000);
@@ -103,6 +103,9 @@ Game.prototype.loadState = function(state) {
     case "gameOver":
       this.gui.load("gameOver");
       // reset the game (except from gui)
+      this.gui.fadeAlpha(this.gui.gameOver,1800,-1);
+      this.gui.fadeAlpha(this.gui.score,1800,-1);
+
       this.reset();
       this.player.controlable = false;
       // go back to the menu after 2 seconds

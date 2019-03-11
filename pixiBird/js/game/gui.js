@@ -126,9 +126,6 @@ Gui.prototype.load = function(state) {
       this.playButton.visible = true;
       this.playButton.interactive = false;
       this.gameOver.alpha = 1;
-      var that = this;
-      that.fadeAlpha(that.gameOver,2000,-1);
-      that.fadeAlpha(that.score,2000,-1);
       break;
   }
 }
