@@ -17,7 +17,7 @@ Bird.prototype = Object.create(PIXI.Sprite.prototype);
 // returns the bird's hitbox
 Bird.prototype.hitbox = function() {
   hitbox = new PIXI.Graphics();
-  hitbox.beginFill(0x66CCFF);
+  // hitbox.beginFill(0x66CCFF);
   hitbox.alpha = 0.3;
   hitbox.tolerance = 20;
 

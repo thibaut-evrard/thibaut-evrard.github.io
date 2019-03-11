@@ -29,11 +29,7 @@ let app = new Application({
 );
 document.querySelector('#iframe').appendChild(app.view);
 
-resize();
-function resize() {
-  app.renderer.view.style.width = document.documentElement.clientWidth + 'px';
-  app.renderer.view.style.height = document.documentElement.clientHeight + 'px';
-}
+resizeView();
 
 var soundAssets;
 var WorldAssets = { img: "assets/WorldAssets.png", atlas: "assets/WorldAssets.json" };
@@ -83,11 +79,6 @@ function gameLoop(delta) {
 // returns a random integer
 function randomInt(min,max) {
   return Math.floor(Math.random() * (max - min) ) + min;
-}
-
-function msToFrames(ms) {
-  var x = 60/1000;
-  return ms * x;
 }
 
 // returns true if the object collides the player
@@ -168,4 +159,9 @@ function setupSound() {
   }
   soundAssets.theme.loop = true;
   soundAssets.up.volume = 0.7;
+}
+
+function resizeView() {
+  app.renderer.view.style.width = document.documentElement.clientWidth + 'px';
+  app.renderer.view.style.height = document.documentElement.clientHeight + 'px';
 }
