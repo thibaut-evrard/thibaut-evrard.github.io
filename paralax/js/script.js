@@ -1,11 +1,9 @@
 // setting up canvas width, height and resolution
-var docH = document.documentElement.clientHeight,
-    appH = 640,
-    heightEnlarge = docH / appH,
-    Width = document.documentElement.clientWidth/heightEnlarge,
-    Height = appH,
+var Width =  1200,
+    Height = 640,
     resolution = window.devicePixelRatio;
-    if(heightEnlarge < 1) { resolution = window.devicePixelRatio * heightEnlarge; }
+
+if(document.documentElement.clientHeight < 640) { resolution = window.devicePixelRatio * document.documentElement.clientHeight/640; }
 
 //declaring Aliases
 let Application = PIXI.Application,
@@ -28,8 +26,7 @@ let app = new Application({
   }
 );
 document.querySelector('#iframe').appendChild(app.view);
-
-resizeView();
+resize();
 
 var soundAssets;
 var WorldAssets = { img: "assets/WorldAssets.png", atlas: "assets/WorldAssets.json" };
@@ -161,7 +158,28 @@ function setupSound() {
   soundAssets.up.volume = 0.7;
 }
 
-function resizeView() {
+function resize() {
+  var docH = document.documentElement.clientHeight,
+      appH = 640,
+      heightEnlarge = docH / appH;
+
+  Width = document.documentElement.clientWidth/heightEnlarge;
+  Height = appH;
+
+  resolution = window.devicePixelRatio;
+  if(heightEnlarge < 1) { resolution = window.devicePixelRatio * heightEnlarge; }
+
+  app.renderer.resolution = resolution;
+  app.renderer.resize(Width,Height);
+
+  if (typeof game !== 'undefined') {
+    game.resize();
+  }
+
   app.renderer.view.style.width = document.documentElement.clientWidth + 'px';
   app.renderer.view.style.height = document.documentElement.clientHeight + 'px';
 }
+
+window.addEventListener("resize", function(event){
+  resize();
+});

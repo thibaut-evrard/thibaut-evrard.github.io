@@ -81,11 +81,11 @@ Gui.prototype.createScore = function() {
 
 // create the Game Over sign
 Gui.prototype.createGameOver = function() {
-  let backdrop = new PIXI.Graphics();
+  backdrop = new PIXI.Graphics();
   backdrop.beginFill(0x000000);
   backdrop.drawRect(0,0,Width,Height)
 
-  let message = new PIXI.Text("GAME OVER");
+  message = new PIXI.Text("GAME OVER");
   message.style = {fill: "white", fontFamily: this.font, fontSize: 50};
   message.position.set(Width/2,Height/2);
   message.anchor.set(0.5,0.5)
@@ -167,4 +167,11 @@ Gui.prototype.fadeAlpha = function(member,time,sign) {
       member.alpha = 0;
     }
   },10);
+}
+
+Gui.prototype.resize = function() {
+  this.countDown.position.set(Width/2,Height/2);
+  this.playButton.position.set(Width/2,Height/2);
+  this.gameOver.children[1].position.set(Width/2,Height/2);
+  this.gameOver.children[0].width = Width;
 }

@@ -45,3 +45,6 @@ Trees.prototype.update = function() {
     this.lastTileIndex++;
   }
 }
+
+Trees.prototype.resize = function() {
+}

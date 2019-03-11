@@ -21,3 +21,7 @@ ScrollTile.prototype.update = function() {
 ScrollTile.prototype.setViewportX = function(newViewportX) {
   this.viewportX = newViewportX;
 };
+
+ScrollTile.prototype.resize = function() {
+  this.width = Width;
+}

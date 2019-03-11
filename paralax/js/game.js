@@ -183,3 +183,9 @@ Game.prototype.loadControls = function() {
     game.loadState("intro");
   });
 }
+
+Game.prototype.resize = function() {
+  this.gui.resize();
+  this.scenery.resize();
+  this.player.resize();
+}

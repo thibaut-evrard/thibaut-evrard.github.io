@@ -8,6 +8,8 @@ function Bird() {
   this.anchor.set(0.5,0.5);
   this.hitbox = this.hitbox();
 
+  this.playXPos = Width/3;
+
   this.position.set(-this.width,Height/2); // to reset on setup?
   this.addChild(this.hitbox);
 }
@@ -30,6 +32,7 @@ Bird.prototype.hitbox = function() {
 
 // updates the bird position
 Bird.prototype.update = function() {
+  this.position.x = this.playXPos;
   this.vy += this.gravity;
   this.vy *= 0.9;
   this.position.y += this.vy;
@@ -57,7 +60,7 @@ Bird.prototype.jump = function() {
 // slide the bird from the left of the screen to it's play position
 Bird.prototype.slideIn = function(time) {
   var p0x = -this.width;
-  var p1x = Width/3;
+  var p1x = this.playXPos;
   var step = (p1x - p0x) / (time/20);
   var that = this;
   var f = setInterval(function() {
@@ -72,4 +75,8 @@ Bird.prototype.control = function() {
     soundAssets.up.play();
     this.jump();
   }
+}
+
+Bird.prototype.resize = function() {
+  this.playXPos = Width/3;
 }

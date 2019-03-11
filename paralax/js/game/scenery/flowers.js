@@ -49,3 +49,6 @@ Flowers.prototype.update = function() {
     this.lastTileIndex++;
   }
 }
+
+Flowers.prototype.resize = function() {
+}

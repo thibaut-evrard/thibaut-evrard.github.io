@@ -57,3 +57,6 @@ Lava.prototype.createAnnimation = function() {
   }
   return frames;
 }
+
+Lava.prototype.resize = function() {
+}

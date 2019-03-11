@@ -53,3 +53,9 @@ Scenery.prototype.update = function() {
     child.update();
   });
 };
+
+Scenery.prototype.resize = function() {
+  this.children.forEach(function(child) {
+    child.resize();
+  });
+}
