@@ -17,6 +17,7 @@ function Game() {
 
 Game.prototype = Object.create(PIXI.Container.prototype);
 
+// create instance of classes and add them to the game container
 Game.prototype.setup = function() {
   this.scroller = new Scroller();
 
@@ -34,6 +35,7 @@ Game.prototype.setup = function() {
   this.loadControls();
 }
 
+// reset the game after gameover state
 Game.prototype.reset = function() {
   this.removeChild(this.scroller);
   this.scroller = new Scroller();
@@ -53,81 +55,107 @@ Game.prototype.reset = function() {
   this.setChildIndex(this.gui,this.children.length-1);
 }
 
+// prepare the game for the next state
 Game.prototype.loadState = function(state) {
   switch(state) {
     case "menu":
+      this.gui.load("menu");
       this.player.controlable = false;
       this.viewPortSpeed = 0.5;
-      this.gui.load("menu");
       break;
 
     case "intro":
+      this.gui.load("intro");
       soundAssets.theme.playFrom(0);
       soundAssets.theme.fadeIn(2);
-      this.gui.load("intro");
+      // set the initial scrolling speed
       this.viewportSpeed = this.InitialGameSpeed;
-      game.player.slideIn(1750);
+
+      // pixi comes in the screen from the left
+      this.player.slideIn(1750);
+      // 3, 2, 1, GO!
+      this.gui.countDown.count(1750);
+      // change the game to "play" after player is in and countdown is finished
       setTimeout(function(){ game.loadState("play") }, 1750);
       break;
 
     case "play":
       this.player.controlable = true;
+      // create the gates and add them to the stage
       this.collidables.init(this.scroller.getViewportX());
       break;
 
     case "lose":
+      this.gui.load("lose");
       soundAssets.theme.fadeOut(1);
       soundAssets.crash.play();
-
-      this.gui.load("lose");
-
+      // the control events no longer affect the player
       this.player.controlable = false;
+      // stops the scroll
       this.viewportSpeed = 0;
+      // after a second, play the lose sound and fade to the gameOver screen
+      setTimeout(function() { game.gui.fadeAlpha(game.gui.gameOver,2000,1); }, 1000);
       setTimeout(function() { soundAssets.gameOver.play(); }, 1000);
+      // go to the gameover state after 4 seconds
       setTimeout(function(){ game.loadState("gameOver") }, 4000);
       break;
 
     case "gameOver":
+      this.gui.load("gameOver");
+      // reset the game (except from gui)
       this.reset();
       this.player.controlable = false;
-      this.gui.load("gameOver");
+      // go back to the menu after 2 seconds
       setTimeout(function(){ game.loadState("menu") }, 2000);
       break;
   }
   this.state = state;
 }
 
+// updates the current state
 Game.prototype.update = function() {
+  // update the scroller
   this.scroller.moveViewportXBy(this.viewportSpeed);
   var viewportX = this.scroller.getViewportX();
-
+  // update the scenery
   this.scenery.setViewportX(viewportX);
   this.scenery.update();
 
   switch(this.state) {
     case "menu":
       break;
+
     case "intro":
       break;
+
     case "play":
+      // update the player position and rotation
       this.player.update();
       this.player.animate();
 
+      // update the position of collidables
       this.collidables.setViewportX(viewportX);
+      // delete useless gates and add new ones if needed
       this.collidables.update();
 
+      // update the score
       var score = this.collidables.gates.passed.getValue(this.player);
       this.gui.score.set(score);
       this.viewportSpeed = this.InitialGameSpeed + (score /5);
 
+      // go to the lose state if the player hits a column
       if(this.collidables.collides(this.player.hitbox)) {
         this.loadState("lose");
       }
       break;
+
     case "lose":
+      // update the poisition of the player
       this.player.update();
+      // animate the player to "die"
       this.player.die();
       break;
+
     case "gameOver":
       break;
   }

@@ -20,7 +20,7 @@ Lava.prototype.setup = function(amount) {
 }
 
 Lava.prototype.newTile = function() {
-  var tile = new PIXI.extras.AnimatedSprite(this.frames);
+  var tile = new PIXI.AnimatedSprite(this.frames);
   tile.x = (tile.width -1) * this.lastTileIndex;
   tile.y = app.screen.height - tile.height;
   tile.animationSpeed = 0.1;
@@ -30,7 +30,6 @@ Lava.prototype.newTile = function() {
 
 Lava.prototype.update = function() {
   this.position.x = -this.viewportX * this.scrollSpeed;
-
   // each time a tile disapears on the right of the screen
   // delete it and add a new one to the queue
   var firstChild = this.children[0];
@@ -53,7 +52,7 @@ Lava.prototype.createAnnimation = function() {
     if(i<=8) number = i;
     else if(i>8) number = 8-(i-8);
     let path = "lava_slosh_0" + number + ".png";
-    let texture = new PIXI.Texture.fromFrame(path);
+    let texture = new PIXI.Texture.from(path);
     frames.push(texture);
   }
   return frames;

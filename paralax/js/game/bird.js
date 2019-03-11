@@ -1,5 +1,4 @@
 function Bird() {
-  //this.viewportX = 0;
   this.gravity = 1.5;
   this.jumpForce = 35;
   this.controlable = false;
@@ -11,8 +10,6 @@ function Bird() {
 
   this.position.set(-this.width,Height/2); // to reset on setup?
   this.addChild(this.hitbox);
-
-  var that = this;
 }
 
 Bird.prototype = Object.create(PIXI.Sprite.prototype);
@@ -38,7 +35,15 @@ Bird.prototype.update = function() {
   this.position.y += this.vy;
 }
 
-// handles the bird death annimation
+// handles the animated rotation of the bird
+Bird.prototype.animate = function() {
+  this.hitbox.height = this.height - this.hitbox.tolerance + 15;
+  this.hitbox.width = this.height - this.hitbox.tolerance - 5;
+  this.rotation = this.vy/40;
+  this.hitbox.rotation = -this.rotation;
+}
+
+// handles the bird death animation
 Bird.prototype.die = function() {
   this.gravity = 1;
   this.rotation += -0.09;
@@ -49,26 +54,19 @@ Bird.prototype.jump = function() {
   this.vy -= this.jumpForce;
 }
 
-// UNUSED
-Bird.prototype.animate = function() {
-  this.hitbox.height = this.height - this.hitbox.tolerance + 15;
-  this.hitbox.width = this.height - this.hitbox.tolerance - 5;
-  this.rotation = this.vy/40;
-  this.hitbox.rotation = -this.rotation;
-}
-
-// makes the bird slide in the area at init time
+// slide the bird from the left of the screen to it's play position
 Bird.prototype.slideIn = function(time) {
   var p0x = -this.width;
   var p1x = Width/3;
-  var step = (p1x - p0x) / (time/10);
+  var step = (p1x - p0x) / (time/20);
   var that = this;
   var f = setInterval(function() {
     that.position.x += step;
     if(that.position.x > Width/3) clearInterval(f);
-  },10)
+  },20)
 }
 
+//translates tap/space event into bird action
 Bird.prototype.control = function() {
   if(this.controlable) {
     soundAssets.up.play();

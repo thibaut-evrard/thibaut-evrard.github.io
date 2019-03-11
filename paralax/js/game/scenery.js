@@ -1,5 +1,5 @@
 function Scenery() {
-  PIXI.Container.call(this,);
+  PIXI.Container.call(this);
 
   let backdrop = new ScrollTile("05_far_BG.jpg",0.4);
   backdrop.position.y = 100;
@@ -9,9 +9,9 @@ function Scenery() {
   rearCanopy.position.y = 50;
   this.addChild(rearCanopy);
 
-  let threes = new Threes(0.56);
-  threes.position.y = -100;
-  this.addChild(threes);
+  let trees = new Trees(0.56);
+  trees.position.y = -100;
+  this.addChild(trees);
 
   let flowers = new Flowers(0.56);
   flowers.position.y = 0;
@@ -40,12 +40,14 @@ function Scenery() {
 
 Scenery.prototype = Object.create(PIXI.Container.prototype);
 
+// gives viewport to each child
 Scenery.prototype.setViewportX = function(viewportX) {
   this.children.forEach(function(child) {
     child.setViewportX(viewportX);
   });
 };
 
+// update the object position and handles sprite array rotation when applicable
 Scenery.prototype.update = function() {
   this.children.forEach(function(child) {
     child.update();

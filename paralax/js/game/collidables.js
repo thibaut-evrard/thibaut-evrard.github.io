@@ -24,10 +24,6 @@ Collidables.prototype.update = function() {
 }
 
 Collidables.prototype.collides = function(playerBox) {
-  if(this.gates.collides(playerBox) || this.boundaries.collides(playerBox)) {
-    return  true;
-  }
-  else {
-    return false;
-  }
+  if(this.gates.collides(playerBox) || this.boundaries.collides(playerBox)) return true;
+  else return false;
 }

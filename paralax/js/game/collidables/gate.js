@@ -8,21 +8,21 @@ function Gate() {
 
 Gate.prototype = Object.create(PIXI.Container.prototype);
 
-// main function, creates a new gate
+// creates the columns and adds them to the container
 Gate.prototype.createGate = function(openingSize,width) {
   // setup the position of the gate opening
   var opening = this.randomOpening(openingSize);
 
-  // create column and add it to the gate
-  this.topColumn = this.column( 0, 0, width, opening.top );
-  this.addChild(this.topColumn);
+  // create columns
+  this.topColumn = this.createColumn( 0, 0, width, opening.top );
+  this.bottomColumn = this.createColumn( 0, opening.bottom, width, Height - opening.bottom );
 
-  // create column and add it to the gate
-  this.bottomColumn = this.column( 0, opening.bottom, width, Height - opening.bottom );
+  // add columns to container
   this.addChild(this.bottomColumn);
+  this.addChild(this.topColumn);
 }
 
-// returns the gate opening object
+// returns the info about the gap between columns
 Gate.prototype.randomOpening = function(openingSize) {
   opening = {};
   opening.halfSize = openingSize/2;
@@ -34,7 +34,7 @@ Gate.prototype.randomOpening = function(openingSize) {
 }
 
 // returns a column sprite
-Gate.prototype.column = function(x,y,w,h) {
+Gate.prototype.createColumn = function(x,y,w,h) {
   let column = new Sprite(this.texture);
   column.width = w;
   column.height = h;
@@ -44,7 +44,7 @@ Gate.prototype.column = function(x,y,w,h) {
 
 // checks the collision with player
 Gate.prototype.collides = function(player) {
-  if(collision(this.topColumn, player)) { return true; }
-  else if(collision(this.bottomColumn, player)) { return true; }
-  else { return false; }
+  if(collision(this.topColumn, player)) return true;
+  else if(collision(this.bottomColumn, player)) return true;
+  else return false; 
 }

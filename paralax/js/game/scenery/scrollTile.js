@@ -12,10 +12,12 @@ function ScrollTile(texturePath,scrollSpeed) {
 
 ScrollTile.prototype = Object.create(PIXI.TilingSprite.prototype);
 
+// updates the scroll variable
 ScrollTile.prototype.update = function() {
   this.tilePosition.x = -this.viewportX * this.scrollSpeed;
 };
 
+// update the position of the sprite
 ScrollTile.prototype.setViewportX = function(newViewportX) {
   this.viewportX = newViewportX;
 };

@@ -8,6 +8,7 @@ function Gui() {
 
 Gui.prototype = Object.create(PIXI.Container.prototype);
 
+// create all children instances of GUI and add them to the container
 Gui.prototype.init = function() {
   this.playButton = this.createPlayButton();
   this.addChild(this.playButton);
@@ -22,6 +23,7 @@ Gui.prototype.init = function() {
   this.addChild(this.countDown);
 }
 
+// create the countdown object (3, 2, 1, GO)
 Gui.prototype.createCountDown = function() {
   var that = this;
   let countDown = new PIXI.Text("3");
@@ -29,17 +31,18 @@ Gui.prototype.createCountDown = function() {
   countDown.position.set(Width/2,Height/2);
   countDown.anchor.set(0.5,0.5);
   countDown.text = "3";
-  countDown.count = function() {
-    setTimeout(function() { countDown.text = "2"; }, 500);
-    setTimeout(function() { countDown.text = "1"; }, 1000);
-    setTimeout(function() { countDown.text = "GO!"; }, 1500);
-    setTimeout(function() { that.fadeAlpha(countDown,500,-1) }, 1500);
-    // setTimeout(function() { countDown.visible = false; }, 2000);
+  countDown.count = function(time) {
+    var step = time/4
+    setTimeout(function() { countDown.text = "2"; }, step);
+    setTimeout(function() { countDown.text = "1"; }, 2*step);
+    setTimeout(function() { countDown.text = "GO!"; }, 3*step);
+    setTimeout(function() { that.fadeAlpha(countDown,step,-1) }, 3*step);
+    setTimeout(function() { countDown.visible = false; }, 4*step);
   }
   return countDown;
 }
 
-// creates the play button interactive sprite
+// create the Play Button
 Gui.prototype.createPlayButton = function() {
   let texture = resources["assets/playButton.png"].texture;
   playButton = new Sprite(texture);
@@ -63,7 +66,7 @@ Gui.prototype.createPlayButton = function() {
   return playButton;
 }
 
-// creates the score text and set it to 0
+// create the score panel and set it to 0
 Gui.prototype.createScore = function() {
   let score = new PIXI.Text("Score: " + 0);
   score.style = {fill: "white", fontFamily: this.font};
@@ -76,6 +79,7 @@ Gui.prototype.createScore = function() {
   return score;
 }
 
+// create the Game Over sign
 Gui.prototype.createGameOver = function() {
   let backdrop = new PIXI.Graphics();
   backdrop.beginFill(0x000000);
@@ -92,7 +96,7 @@ Gui.prototype.createGameOver = function() {
   return gameOver;
 }
 
-// Load functions: sets up the GUI for a specific game state
+// Change the GUI when a new state comes in
 Gui.prototype.load = function(state) {
   switch(state) {
     case "menu":
@@ -105,8 +109,8 @@ Gui.prototype.load = function(state) {
 
       this.playButton.visible = false;
       this.score.visible = true;
+
       this.countDown.visible = true;
-      this.countDown.count();
       break;
 
     case "play":
@@ -116,8 +120,6 @@ Gui.prototype.load = function(state) {
     case "lose":
       this.gameOver.visible = true;
       this.gameOver.alpha = 0;
-      var that = this;
-      setTimeout(function() { that.fadeAlpha(that.gameOver,1000,1); }, 1000);
       break;
 
     case "gameOver":
@@ -131,6 +133,7 @@ Gui.prototype.load = function(state) {
   }
 }
 
+// reset the instances to their original state
 Gui.prototype.reset = function() {
   this.score.visible = false;
   this.score.alpha = 1;
@@ -147,6 +150,11 @@ Gui.prototype.reset = function() {
   this.playButton.interactive = true;
 }
 
+// handle the alpha fading of a sprite/container
+/*
+sign: 1 -> fade in
+     -1 -> fade out
+*/
 Gui.prototype.fadeAlpha = function(member,time,sign) {
   var f = setInterval(function() {
     member.alpha += (sign * 1) / (time/10);

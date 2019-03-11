@@ -1,29 +1,20 @@
-// handling the size of the screen
-var docW = document.documentElement.clientWidth,
-docH = document.documentElement.clientHeight,
-appH = 640;
-var windowRatio = docW / docH;
+// setting up canvas width, height and resolution
+var docH = document.documentElement.clientHeight,
+    appH = 640,
+    heightEnlarge = docH / appH,
+    Width = document.documentElement.clientWidth/heightEnlarge,
+    Height = appH,
+    resolution = window.devicePixelRatio;
+    if(heightEnlarge < 1) { resolution = window.devicePixelRatio * heightEnlarge; }
 
-
-var heightEnlarge = docH/appH;
-var w = document.documentElement.clientWidth/heightEnlarge;
-
-var resolution = window.devicePixelRatio;
-if(heightEnlarge < 1) {
-  resolution = window.devicePixelRatio * heightEnlarge;
-}
-
-
-//Aliases
+//declaring Aliases
 let Application = PIXI.Application,
     Container = PIXI.Container,
     loader = PIXI.Loader.shared,
     resources = PIXI.Loader.shared.resources,
     TextureCache = PIXI.utils.TextureCache,
     Sprite = PIXI.Sprite,
-    Rectangle = PIXI.Rectangle,
-    Width = w,
-    Height = appH;
+    Rectangle = PIXI.Rectangle;
 
 //Create a Pixi Application object
 let app = new Application({
@@ -45,51 +36,51 @@ function resize() {
 }
 
 var soundAssets;
-let WorldAssets = { img: "assets/WorldAssets.png", atlas: "assets/WorldAssets.json" };
+var WorldAssets = { img: "assets/WorldAssets.png", atlas: "assets/WorldAssets.json" };
 
-// loading all the data for the game
+// creating loadCheck variables
 var pixiLoaded = false,
-soundsLoaded = false,
-fontLoaded = false;
+    soundsLoaded = false,
+    fontLoaded = false;
+
+// loading files for the game
 loadFont();
 loadPixiAssets();
 loadSounds();
+
+// go to setup when sound, assets and font are loaded
 function loadCheck(type) {
   console.log(type + " loaded...")
-  if(pixiLoaded && soundsLoaded) {
+  if(pixiLoaded && soundsLoaded && fontLoaded) {
     console.log("loading finished...");
     setup();
   }
 }
 
+// setup the game environment
 function setup() {
-  console.log("now setting up the game...")
-  // setup sounds
-  soundAssets = {
-    theme: sounds["sounds/theme.mp3"],
-    crash: sounds["sounds/crash.mp3"],
-    up: sounds["sounds/up.mp3"],
-    gameOver: sounds["sounds/gameOver.mp3"]
-  }
-  soundAssets.theme.loop = true;
-  soundAssets.up.volume = 0.7;
+  // console.log("now setting up the game...")
 
-  app.stage.interactive = true;
+  // setup sounds
+  setupSound();
   game = new Game();
+  app.stage.interactive = true;
   app.stage.addChild(game);
+
   gameLoop();
   app.ticker.add(delta => gameLoop(delta));
 }
 
 var ticker = 0;
-
+// game loop
 function gameLoop(delta) {
   ticker = delta;
   game.update();
 }
 
-// GLOBAL FUNCTIONS
-// gives a random int
+// GLOBAL APP FUNCTIONS
+
+// returns a random integer
 function randomInt(min,max) {
   return Math.floor(Math.random() * (max - min) ) + min;
 }
@@ -99,7 +90,7 @@ function msToFrames(ms) {
   return ms * x;
 }
 
-// handles collision between column and player
+// returns true if the object collides the player
 function collision(column,playerBox) {
   var hit = false;
   column.centerx = column.getGlobalPosition().x + column.width/2;
@@ -125,6 +116,7 @@ function collision(column,playerBox) {
   return hit;
 }
 
+// loads the font
 function loadFont() {
   window.WebFontConfig = { google: { families: ['Fredoka+One'] }, active: function() { fontLoaded = true; loadCheck("font")} };
   (function() {
@@ -138,19 +130,21 @@ function loadFont() {
   })();
 }
 
+// loads the game assets
 function loadPixiAssets() {
   // load images
   loader
     .add("assets/playButton.png")
     .add("assets/column.png")
     .add("assets/flyingPixie.png")
-    .add([WorldAssets.img, WorldAssets.atlas])
+    .add("assets/WorldAssets.json")
     .load(function() {
       pixiLoaded = true;
       loadCheck("assets");
     });
 }
 
+// load the sound assets
 function loadSounds() {
   sounds.load([
       "sounds/theme.mp3",
@@ -162,4 +156,16 @@ function loadSounds() {
     soundsLoaded = true;
     loadCheck("sound")
   }
+}
+
+// setup the sounds
+function setupSound() {
+  soundAssets = {
+    theme: sounds["sounds/theme.mp3"],
+    crash: sounds["sounds/crash.mp3"],
+    up: sounds["sounds/up.mp3"],
+    gameOver: sounds["sounds/gameOver.mp3"]
+  }
+  soundAssets.theme.loop = true;
+  soundAssets.up.volume = 0.7;
 }

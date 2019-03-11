@@ -1,4 +1,4 @@
-function Threes(speed) {
+function Trees(speed) {
   this.viewportX = 0;
   this.scrollSpeed = speed;
   this.lastTileIndex = 0;
@@ -9,16 +9,18 @@ function Threes(speed) {
   this.setup(10);
 }
 
-Threes.prototype = Object.create(PIXI.Container.prototype);
+Trees.prototype = Object.create(PIXI.Container.prototype);
 
-Threes.prototype.setup = function(amount) {
+// fill the container with sprites
+Trees.prototype.setup = function(amount) {
   for(var i = 0; i<amount; i++) {
     this.addChild(this.newSprite());
     this.lastTileIndex++;
   }
 }
 
-Threes.prototype.newSprite = function(amount) {
+// adds a new sprite to the container
+Trees.prototype.newSprite = function(amount) {
   let index = randomInt(0,this.spriteList.length-1);
   let sprite = new Sprite(resources[WorldAssets.atlas].textures[this.spriteList[index]]);
   sprite.position.y = Height - sprite.height;
@@ -27,11 +29,13 @@ Threes.prototype.newSprite = function(amount) {
   return sprite
 }
 
-Threes.prototype.setViewportX = function(newViewportX) {
+// updates the scroll variable
+Trees.prototype.setViewportX = function(newViewportX) {
   this.viewportX = newViewportX;
 }
 
-Threes.prototype.update = function() {
+// update the position, delete unnecessary sprites and add new ones when needed
+Trees.prototype.update = function() {
   this.position.x = -this.viewportX * this.scrollSpeed;
 
   var firstChild = this.children[0];
