@@ -49,7 +49,7 @@ Gate.prototype.collides = function(playerBox) {
   else return false;
 }
 
-// returns true if the object collides the player
+// returns true if the column collides the player
 Gate.prototype.collision = function(column,playerBox) {
   var hit = false;
   column.centerx = column.getGlobalPosition().x + column.width/2;

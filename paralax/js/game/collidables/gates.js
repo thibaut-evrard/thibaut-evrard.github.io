@@ -56,6 +56,7 @@ Gates.prototype.updateGatesPassed = function(player) {
   }
 }
 
+// updates the position, delete useless gate and add new one if needed
 Gates.prototype.update = function() {
   this.position.x = -this.viewportX;
   // if the furthest gate left goes out of screen
@@ -66,10 +67,12 @@ Gates.prototype.update = function() {
   }
 }
 
+// update scroll variable
 Gates.prototype.setViewportX = function(newViewportX) {
   this.viewportX = newViewportX;
 }
 
+// checks if gate is out of screen on the left side
 Gates.prototype.isOut = function(gate) {
   if(gate.getGlobalPosition().x < -gate.width) return true;
   else return false;
