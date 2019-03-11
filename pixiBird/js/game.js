@@ -170,7 +170,7 @@ Game.prototype.loadControls = function() {
     }
   });
 
-  document.addEventListener("click", function(event) {
+  document.addEventListener('pointerdown', function(event) {
     // the only use of this event is to enable the browser to recognise interaction and allow sound
   });
 
@@ -179,7 +179,7 @@ Game.prototype.loadControls = function() {
     event.stopPropagation();
   });
 
-  this.gui.playButton.on('click', function() {
+  this.gui.playButton.on('pointerdown', function() {
     game.loadState("intro");
   });
 }
