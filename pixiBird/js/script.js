@@ -18,12 +18,11 @@ let Application = PIXI.Application,
 let app = new Application({
     width: Width,
     height: Height,
-    antialias: true,
+    antialias: false,
     transparent: false,
     autoResize: true,
     autoDensity: true,
     resolution: resolution,
-    forceCanvas: true
   }
 );
 document.querySelector('#iframe').appendChild(app.view);
