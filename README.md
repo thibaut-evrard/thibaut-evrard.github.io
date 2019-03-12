@@ -4,6 +4,6 @@
 Javascript car racing game prototype
 https://thibaut-evrard.github.io/dograce
 
-## PixieBird
+## PixiBird
 Flappy birds javascript clone.
 https://thibaut-evrard.github.io/pixiBird
