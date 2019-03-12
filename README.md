@@ -1,9 +1,9 @@
-# thibaut-evrard.github.io
+# Thibaut's Github Pages
 
-this is the page where you can play dograce: https://thibaut-evrard.github.io
+## Dograce 
+Javascript car racing game prototype
+https://thibaut-evrard.github.io/dograce
 
-## Project description
-Dograce is a javascript racing game where you can code your own super-powers
-
-## Current state of project
-The project is still in developpment. 
+## PixieBird
+Flappy birds javascript clone.
+https://thibaut-evrard.github.io/pixiBird
