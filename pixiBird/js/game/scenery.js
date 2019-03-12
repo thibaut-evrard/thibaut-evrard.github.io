@@ -1,7 +1,7 @@
 function Scenery() {
   PIXI.Container.call(this);
 
-  let backdrop = new ScrollTile("05_far_BG.jpg",1);
+  let backdrop = new ScrollTile("05_far_BG.jpg",0.4);
   backdrop.position.y = 100;
   this.addChild(backdrop);
 

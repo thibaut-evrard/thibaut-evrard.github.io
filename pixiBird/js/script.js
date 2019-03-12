@@ -28,13 +28,14 @@ let app = new Application({
 document.querySelector('#iframe').appendChild(app.view);
 resize();
 
-var soundAssets;
-var WorldAssets = { img: "assets/WorldAssets.png", atlas: "assets/WorldAssets.json" };
-
 // creating loadCheck variables
 var pixiLoaded = false,
     soundsLoaded = false,
     fontLoaded = false;
+
+// creating sound and atlas vars
+var soundAssets;
+var WorldAssets = { img: "assets/WorldAssets.png", atlas: "assets/WorldAssets.json" };
 
 // loading files for the game
 loadFont();
@@ -52,15 +53,12 @@ function loadCheck(type) {
 
 // setup the game environment
 function setup() {
-  // console.log("now setting up the game...")
-
   // setup sounds
   setupSound();
   game = new Game();
   app.stage.interactive = true;
   app.stage.addChild(game);
 
-  gameLoop();
   app.ticker.add(delta => gameLoop(delta));
 }
 
@@ -140,6 +138,7 @@ function resize() {
   Width = document.documentElement.clientWidth/heightEnlarge;
   Height = appH;
   app.renderer.resize(Width,Height);
+  // check if game exists before resizing it
   if (typeof game !== 'undefined') game.resize();
   app.renderer.view.style.width = document.documentElement.clientWidth + 'px';
   app.renderer.view.style.height = document.documentElement.clientHeight + 'px';
