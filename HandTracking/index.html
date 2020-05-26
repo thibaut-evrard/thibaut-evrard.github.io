@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      #video {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      #canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- html elements -->
+    <video id="video" width="720" height="560" sy autoplay muted></video>
+    <button id="printPose" type="button" name="button">print pose</button>
+    <h2 id="prediction"></h2>
+    <canvas id="canvas" width="720" height="560" ></canvas>
+
+    <!-- TF Models -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
+
+    <!-- libraries -->
+    <script src="js/libraries/p5.min.js"></script>
+    <script src="js/libraries/three.js"></script>
+    <script src="js/libraries/GLTFLoader.js"></script>
+
+    <!-- classes -->
+    <script src="js/classes/EventTarget.js"></script>
+    <script src="js/classes/videoHandler.js"></script>
+    <script src="js/classes/modelHandler.js"></script>
+    <script src="js/classes/handMetrics.js"></script>
+
+    <!-- three rendering -->
+    <script src="js/classes/rendering/scene.js"></script>
+    <script src="js/classes/rendering/handMesh.js"></script>
+    <script src="js/classes/rendering/hand3D.js"></script>
+    <script src="js/classes/rendering/handDebugRender.js"></script>
+
+    <!-- Main -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
