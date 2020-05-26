@@ -32,8 +32,8 @@ var lapsLeft = 4;
 
 
 //path vars
-var pathToTextures = 'dograce/static/ressources/textures'
-var pathToLevel = 'dograce/static/ressources/level/map'
+var pathToTextures = './static/ressources/textures'
+var pathToLevel = './static/ressources/level/map'
 //////////////////////     P5 METHODS    ///////////////////////////////////////
 
 function loadTextures() {
