@@ -14,12 +14,17 @@
         top: 0;
         left: 0;
       }
+      #loading {
+        z-index: 1;
+        position: absolute;
+        color: red;
+      }
     </style>
   </head>
   <body>
     <!-- html elements -->
     <video id="video" width="720" height="560" sy autoplay muted></video>
-    <h2 id="prediction">loading...</h2>
+    <h2 id="loading">loading, please wait</h2>
     <canvas id="canvas" width="720" height="560" ></canvas>
 
     <!-- TF Models -->

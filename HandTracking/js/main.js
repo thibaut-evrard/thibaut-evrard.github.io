@@ -2,6 +2,7 @@ var w = 250;
 var h = 250;
 
 var eventManager = new EventTarget();
+var firstPass = true;
 
 var videoHandler = new VideoHandler( document.querySelector("video") );
 var modelHandler = new ModelHandler();
@@ -37,6 +38,11 @@ function updateLoop() {
 
     // get the data from the model handler
     var predictions = await modelHandler.getPredictions( videoHandler.video );
+
+    if( firstPass == true ) {
+      document.getElementById('loading').style.display = "none";
+      firstPass == false;
+    }
 
     // stop there if no hand is detected
     if(predictions == null)
