@@ -19,13 +19,12 @@
   <body>
     <!-- html elements -->
     <video id="video" width="720" height="560" sy autoplay muted></video>
-    <button id="printPose" type="button" name="button">print pose</button>
-    <h2 id="prediction"></h2>
+    <h2 id="prediction">loading...</h2>
     <canvas id="canvas" width="720" height="560" ></canvas>
 
     <!-- TF Models -->
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@1.7.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@1.7.4"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
 
     <!-- libraries -->
@@ -34,7 +33,7 @@
     <script src="js/libraries/GLTFLoader.js"></script>
 
     <!-- classes -->
-    <script src="js/classes/EventTarget.js"></script>
+    <script src="js/classes/eventTarget.js"></script>
     <script src="js/classes/videoHandler.js"></script>
     <script src="js/classes/modelHandler.js"></script>
     <script src="js/classes/handMetrics.js"></script>
