@@ -5,8 +5,18 @@ class HandMesh {
     this.referenceCube = new THREE.Mesh( new THREE.BoxGeometry( 0.1, 0.1, 0.1 ), new THREE.MeshStandardMaterial() );
     this.path = pathToMesh;
     this.mesh = {
+
       scene: null,
       skinned: null,
+      referenceSpreadAngles: {
+
+        index: null,
+        middle: null,
+        ring: null,
+        pinky: null
+
+      }
+
     }
 
     this.ready = false;
@@ -19,6 +29,14 @@ class HandMesh {
     this.mesh.scene.scale.set( 3, 3, 3 );
     this.mesh.skinned.geometry.computeVertexNormals();
     this.ready = true;
+
+    var bones = this.mesh.skinned.skeleton.bones;
+    this.mesh.referenceSpreadAngles = {
+      index: bones[ 6 ].rotation.z,
+      middle: bones[ 10 ].rotation.z,
+      ring: bones[ 14 ].rotation.z,
+      pinky: bones[ 18 ].rotation.z,
+    }
 
   }
 
@@ -70,7 +88,8 @@ class HandMesh {
     mesh.setRotationFromEuler( meshModel.worldRot );
     mesh.scale.set( meshModel.scale, meshModel.scale, meshModel.scale );
 
-    this.moveBones( meshModel.fingerStretch );
+    this.moveBonesX( meshModel.fingerStretch );
+    this.applyHandSpread( meshModel.fingerSpread );
 
   }
 
@@ -92,6 +111,14 @@ class HandMesh {
       pinky: this.getStretch( l[ 0 ], l[ 20 ], palmSize, 1.6, 0.5 ),
     }
 
+    var fingerSpread = this.getSpread( l[ 18 ], l[ 6 ], l[ 20 ], l[ 8 ]);
+    // -1, 50
+
+
+    // var fingerSpreadAngles = {
+    //   index: this.getSpread(  )
+    // }
+
     return {
 
       worldPos: worldPos,
@@ -99,22 +126,36 @@ class HandMesh {
       localLandmarks: localLandmarks,
       palmSize: palmSize,
       fingerStretch: fingerStretch,
+      fingerSpread: fingerSpread,
       scale: scale,
 
     }
 
   }
 
-  moveBones( stretch ) {
+  applyHandSpread( spread ) {
 
-    this.moveBone( stretch.index, [ 8, 7, 6 ] );
-    this.moveBone( stretch.middle, [ 12, 11, 10 ] );
-    this.moveBone( stretch.ring, [ 16, 15, 14 ] );
-    this.moveBone( stretch.pinky, [ 20, 19, 18 ] );
+    var sp = Math.max( -10, Math.min( spread, 45 ) );
+
+    var bones = this.mesh.skinned.skeleton.bones;
+    bones[ 6 ].rotation.z = this.mesh.referenceSpreadAngles.index + this.map( sp, -10, 45, -0.1, 0.3);
+    bones[ 10 ].rotation.z = this.mesh.referenceSpreadAngles.middle + this.map( sp, -10, 45, -0.0, 0.0);
+    bones[ 14 ].rotation.z = this.mesh.referenceSpreadAngles.ring + this.map( sp, -10, 45, 0.07, -0.25);
+    bones[ 18 ].rotation.z = this.mesh.referenceSpreadAngles.pinky + this.map( sp, -10, 45, 0.2, -0.4);
+
 
   }
 
-  moveBone( stretch, indices ) {
+  moveBonesX( stretch ) {
+
+    this.moveBoneX( stretch.index, [ 8, 7, 6 ] );
+    this.moveBoneX( stretch.middle, [ 12, 11, 10 ] );
+    this.moveBoneX( stretch.ring, [ 16, 15, 14 ] );
+    this.moveBoneX( stretch.pinky, [ 20, 19, 18 ] );
+
+  }
+
+  moveBoneX( stretch, indices ) {
 
     var bones = this.mesh.skinned.skeleton.bones;
     var angle = this.map( stretch, 0, 1, -1.5, 0 );
@@ -128,6 +169,12 @@ class HandMesh {
     var val = origin.distanceTo( finger ) / refSize;
     var result = this.map( val, min, max, 0, 1 );
     return Math.min( 1, Math.max( result, 0 ) );
+  }
+
+  getSpread( p1, p2, f1, f2 ) {
+    var d = p1.x - p2.x;
+    var d1 = f1.x - f2.x;
+    return d1 - d;
   }
 
   getLocalLandmarks( referenceCube, landmarks ) {
