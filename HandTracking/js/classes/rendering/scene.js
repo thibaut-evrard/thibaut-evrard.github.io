@@ -13,7 +13,7 @@ class Scene {
     // setup the THREE Scene
     this.setup();
 
-    this.handMesh = new HandMesh( 'assets/hand5.glb' );
+    this.handMesh = new HandMesh( 'assets/hand8.glb' );
     this.loadHandMesh();
 
   }

@@ -2,7 +2,7 @@ class HandMesh {
 
   constructor( pathToMesh ) {
 
-    this.referenceCube = new THREE.Mesh( new THREE.BoxGeometry( 0.1, 0.1, 0.1 ), new THREE.MeshStandardMaterial() );
+    this.referenceCube = new THREE.Mesh( new THREE.BoxGeometry( 0.1, 0.1, 0.1 ), new THREE.MeshStandardMaterial( { transparent: true, opacity: 1,opacity: 0 }) );
     this.path = pathToMesh;
     this.mesh = {
 
@@ -32,10 +32,10 @@ class HandMesh {
 
     var bones = this.mesh.skinned.skeleton.bones;
     this.mesh.referenceSpreadAngles = {
-      index: bones[ 6 ].rotation.z,
-      middle: bones[ 10 ].rotation.z,
-      ring: bones[ 14 ].rotation.z,
-      pinky: bones[ 18 ].rotation.z,
+      index: bones[ 7 ].rotation.z,
+      middle: bones[ 12 ].rotation.z,
+      ring: bones[ 17 ].rotation.z,
+      pinky: bones[ 22 ].rotation.z,
     }
 
   }
@@ -66,7 +66,7 @@ class HandMesh {
 
     });
 
-    var material = new THREE.MeshStandardMaterial( { color: 0xfcba03, skinning: true, transparent: true, opacity: 1 } );
+    var material = new THREE.MeshStandardMaterial( { color: 0xfcba03, skinning: true, transparent: true, opacity: 1, metalness: 0.0 , roughness: 0.1 } );
 
     resultSkinnedMesh.material = material;
 
@@ -138,20 +138,20 @@ class HandMesh {
     var sp = Math.max( -10, Math.min( spread, 45 ) );
 
     var bones = this.mesh.skinned.skeleton.bones;
-    bones[ 6 ].rotation.z = this.mesh.referenceSpreadAngles.index + this.map( sp, -10, 45, -0.1, 0.3);
-    bones[ 10 ].rotation.z = this.mesh.referenceSpreadAngles.middle + this.map( sp, -10, 45, -0.0, 0.0);
-    bones[ 14 ].rotation.z = this.mesh.referenceSpreadAngles.ring + this.map( sp, -10, 45, 0.07, -0.25);
-    bones[ 18 ].rotation.z = this.mesh.referenceSpreadAngles.pinky + this.map( sp, -10, 45, 0.2, -0.4);
+    bones[ 7 ].rotation.z = this.mesh.referenceSpreadAngles.index + this.map( sp, -10, 45, -0.1, 0.3);
+    bones[ 12 ].rotation.z = this.mesh.referenceSpreadAngles.middle + this.map( sp, -10, 45, -0.0, 0.0);
+    bones[ 17 ].rotation.z = this.mesh.referenceSpreadAngles.ring + this.map( sp, -10, 45, 0.07, -0.25);
+    bones[ 22 ].rotation.z = this.mesh.referenceSpreadAngles.pinky + this.map( sp, -10, 45, 0.2, -0.4);
 
 
   }
 
   moveBonesX( stretch ) {
 
-    this.moveBoneX( stretch.index, [ 8, 7, 6 ] );
-    this.moveBoneX( stretch.middle, [ 12, 11, 10 ] );
-    this.moveBoneX( stretch.ring, [ 16, 15, 14 ] );
-    this.moveBoneX( stretch.pinky, [ 20, 19, 18 ] );
+    this.moveBoneX( stretch.index, [ 7, 8, 9 ] );
+    this.moveBoneX( stretch.middle, [ 12, 13, 14 ] );
+    this.moveBoneX( stretch.ring, [ 17, 18, 19 ] );
+    this.moveBoneX( stretch.pinky, [ 22, 23, 24 ] );
 
   }
 
@@ -160,7 +160,9 @@ class HandMesh {
     var bones = this.mesh.skinned.skeleton.bones;
     var angle = this.map( stretch, 0, 1, -1.5, 0 );
     indices.forEach( ( index, i ) => {
-      bones[ index ].rotation.x = angle;
+
+        bones[ index ].rotation.x = angle;
+
     });
 
   }
