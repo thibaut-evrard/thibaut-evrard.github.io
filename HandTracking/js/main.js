@@ -40,8 +40,10 @@ function updateLoop() {
     var predictions = await modelHandler.getPredictions( videoHandler.video );
 
     if( firstPass == true ) {
+
       document.getElementById('loading').style.display = "none";
       firstPass == false;
+
     }
 
     // stop there if no hand is detected

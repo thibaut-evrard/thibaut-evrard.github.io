@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/index.css">
+    <title></title>
+  </head>
+  <body>
+
+    <video id="video" width="720" height="560" autoplay muted></video>
+
+    <h1 id="mainExpression"></h1>
+
+    <!-- models -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@1.7.4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@1.7.4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh"></script>
+
+    <!-- libraries -->
+    <script defer src="js/libs/three.js"></script>
+    <script defer src="js/libs/OBJLoader.js"></script>
+    <script defer src="js/libs/p5.min.js"></script>
+    <script defer src="js/libs/face-api.min.js"></script>
+
+    <!-- classes -->
+    <script defer src="js/classes/faceModelManager.js"></script>
+    <script defer src="js/classes/videoManager.js"></script>
+
+    <script defer src="js/classes/faceMetrics.js"></script>
+    <script defer src="js/classes/render/scene.js"></script>
+    <script defer src="js/classes/render/faceControls.js"></script>
+
+    <!-- main -->
+    <script defer src="js/index.js"></script>
+  </body>
+</html>
