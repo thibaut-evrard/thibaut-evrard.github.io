@@ -1,11 +1,10 @@
 class FaceModelManager {
 
-  model = null;
-  video = null;
-  metrics = null;
-
   constructor( video ) {
 
+    this.model = null;
+    this.video = null;
+    this.metrics = null;
     this.video = video;
     this.metrics = new FaceMetrics();
 

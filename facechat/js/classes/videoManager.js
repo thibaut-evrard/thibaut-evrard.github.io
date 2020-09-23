@@ -1,7 +1,5 @@
 class VideoManager {
 
-  video = null;
-
   constructor( video ) {
 
     this.video = video;
