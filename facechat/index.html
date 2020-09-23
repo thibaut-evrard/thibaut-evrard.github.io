@@ -8,8 +8,8 @@
   </head>
   <body>
     <svg id="avatar" viewBox="0 0 405 405" > </svg>
-    <video id="film" src="assets/mockup-light.mp4" loop="true" autoplay="autoplay" muted type="video/mp4"></video>
-    <video id="video" width="720" height="560" autoplay muted></video>
+    <!-- <video id="film" playsinline src="assets/mockup-light.mp4" loop="true" autoplay="autoplay" muted type="video/mp4"></video> -->
+    <video id="video" playsinline width="720" height="560" autoplay muted></video>
     <script>
       document.getElementById('film').play();
     </script>
@@ -43,19 +43,19 @@
       <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh"></script>
 
       <!-- libraries -->
-      <script defer src="js/libs/two.js"></script>
-      <script defer src="js/libs/three.js"></script>
+      <script defer src="./js/libs/two.js"></script>
+      <script defer src="./js/libs/three.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
       <!-- classes -->
-      <script defer src="js/classes/faceModelManager.js"></script>
-      <script defer src="js/classes/videoManager.js"></script>
-      <script defer src="js/classes/faceMetrics.js"></script>
-      <script defer src="js/classes/render2d/sketch.js"></script>
+      <script defer src="./js/classes/faceModelManager.js"></script>
+      <script defer src="./js/classes/videoManager.js"></script>
+      <script defer src="./js/classes/faceMetrics.js"></script>
+      <script defer src="./js/classes/render2d/sketch.js"></script>
 
       <!-- main -->
-      <script defer src="js/index.js"></script>
-      <script defer src="js/style.js"></script>
+      <script defer src="./js/index.js"></script>
+      <script defer src="./js/style.js"></script>
 
     </div>
   </body>
