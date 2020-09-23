@@ -2,27 +2,45 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
     <title>Quality Reassurance</title>
   </head>
   <body>
-    <div>
-      <model-viewer src=”/assets/vype.glb”
-              alt=”A 3D model of a rocket”>
+
+    <div class="content">
+      <div class="text">
+        <h1>PRODUCT NAME</h1>
+        <br>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <br>
+      </div>
+      <model-viewer autoplay="" camera-controls="" ar ar-modes="webxr scene-viewer quick-look" src="assets/vype.glb" alt="A 3D model" ios-src="assets/vype.reality">
+        <button slot="hotspot-2" class="hotspot" data-position="-0.15125327348570394m 5.947290502955057m 0.3024862530106631m" data-normal="-0.07256262296770444m 0.08135460826795499m 0.9940402876451309m">
+          <div class="annotation">
+              <strong>POWERFUL SYSTEM</strong></br></br>
+              The Vype ePen 3 is a high performance vape pen. 650  mAh of batttery power. And a cotton wich heating system deliver a flavourful vape, all day.
+          </div>
+        </button>
+        <button slot="hotspot-4" class="hotspot" data-position="0.3565024379520261m 2.201545099006779m 0.43458824979118305m" data-normal="0.6570444209052652m 0.05545370770544518m 0.7518094939936473m">
+          <div class="annotation">
+            <strong>FITS COMFORTABLY IN YOUR PALM</strong></br></br>
+            The vape pen with a compact design and ergonomic shape. Available in 5 soft-touch metallic colours, pick the Vype ePen3 to match your style.
+          </div>
+        </button>
       </model-viewer>
-      <!-- <a rel="ar" href="/assets/vype.reality">
-          <img src="/assets/thumb.png">
-      </a> -->
+
+      <div class="shop">
+        <button type="button" name="button">add to basket</button>
+      </div>
     </div>
 
-
     <div class="dependencies">
-      <script type="module"
-        src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer.js">
-      </script>
-
-      <script nomodule
-        src="https://unpkg.com/@google/model-viewer@0.3.1/dist/model-viewer-legacy.js">
-      </script>
+      <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+      <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+      <script type="text/javascript" src="index.js"></script>
     </div>
 
   </body>
