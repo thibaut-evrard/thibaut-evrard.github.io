@@ -21,8 +21,10 @@ function style() {
 
 
     $("#video").css({
-      "top": "80vh",
+      "top": "60vh",
       "left": "30vw",
+      "height": "20vh",
+      "width": "auto"
     })
 
 
