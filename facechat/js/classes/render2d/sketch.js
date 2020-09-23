@@ -77,7 +77,7 @@ class Sketch {
   update( metrics ) {
 
     var rot = metrics.rotation;
-    rot.y *= -1
+    rot.y *= 1
     var { bottomHair, hair, face, eyes, nose, ears, hairTop, mouth, leftBrow, rightBrow } = this.faceElements
 
     eyes.translation.set( this.baseOffset.x + rot.y * 20, this.baseOffset.y + rot.x * -10 );
