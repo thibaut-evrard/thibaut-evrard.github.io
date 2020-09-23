@@ -1,10 +1,11 @@
 class Sketch {
 
-  faceElements = null
-  baseOffset = { x: 85, y:20 }
-  timer = 0
-
   constructor( params ) {
+
+    this.faceElements = null
+    this.baseOffset = { x: 85, y:20 }
+    this.timer = 0
+
     var elem = document.getElementById('avatar');
     this.two = new Two(params).appendTo(elem)
 
