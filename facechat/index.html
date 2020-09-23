@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <title></title>
+  </head>
+  <body>
+    <svg id="avatar" viewBox="0 0 405 405" > </svg>
+    <video id="film" src="assets/mockup-light.mp4" loop="true" autoplay="autoplay" muted type="video/mp4"></video>
+    <video id="video" width="720" height="560" autoplay muted></video>
+    <script>
+      document.getElementById('film').play();
+    </script>
+
+    <h1 id="mainExpression"></h1>
+
+    <div class="hidden">
+      <svg id="bg-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><circle cx="146.91" cy="227.58" r="249.05" style="fill:#fff"/></svg>
+      <svg id="hair-top-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><path d="M174.88,72.25c7.05,31.52,73.83,88,113.8,88.78-21-26.63-43.6-90.39-43.6-90.39l-66.4-28.82Z" style="fill:#da6235"/><path d="M192.3,70.76c6.73,51.46-164.54,82.07-189.49,85,21.94-17.32,20-41.53,64-83.5,41-39,76.35-50.57,100.81-37.93C185.12,43.36,190.34,55.8,192.3,70.76Z" style="fill:#da6235"/></svg>
+      <svg id="hair-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><circle cx="146.64" cy="147.28" r="156.69" style="fill:#da6235"/></svg>
+      <svg id="face-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><path d="M146.62,268.47c-71.92,0-156.14,62.16-199,108.47a249.06,249.06,0,0,0,398.05.71c-32.07-32-110.39-93.89-176-106.78A112.33,112.33,0,0,0,146.62,268.47Z" style="fill:#3c3c3b"/><path d="M146.87,283.16a98.22,98.22,0,0,0-30.4,191.61,251,251,0,0,0,60.75,0,98.21,98.21,0,0,0-30.35-191.62Z" style="fill:#fff"/><path d="M219.45,352.57c0,40.29-32.67,102.49-73,102.49s-73-62.2-73-102.49a73,73,0,1,1,145.93,0Z" style="fill:#dbb397"/><path d="M146.49,77.09c-35.2,0-84.87,19.06-112.35,58.25v90.08c0,78.55,79.67,129.52,112.77,129.52,34.59,0,112.77-51,112.77-129.52v-86C247.91,111.85,182.64,77.09,146.49,77.09Z" style="fill:#f1c5a4"/></svg>
+      <!-- <svg id="face-svg" data-name="head" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="133.26mm" viewBox="0 0 297.02 377.74"><defs><style>.ac02677f-2814-490d-a051-ce36668bce4a{fill:#fac39f;}</style></defs><title>face</title><path class="ac02677f-2814-490d-a051-ce36668bce4a" d="M226.42,73.67H71.1A35.11,35.11,0,0,0,36,108.78V258.22a112.77,112.77,0,1,0,225.53,0V108.78A35.1,35.1,0,0,0,226.42,73.67Z"/></svg> -->
+      <svg id="eyes-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><circle cx="198.16" cy="169.61" r="8.04" style="fill:#1d1d1b"/><circle cx="96.98" cy="169.61" r="8.04" style="fill:#1d1d1b"/></svg>
+      <svg id="nose-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><ellipse cx="148.33" cy="231.8" rx="16.36" ry="5.91" style="fill:#b6977f"/></svg>
+      <svg id="ears-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><circle cx="34.81" cy="187.74" r="32" style="fill:#f1c5a4"/><circle cx="260.34" cy="187.74" r="32" style="fill:#f1c5a4"/></svg>
+      <svg id="bottom-hair-svg" xmlns="http://www.w3.org/2000/svg" width="104.78mm" height="182.99mm" viewBox="0 0 297.02 518.72"><title>nose</title><circle cx="261.52" cy="275.7" r="81.46" style="fill:#cc5732"/></svg>
+    </div>
+
+    <div class="script">
+
+      <!-- models -->
+      <!-- Require the peer dependencies of facemesh. -->
+      <script defer src="https://unpkg.com/@tensorflow/tfjs-core@2.1.0/dist/tf-core.js"></script>
+      <script defer src="https://unpkg.com/@tensorflow/tfjs-converter@2.1.0/dist/tf-converter.js"></script>
+
+      <!-- You must explicitly require a TF.js backend if you're not using the tfs union bundle. -->
+      <!-- <script defer src="https://unpkg.com/@tensorflow/tfjs-backend-wasm@2.1.0/dist/tf-backend-wasm.js"></script> -->
+      <script defer src="https://unpkg.com/@tensorflow/tfjs-backend-webgl@2.1.0/dist/tf-backend-webgl.js"></script>
+      <!-- <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core@1.7.4"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter@1.7.4"></script> -->
+      <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh"></script>
+
+      <!-- libraries -->
+      <script defer src="js/libs/two.js"></script>
+      <script defer src="js/libs/three.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+      <!-- classes -->
+      <script defer src="js/classes/faceModelManager.js"></script>
+      <script defer src="js/classes/videoManager.js"></script>
+      <script defer src="js/classes/faceMetrics.js"></script>
+      <script defer src="js/classes/render2d/sketch.js"></script>
+
+      <!-- main -->
+      <script defer src="js/index.js"></script>
+      <script defer src="js/style.js"></script>
+
+    </div>
+  </body>
+</html>

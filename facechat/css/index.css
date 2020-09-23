@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 800 /  */
+
+body {
+  background-color: gray;
+}
+
+#film {
+  height: 100vh;
+  width: auto;
+}
+
+#video {
+  left: 100vh;
+  top: 79vh;
+  z-index: 1;
+  position: absolute;
+  width: 200px;
+  height: auto;
+  opacity: 0.5;
+
+}
+
+.hidden {
+  position: absolute;
+  display: none;
+  left: 800px;
+}
+
+#avatar {
+  display: block;
+  position: absolute;
+  left: 76vh;
+  top: 83vh;
+  width: 17vh;
+  height: 17vh;
+}
