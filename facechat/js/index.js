@@ -1,4 +1,5 @@
 var video = document.getElementById("video")
+
 var referenceLandmarkIndex = 0;
 var metrics = new FaceMetrics();
 

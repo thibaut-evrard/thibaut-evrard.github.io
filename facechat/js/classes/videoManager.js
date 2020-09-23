@@ -13,6 +13,7 @@ class VideoManager {
 
     navigator.mediaDevices.getUserMedia({ video: {} })
     .then( function(stream) {
+      console.log( stream )
       vid.srcObject = stream;
     })
     .catch( function(error) {
