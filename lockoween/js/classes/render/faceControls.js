@@ -1,9 +1,7 @@
 class FaceControls {
 
-  speed = 0.2;
-
   constructor() {
-
+    this.speed = 0.2;
   }
 
   update( obj, metrics ) {

@@ -2,13 +2,9 @@ import FaceMetrics from './faceMetrics.js'
 
 export default class FaceModelManager {
 
-  model = null;
-  video = null;
-  metrics = null;
-
   constructor( video ) {
 
-
+    this.model = null;
     this.video = video;
     this.metrics = null;
 
