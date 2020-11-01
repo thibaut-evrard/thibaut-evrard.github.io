@@ -88,10 +88,16 @@ class Face {
 
         if( child instanceof Mesh ) {
 
+          console.log(window.mobileCheck())
           if( window.mobileCheck() == false ) {
             child.castShadow = true;
             child.receiveShadow = true;
           }
+          else {
+            child.castShadow = false;
+            child.receiveShadow = false;
+          }
+
         }
 
         if( child.name == 'Eye_L' ) {
