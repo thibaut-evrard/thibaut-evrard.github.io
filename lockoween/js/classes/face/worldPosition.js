@@ -13,6 +13,7 @@ export default class WorldPosition {
     point.x = ( point.x - ( videoSize.w / 2 ) );
     point.y = ( point.y - ( videoSize.h / 2 ) );
 
+    this.offset = new Vector3( ( point.x / videoSize.w ) * 2, ( point.y / videoSize.h ) * 2, 0 );
     this.position = this.getWorldPosition( point, size, this.videoSize, averageFaceSize );
 
   }

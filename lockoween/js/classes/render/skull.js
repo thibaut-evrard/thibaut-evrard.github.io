@@ -15,15 +15,15 @@ class House {
     let that = this;
 
     const mtlLoader = new MTLLoader();
-    mtlLoader.setPath('./assets/house/');
+    mtlLoader.setPath('./assets/text/');
 
     await new Promise( resolve => {
 
-      mtlLoader.load('house.mtl', function( materials ) {
+      mtlLoader.load('text.mtl', function( materials ) {
         const objLoader = new OBJLoader();
         objLoader.setMaterials( materials );
-        objLoader.setPath('./assets/house/');
-        objLoader.load('house.obj', function(object) {
+        objLoader.setPath('./assets/text/');
+        objLoader.load('text.obj', function(object) {
 
           console.log("object loaded")
           that.obj = object;
@@ -85,6 +85,11 @@ class Face {
     this.obj.traverse( function ( child ) {
 
     	if ( child instanceof Object3D  ) {
+
+        if( child instanceof Mesh ) {
+          child.castShadow = true;
+          child.receiveShadow = true;
+        }
 
         if( child.name == 'Eye_L' ) {
           that.centerChild( child );

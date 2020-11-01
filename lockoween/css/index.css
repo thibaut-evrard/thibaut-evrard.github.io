@@ -6,9 +6,9 @@
 /* 800 /  */
 
 body {
-  background-color: gray;
-  width: 100%;
-  border: 1px solid blue;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #film {
@@ -17,8 +17,8 @@ body {
 }
 
 #video {
-  left: 100vh;
-  top: 79vh;
+  left:0;
+  top:0;
   z-index: 1;
   position: absolute;
   width: 200px;
@@ -41,8 +41,15 @@ body {
   height: 17vh;
 }
 
+image {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
 canvas {
+  position: absolute;
+  top: 0;
   display: block;
-  border: 1px solid red;
   margin: auto;
 }

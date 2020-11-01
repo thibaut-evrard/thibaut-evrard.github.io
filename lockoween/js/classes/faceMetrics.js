@@ -34,7 +34,9 @@ export default class FaceMetrics {
     const mouthMetrics = this.getMouthMetrics(normalisedLandmarks);
     const eyesMetrics = this.getEyesMetrics(normalisedLandmarks);
 
-    const worldPosition = new WorldPosition( landmarks[0], referenceVector.length(), this.videoSize ).position;
+    const worldPos = new WorldPosition( landmarks[0], referenceVector.length(), this.videoSize );
+    const worldPosition = worldPos.position;
+    const offset = worldPos.offset;
 
     return {
       vectors: vects,
@@ -43,6 +45,7 @@ export default class FaceMetrics {
       mouth: mouthMetrics,
       eyes: eyesMetrics,
       worldPosition: worldPosition,
+      offset: offset,
     }
 
   }
