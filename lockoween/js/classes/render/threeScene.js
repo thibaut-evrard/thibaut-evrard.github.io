@@ -57,18 +57,28 @@ export default class ThreeScene {
 
   update( metrics ) {
 
-    this.cameraTarget.set( metrics.offset.x / 5, -metrics.offset.y / 5, this.cameraTarget.z );
+    if(window.mobileCheck() == false) {
+      this.cameraTarget.set( metrics.offset.x / 5, -metrics.offset.y / 5, this.cameraTarget.z );
+    }
+    else {
+      this.camera.position.x += -metrics.offset.x / 5;
+      this.camera.position.y += -metrics.offset.y / 5;
+      this.camera.lookAt( new Vector3( 0,0, this.face.obj.position.z ));
+      this.face.lookAt( this.camera.position );
+    }
 
   }
 
   animate() {
 
-    const camTranslation = this.cameraTarget.clone().sub( this.camera.position.clone() );
-    const step = camTranslation.divideScalar( 10 );
-    this.camera.position.x += step.x;
-    this.camera.position.y += step.y;
-    this.camera.lookAt( new Vector3( 0,0, this.face.obj.position.z ));
-    this.face.lookAt( this.camera.position );
+    if(window.mobileCheck() == false) {
+      const camTranslation = this.cameraTarget.clone().sub( this.camera.position.clone() );
+      const step = camTranslation.divideScalar( 10 );
+      this.camera.position.x += step.x;
+      this.camera.position.y += step.y;
+      this.camera.lookAt( new Vector3( 0,0, this.face.obj.position.z ));
+      this.face.lookAt( this.camera.position );
+    }
 
   }
 
