@@ -44,7 +44,7 @@ export default class ThreeScene {
     await this.text.load( this.scene );
     const textScale = 0.03;
     this.text.obj.scale.set( textScale, textScale, textScale );
-    this.text.obj.position.set( 0,7,-10)
+    this.text.obj.position.set( 1, 8,-10)
 
 
     await this.face.load( this.scene );
