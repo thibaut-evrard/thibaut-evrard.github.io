@@ -62,7 +62,7 @@ export default class ThreeScene {
     }
     else {
       this.camera.position.x = metrics.rotation.y / 2;
-      this.camera.position.y = -metrics.rotation.x / 2;
+      this.camera.position.y = metrics.rotation.x / 2;
       this.camera.lookAt( new Vector3( 0,0, this.face.obj.position.z ));
       this.face.lookAt( this.camera.position );
     }
