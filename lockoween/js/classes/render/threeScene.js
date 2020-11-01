@@ -83,9 +83,6 @@ export default class ThreeScene {
     const light1 = new PointLight( 0x8888ff, 0.8, 50 );
     light1.position.set( 2, -2, 3 );
 
-    const light2 = new PointLight( 0xff8888, 0.8, 50 );
-    light2.position.set( -4, -2, 3 );
-
     if(window.mobileCheck() == false) {
       light1.castShadow = true;
       light1.shadow.radius = 3;
@@ -94,19 +91,23 @@ export default class ThreeScene {
       light1.shadow.camera.near = 0.5; // default
       light1.shadow.camera.far = 500; // default
 
+      const light2 = new PointLight( 0xff8888, 0.8, 50 );
+      light2.position.set( -4, -2, 3 );
+
       light2.castShadow = true;
       light2.shadow.radius = 3;
       light2.shadow.mapSize.width = 2048; // default
       light2.shadow.mapSize.height = 2048; // default
       light2.shadow.camera.near = 0.5; // default
       light2.shadow.camera.far = 500; // default
+
+      this.scene.add( light2 );
     }
 
 
     var ambientLight = new AmbientLight(0x333333);
 
     this.scene.add( light1 );
-    this.scene.add( light2 );
     this.scene.add( ambientLight );
 
   }
