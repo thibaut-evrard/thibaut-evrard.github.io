@@ -61,8 +61,8 @@ export default class ThreeScene {
       this.cameraTarget.set( metrics.offset.x / 5, -metrics.offset.y / 5, this.cameraTarget.z );
     }
     else {
-      this.camera.position.x += -metrics.offset.x / 5;
-      this.camera.position.y += -metrics.offset.y / 5;
+      this.camera.position.x = -metrics.offset.x / 5;
+      this.camera.position.y = -metrics.offset.y / 5;
       this.camera.lookAt( new Vector3( 0,0, this.face.obj.position.z ));
       this.face.lookAt( this.camera.position );
     }
