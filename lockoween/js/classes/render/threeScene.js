@@ -21,8 +21,11 @@ export default class ThreeScene {
     this.renderer.setClearColor( 0x000000, 0 ); // the default
     this.renderer.setPixelRatio( window.devicePixelRatio );
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
-    this.renderer.shadowMapEnabled = true;
-    this.renderer.shadowMap.type = PCFSoftShadowMap;
+
+    if(window.mobileCheck() == false) {
+      this.renderer.shadowMapEnabled = true;
+      this.renderer.shadowMap.type = PCFSoftShadowMap;
+    }
     document.body.appendChild( this.renderer.domElement );
 
     // setup the lights
@@ -79,23 +82,26 @@ export default class ThreeScene {
 
     const light1 = new PointLight( 0x8888ff, 0.8, 50 );
     light1.position.set( 2, -2, 3 );
-    light1.castShadow = true;
-    light1.shadow.radius = 3;
-
-    light1.shadow.mapSize.width = 2048; // default
-    light1.shadow.mapSize.height = 2048; // default
-    light1.shadow.camera.near = 0.5; // default
-    light1.shadow.camera.far = 500; // default
 
     const light2 = new PointLight( 0xff8888, 0.8, 50 );
     light2.position.set( -4, -2, 3 );
-    light2.castShadow = true;
-    light2.shadow.radius = 3;
 
-    light2.shadow.mapSize.width = 2048; // default
-    light2.shadow.mapSize.height = 2048; // default
-    light2.shadow.camera.near = 0.5; // default
-    light2.shadow.camera.far = 500; // default
+    if(window.mobileCheck() == false) {
+      light1.castShadow = true;
+      light1.shadow.radius = 3;
+      light1.shadow.mapSize.width = 2048; // default
+      light1.shadow.mapSize.height = 2048; // default
+      light1.shadow.camera.near = 0.5; // default
+      light1.shadow.camera.far = 500; // default
+
+      light2.castShadow = true;
+      light2.shadow.radius = 3;
+      light2.shadow.mapSize.width = 2048; // default
+      light2.shadow.mapSize.height = 2048; // default
+      light2.shadow.camera.near = 0.5; // default
+      light2.shadow.camera.far = 500; // default
+    }
+
 
     var ambientLight = new AmbientLight(0x333333);
 
