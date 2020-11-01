@@ -58,7 +58,7 @@ export default class ThreeScene {
   update( metrics ) {
 
     if(window.mobileCheck() == false) {
-      this.cameraTarget.set( metrics.offset.x / 5, -metrics.offset.y / 5, this.cameraTarget.z );
+      this.cameraTarget.set( -metrics.offset.x / 2, -metrics.offset.y / 2, this.cameraTarget.z );
     }
     else {
       this.camera.position.x = metrics.rotation.y / 2;
