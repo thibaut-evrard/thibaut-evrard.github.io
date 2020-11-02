@@ -22,7 +22,7 @@ export default class WorldPosition {
     const z = this.estimateDistance( faceSize, averageFaceSize );
     const x = this.getWorldPoint( point.x, z, videoSize.w );
     const y = -this.getWorldPoint( point.y, z, videoSize.h );
-
+    
     return new Vector3(x,y,z);
   }
 
