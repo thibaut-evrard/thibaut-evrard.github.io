@@ -4,9 +4,10 @@ import { Object3D, Mesh, Matrix4, Vector3 } from 'https://unpkg.com/three@0.121.
 
 class House {
 
-  constructor( scene ) {
+  constructor( scene, isMobile ) {
 
     this.obj = null
+    this.isMobile = isMobile;
 
   }
 
@@ -41,8 +42,9 @@ class House {
 
 class Face {
 
-  constructor( scene ) {
+  constructor( scene, isMobile ) {
 
+    this.isMobile = isMobile;
     this.obj = null
     this.eyes = {
       left: null,
@@ -88,8 +90,7 @@ class Face {
 
         if( child instanceof Mesh ) {
 
-          console.log(window.mobileCheck())
-          if( window.mobileCheck() == false ) {
+          if( that.isMobile == false ) {
             child.castShadow = true;
             child.receiveShadow = true;
           }

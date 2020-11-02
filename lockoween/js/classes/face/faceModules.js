@@ -95,11 +95,11 @@ class Actions {
 
     let browL = landmarks[ 282 ].distanceTo( landmarks[ 257 ] );
     browL = map( browL, 26, 16, 1, 0 );
-    browL = clamp( browL, 0 ), 1 );
+    browL = clamp( browL, 0, 1 );
 
     var browR = landmarks[ 52 ].distanceTo( landmarks[ 27 ] );
     browR = map( browR, 26, 16, 1, 0 );
-    browR = clamp( browR, 0 ), 1 );
+    browR = clamp( browR, 0, 1 );
 
     return {
       leftBrow: browL,
@@ -112,7 +112,7 @@ class Actions {
 
 function WorldPosition( offset, size, videoSize ) {
 
-  function getDistance( facePixel, faceWorld, videoSize, fov ) {
+  const getDistance = function( facePixel, faceWorld, videoSize, fov ) {
 
     const scaleInFrame = facePixel / videoSize.w;
     const sizeAtDistance = faceWorld / scaleInFrame;
@@ -120,7 +120,7 @@ function WorldPosition( offset, size, videoSize ) {
 
   }
 
-  function getWorldPoint( offset, z, size, fov ) {
+  const getWorldPoint = function( offset, z, size, fov ) {
 
     const widthAtDistance = ( Math.sin( fov / 2 ) * z );
     const offsetPercent = offset / size;
@@ -132,9 +132,9 @@ function WorldPosition( offset, size, videoSize ) {
   const faceAverageSize = 0.2; // meters
   const fov = 1.4;
 
-  const z = this.getDistance( size, faceAverageSize, videoSize );
-  const x = this.getWorldPoint( offset.x, z, w, fov );
-  const y = this.getWorldPoint( offset.y, z, h, fov );
+  const z = getDistance( size, faceAverageSize, videoSize );
+  const x = getWorldPoint( offset.x, z, w, fov );
+  const y = getWorldPoint( offset.y, z, h, fov );
 
   return new Vector3( x, y, z );
 
@@ -161,16 +161,16 @@ function NormalisedLandmarks( landmarks, scalingFactor ) {
 
 }
 
-arrayToVect3( a ) {
+function arrayToVect3( a ) {
   return new Vector3( a[0], a[1], a[2] );
 }
 
-clamp( value, minVal, maxVal ) {
+function clamp( value, minVal, maxVal ) {
  return Math.min( Math.max( value, minVal ), maxVal );
 }
 
-map(value, x1, y1, x2, y2) {
+function map(value, x1, y1, x2, y2) {
   return (value - x1) * (y2 - x2) / (y1 - x1) + x2;
 }
 
-exports = { ReferencePoints, Orientation, NormalisedLandmarks, Actions, WorldPosition };
+export { ReferencePoints, Orientation, NormalisedLandmarks, Actions, WorldPosition };

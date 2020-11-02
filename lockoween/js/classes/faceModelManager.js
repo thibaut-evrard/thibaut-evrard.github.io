@@ -4,6 +4,7 @@ export default class FaceModelManager {
 
   constructor( video ) {
 
+    this.videoSize = null;
     this.model = null;
     this.video = video;
     this.metrics = null;
@@ -12,7 +13,7 @@ export default class FaceModelManager {
 
   async init( size ) {
 
-    this.metrics = new Face( size );
+    this.videoSize = size;
     this.model = await faceLandmarksDetection.load( faceLandmarksDetection.SupportedPackages.mediapipeFacemesh );
 
   }
@@ -28,7 +29,7 @@ export default class FaceModelManager {
       else {
 
         const scaledMesh = faces[0].scaledMesh
-        const metrics = this.metrics.fromMesh( scaledMesh );
+        const metrics = new Face( this.videoSize, scaledMesh );
 
         return metrics;
 
