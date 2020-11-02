@@ -78,7 +78,7 @@ function sendInstructions() {
 
   setTimeout( async function() {
       $('#instructions').addClass("fadeOut");
-  }, 2000 );
+  }, 4000 );
 
 }
 
