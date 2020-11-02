@@ -14,25 +14,32 @@ export default class VideoManager {
     var manager = this;
     const isMobile = this.isMobile;
 
-    navigator.mediaDevices.getUserMedia({ video: {} })
-    .then( function(stream) {
-      vid.srcObject = stream;
-    })
-    .catch( function(error) {
-      sendErrorEvent(isMobile);
-      console.error(error);
-    })
+    if( navigator.mediaDevices && navigator.mediaDevices.getUserMedia ) {
 
-    let that = this;
-    await new Promise( resolve => {
-     manager.video.addEventListener('play', (event) => {
-       that.size = {
-         w: event.target.videoWidth,
-         h: event.target.videoHeight,
-       }
-       return resolve();
-     });
-    })
+      navigator.mediaDevices.getUserMedia({ video: {} })
+      .then( function(stream) {
+        vid.srcObject = stream;
+      })
+      .catch( function(error) {
+        sendErrorEvent(isMobile);
+        console.error(error);
+      })
+
+      let that = this;
+      await new Promise( resolve => {
+       manager.video.addEventListener('play', (event) => {
+         that.size = {
+           w: event.target.videoWidth,
+           h: event.target.videoHeight,
+         }
+         return resolve();
+       });
+      })
+
+    }
+    else {
+      sendErrorEvent(isMobile);
+    }
 
   }
 
