@@ -17,13 +17,13 @@ body {
 }
 
 #video {
-  left:0;
-  top:0;
   z-index: 1;
   position: absolute;
-  width: 200px;
+  width: 30%;
   height: auto;
-  opacity: 0;
+  opacity: 0.5;
+
+  padding: 20px;
 }
 
 .hidden {

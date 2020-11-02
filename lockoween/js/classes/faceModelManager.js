@@ -1,4 +1,4 @@
-import FaceMetrics from './faceMetrics.js'
+import Face from './face/face.js'
 
 export default class FaceModelManager {
 
@@ -12,9 +12,9 @@ export default class FaceModelManager {
 
   async init( size ) {
 
-    this.metrics = new FaceMetrics( size );
+    this.metrics = new Face( size );
     this.model = await faceLandmarksDetection.load( faceLandmarksDetection.SupportedPackages.mediapipeFacemesh );
-    console.log( this.model );
+
   }
 
   async getMetrics() {
@@ -25,11 +25,14 @@ export default class FaceModelManager {
 
       if( faces[0].faceInViewConfidence < 0.8 )
         return null
+      else {
 
-      var scaledMesh = faces[0].scaledMesh
-      var metrics = this.metrics.fromMesh( scaledMesh );
+        const scaledMesh = faces[0].scaledMesh
+        const metrics = this.metrics.fromMesh( scaledMesh );
 
-      return metrics;
+        return metrics;
+
+      }
 
     }
     else return null;
