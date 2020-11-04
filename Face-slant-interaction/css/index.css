@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+* {
+  font-family: 'Rubik', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.error {
+  color: red;
+}
+
+.white {
+  color: white;
+}
+
+#loading-bar {
+  position: absolute;
+  padding: 20px;
+  width: 600px;
+  max-width: 100%;
+}
+
+#instructions {
+  opacity: 0;
+  z-index: 12;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+}
+
+#instructionsP {
+  transform: translateY(-50%);
+  font-size: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 800 /  */
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#film {
+  height: 100vh;
+  width: auto;
+}
+
+#video {
+  z-index: 1;
+  position: absolute;
+  width: 20%;
+  height: auto;
+  opacity: 0.2;
+
+  padding: 20px;
+}
+
+.hidden {
+  position: absolute;
+  display: none;
+  left: 800px;
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s forwards;
+}
+
+.fadeOut {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+#avatar {
+  display: block;
+  position: absolute;
+  left: 76vh;
+  top: 83vh;
+  width: 17vh;
+  height: 17vh;
+}
+
+image {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  display: block;
+  margin: auto;
+}

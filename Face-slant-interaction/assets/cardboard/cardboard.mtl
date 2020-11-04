@@ -1,0 +1,13 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl Material__25
+Ns 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Ke 0.000000 0.000000 0.000000
+Ni 0
+d 1.000000
+illum 0
+map_Kd ./texture.png
